@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .head {
+            position: absolute;
+            font-size: 3rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .bg-vid {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .content {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.4);
+            /* display: flex; */
+        }
+
+        .ls {
+            font-size: 40px;
+            /* font-weight: 400; */
+            text-align: center;
+            list-style: none;
+            padding: 30px;
+        }
+
+        .moroccan {
+            margin: 20px;
+            height: 20%;
+            width: 20%;
+            display: inline-block;
+            /* flex-direction: column; */
+            border-radius: 20px;
+            aspect-ratio: 1/1;
+        }
+
+        .description {
+            font-size: 24px;
+            text-align: center;
+            padding: 15px;
+            line-height: 30px;
+        }
+
+        .ls-content {
+            font-size: 20px;
+            list-style: none;
+            padding: 15px;
+        }
+
+        .element {
+            display: flex;
+            /* flex-direction: column; */
+        }
+
+        .ls-head {
+            padding: 20px;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .cards {
+            text-align: center;
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .images {
+            align-items: center;
+            align-self: center;
+            justify-content: center;
+            display: flex;
+            /* flex-direction: column; */
+            /* width:50%; */
+            /* margin:auto; */
+        }
+
+        hr {
+            width: 70%;
+            margin: auto;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            justify-content: center;
+            text-align: center;
+        }
+        .navbar{
+    position: fixed;
+    top:0;
+    width:100%;
+    z-index:1000;
+}
+
+.nav-container{
+    list-style:none;
+    display:flex;
+    justify-content:center;
+    background:rgba(0,0,0,0.5);
+}
+
+.nav_item{
+    padding:20px;
+    font-size:24px;
+}
+
+.nav_item a{
+    text-decoration:none;
+    color:white;
+}
+
+.dropdown{
+    position:relative;
+}
+
+.dropdown-content{
+    display:none;
+    position:absolute;
+    top:60px;
+    background:rgba(0,0,0,0.5);
+    min-width:200px;
+}
+
+.dropdown-content a{
+    display:block;
+    padding:10px;
+}
+
+.dropdown:hover .dropdown-content{
+    display:block;
+}
+        .footer{
+    text-align:center;
+    padding:30px;
+    border-top:1px solid #ddd;
+    color:#555;
+    font-size:1.2rem;
+    background:#f8fbff;
+}
+    </style>
+</head>
+
+<body>
+    <section class="hero">
+        <div class="navbar">
+        <nav class="nav">
+            <ul class="nav-container">
+                <li class="nav_item"><a href="grid.html"><b>Home</b></a></li>
+                <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Destinations</b></a>
+                    <div class="dropdown-content">
+                        <a href="africa.html">Africa </a>
+                        <a href="asia.html">Asia </a>
+                        <a href="america.html">America </a>
+                        <a href="europe.html">Europe </a>
+                        <a href="carribean.html">Carribean </a>
+
+                    </div>
+                </li>
+                <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Categories</b></a>
+                    <div class="dropdown-content">
+                        <a href="#">Beach</a>
+                        <a href="#">Mountains</a>
+                        <a href="#">Wildlife</a>
+                        <a href="#">Desert</a>
+                        <a href="#">Waterfall</a>
+                        <a href="#">Volcanoes</a>
+                    </div>
+                </li>
+                <li class="nav_item"><a href="imagegallery.html"><b>Gallery</b></a></li>
+                <li class="nav_item"><a href="#"><b>Contact us</b></a></li>
+                <li class="nav_item"><a href="#"><b>About us</b></a></li>
+            </ul>
+        </nav>
+        </div>
+        <video class="bg-vid" autoplay muted loop playsinline>
+            <source src="img_gagan/america.mp4" type="video/mp4">
+        </video>
+        <div class="head">
+            <h1 class="heading"><b>America</b></h1>
+        </div>
+    </section>
+    <section class="content">
+        <section class="element1">
+            <ul class="list1">
+                <b>
+                    <li class="ls">Belize</li>
+                </b>
+                <p class="description">Belize is a small Caribbean country in Central America known for its coral reefs,
+                    tropical forests, and Mayan history.</p>
+                <hr>
+                <div class="card-container">
+                    <div class="cards">
+                        <ul class="nested-ls1">
+                            <h1 class="ls-head">Famous Cities</h1>
+                            <li class="ls-content">Belize City – Largest city and cultural center</li>
+                            <li class="ls-content">San Ignacio – Gateway to Mayan ruins</li>
+                            <li class="ls-content">Dangriga – Known for Garifuna culture</li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls2">
+                            <h1 class="ls-head">Popular Attractions</h1>
+                            <li class="ls-content">Great Blue Hole – Famous diving site</li>
+                            <li class="ls-content">Belize Barrier Reef – Second-largest coral reef</li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls3">
+                            <h1 class="ls-head">Belizean Food</h1>
+
+                            <li class="ls-content">Rice and beans with seafood</li>
+                            <li class="ls-content">Caribbean and Creole cuisine </li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls3">
+                            <h1 class="ls-head">Natural beauty</h1>
+
+                            <li class="ls-content">Caribbean beaches and islands</li>
+                            <li class="ls-content">Tropical rainforests and wildlife</li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls3">
+                            <h1 class="ls-head">Why Visit Belize?</h1>
+
+                            <li class="ls-content">Peaceful and clean country</li>
+                            <li class="ls-content">Beautiful mosques</li>
+                            <li class="ls-content">Unique culture</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="images">
+                    <img src="img_gagan/belize1.jpg" class="moroccan">
+                    <img src="img_gagan/belize2.jpg" class="moroccan">
+                    <img src="img_gagan/belize3.jpg" class="moroccan">
+                </div>
+        </section>
+        <b>
+            <li class="ls">Costa Rica</li>
+        </b>
+        <p class="description">Costa Rica is famous for its biodiversity, national parks, and eco-tourism.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">San Jose– Capital city</li>
+                    <li class="ls-content">Liberia – Gateway to national parks</li>
+                    <li class="ls-content">Puerto Limón – Caribbean coastal city</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Arenal Volcano – Active volcano with hot springs</li>
+                    <li class="ls-content">Manuel Antonio National Park – Famous beaches and wildlife</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Costa Rican Food</h1>
+                    <li class="ls-content">Gallo Pinto (rice and beans)</li>
+                    <li class="ls-content">Fresh tropical fruits</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Gallo Pinto (rice and beans)</li>
+                    <li class="ls-content">Fresh tropical fruits</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Costa Rica?</h1>
+                    <li class="ls-content">Amazing wildlife</li>
+                    <li class="ls-content">Adventure activities</li>
+                    <li class="ls-content">Eco-friendly tourism</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/rica1.jpg" class="moroccan">
+            <img src="img_gagan/rica2.jpg" class="moroccan">
+            <img src="img_gagan/rica3.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">El Salvador</li>
+        </b>
+        <p class="description">El Salvador is the smallest country in Central America but known for volcanoes, surfing
+            beaches, and culture.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">San Salvador – Capital city
+                        Santa Ana – Historic city
+                        La Libertad – Surfing destination</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Santa Ana Volcano – Popular hiking destination</li>
+                    <li class="ls-content">Ruta de las Flores – Scenic cultural route</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Indonesian Food</h1>
+                    <li class="ls-content">Pupusas (traditional stuffed tortillas)</li>
+                    <li class="ls-content">Corn-based dishes</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Volcanoes and lakes</li>
+                    <li class="ls-content">Pacific Ocean beaches</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit El Salvador?</h1>
+                    <li class="ls-content">Great surfing beaches</li>
+                    <li class="ls-content">Volcano landscapes</li>
+                    <li class="ls-content">Rich local culture</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/el1.jpg" class="moroccan">
+            <img src="img_gagan/el2.jpg" class="moroccan">
+            <img src="img_gagan/el3.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Guatemala</li>
+        </b>
+        <p class="description">Guatemala is known for its ancient Mayan ruins, volcanoes, and colorful culture.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Guatemala City – Capital city</li>
+                    <li class="ls-content">Antigua – Historic colonial town</li>
+                    <li class="ls-content">Flores – Gateway to Tikal ruins</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Tikal – Ancient Mayan city in the jungle</li>
+                    <li class="ls-content">Lake Atitlán – Scenic lake surrounded by volcanoes</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Guatemalan Food</h1>
+                    <li class="ls-content">Corn tortillas</li>
+                    <li class="ls-content">Traditional stews and soups</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Volcanoes and mountains</li>
+                    <li class="ls-content">Lakes and forests</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Guatemala?</h1>
+                    <li class="ls-content">Ancient Mayan civilization</li>
+                    <li class="ls-content">Scenic landscapes</li>
+                    <li class="ls-content">Vibrant traditions</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/guat1.jpg" class="moroccan">
+            <img src="img_gagan/guat2.jpg" class="moroccan">
+            <img src="img_gagan/guat3.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Honduras</li>
+        </b>
+        <p class="description">Honduras is known for Caribbean islands, coral reefs, and Mayan ruins.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Tegucigalpa – Capital city</li>
+                    <li class="ls-content">San Pedro Sula – Industrial center</li>
+                    <li class="ls-content">La Ceiba – Gateway to islands</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Copán Ruins – Important Mayan archaeological site</li>
+                    <li class="ls-content">Roatán Island – Popular diving destination</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Honduran Food</h1>
+                    <li class="ls-content">Baleadas (tortilla with beans and cheese)</li>
+                    <li class="ls-content">Seafood dishes</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Tropical forests</li>
+                    <li class="ls-content">Caribbean beaches</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Honduras?</h1>
+                    <li class="ls-content">Coral reefs and diving</li>
+                    <li class="ls-content">Mayan ruins</li>
+                    <li class="ls-content">Beautiful islands</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/hondu1.jpg" class="moroccan">
+            <img src="img_gagan/hondu2.jpg" class="moroccan">
+            <img src="img_gagan/hondu3.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Nicaragua</li>
+        </b>
+        <p class="description">Nicaragua is known for volcanoes, lakes, and colonial architecture.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Managua – Capital city</li>
+                    <li class="ls-content">Granada – Historic colonial city</li>
+                    <li class="ls-content">León – Cultural and artistic center</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Ometepe Island – Island with two volcanoes</li>
+                    <li class="ls-content">Masaya Volcano – Active volcano</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Nicaraguan Food</h1>
+                    <li class="ls-content">Rice and beans dishes</li>
+                    <li class="ls-content">Traditional corn meals</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Rice and beans dishes</li>
+                    <li class="ls-content">Traditional corn meals</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Nicaragua ?</h1>
+                    <li class="ls-content">Volcano adventures</li>
+                    <li class="ls-content">Historic towns</li>
+                    <li class="ls-content">Natural landscapes</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/nicara1.jpg" class="moroccan">
+            <img src="img_gagan/nicara2.jpg" class="moroccan">
+            <img src="img_gagan/nicara3.jpg" class="moroccan">
+        </div>
+
+        </ul>
+        <b>
+            <li class="ls">United States</li>
+        </b>
+        <p class="description">The United States is one of the most visited countries in the world, known for its<br>
+             famous cities, national parks, and entertainment destinations.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">New York City – Known for Times Square, Central Park, and the Statue of Liberty</li>
+<li class="ls-content">Los Angeles – Home of Hollywood and the film industry</li>
+<li class="ls-content">Las Vegas – Famous for casinos, nightlife, and entertainment</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Statue of Liberty – Iconic landmark in New York</li>
+<li class="ls-content">Grand Canyon – One of the world’s most famous natural wonders</li>
+<li class="ls-content">Golden Gate Bridge – Famous bridge in San Francisco</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">American Food</h1>
+                    <li class="ls-content">Burgers and hot dogs</li>
+<li class="ls-content">Barbecue and fast food</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Mountains, deserts, forests, and beaches</li>
+<li class="ls-content">Many national parks with stunning landscapes</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit United States?</h1>
+                    <li class="ls-content">Famous landmarks and cities</li>
+<li class="ls-content">Diverse landscapes</li>
+<li class="ls-content">Entertainment and attractions</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/us1.jpg" class="moroccan">
+            <img src="img_gagan/us3.jpg" class="moroccan">
+            <img src="img_gagan/us2.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Canada</li>
+        </b>
+        <p class="description">Canada is known for its natural beauty, mountains, lakes, and modern cities.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Toronto – Largest city with the famous CN Tower</li>
+<li class="ls-content">Vancouver – Coastal city surrounded by mountains</li>
+<li class="ls-content">Montreal – Historic city with French culture</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Niagara Falls – One of the most famous waterfalls in the world</li>
+<li class="ls-content">Banff National Park – Stunning mountain scenery</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Canadian Food</h1>
+                    <li class="ls-content">Poutine (fries with gravy and cheese)</li>
+<li class="ls-content">Maple syrup dishes</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Rocky Mountains and forests</li>
+<li class="ls-content">Beautiful lakes and national parks</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Canada?</h1>
+                    <li class="ls-content">Amazing natural landscapes</li>
+<li class="ls-content">Outdoor adventure activities</li>
+<li class="ls-content">Friendly cities and culture</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/canada1.jpg" class="moroccan">
+            <img src="img_gagan/canada2.jpg" class="moroccan">
+            <img src="img_gagan/canada3.jpg" class="moroccan">
+        </div>
+
+        </ul>
+        <b>
+            <li class="ls">Mexico</li>
+        </b>
+        <p class="description">Mexico is known for its rich culture, ancient civilizations, beautiful beaches, and delicious cuisine.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Mexico City – Capital and cultural center</li>
+<li class="ls-content">Cancún – Popular beach resort destination</li>
+<li class="ls-content">Guadalajara – Known for mariachi music and traditions</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Chichén Itzá – Famous Mayan pyramid</li>
+<li class="ls-content">Tulum – Ancient ruins near the Caribbean Sea</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Mexican Food</h1>
+                    <li class="ls-content">Tacos, burritos, and enchiladas</li>
+<li class="ls-content">Spicy and flavorful cuisine</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Tropical beaches and jungles</li>
+<li class="ls-content">Deserts and mountains</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Mexico?</h1>
+                    <li class="ls-content">Beautiful beaches</li>
+<li class="ls-content">Ancient ruins and history</li>
+<li class="ls-content">World-famous food</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/mexico1.webp" class="moroccan">
+            <img src="img_gagan/mexico2.jpeg" class="moroccan">
+            <img src="img_gagan/mexico3.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Brazil</li>
+        </b>
+        <p class="description">
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Rio de Janeiro – Known for beaches and Christ the Redeemer statue</li>
+<li class="ls-content">São Paulo – Largest city and financial center</li>
+<li class="ls-content">Salvador – Historic city with colorful architecture</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Christ the Redeemer – One of the New Seven Wonders of the World</li>
+<li class="ls-content">Amazon Rainforest – Largest rainforest on Earth</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Brazilian Food</h1>
+                    <li class="ls-content">Feijoada (bean and meat stew)</li>
+<li class="ls-content">Grilled barbecue (Churrasco)</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Amazon Rainforest</li>
+<li class="ls-content">Long tropical coastlines and waterfalls</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Brazil?</h1>
+                    <li class="ls-content">Beautiful beaches</li>
+<li class="ls-content">Unique rainforest ecosystem</li>
+<li class="ls-content">Colorful festivals like Carnival</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/brazil1.jpg" class="moroccan">
+            <img src="img_gagan/brazil2.jpeg" class="moroccan">
+            <img src="img_gagan/brazil3.jpg" class="moroccan">
+        </div>
+
+        </ul>
+    </section>
+
+<div class="footer">
+    © 2026 Unfold Earth | Travel the world 🌎
+</div>
+
+<script>
+
+    let heading = document.querySelector(".heading");
+
+    heading.onclick = function () {
+
+        heading.style.color = "yellow";
+    };
+
+    let cards = document.querySelectorAll(".cards");
+
+    cards.forEach(function(card) {
+
+        card.onmouseover = function() {
+
+            card.style.backgroundColor = "rgba(255,255,255,0.2)";
+            card.style.transform = "scale(1.05)";
+            card.style.transition = "0.5s";
+        };
+
+        card.onmouseout = function() {
+
+            card.style.backgroundColor = "transparent";
+            card.style.transform = "scale(1)";
+        };
+
+    });
+
+
+    let images = document.querySelectorAll(".moroccan");
+
+    images.forEach(function(img) {
+
+        img.onmouseover = function() {
+
+            img.style.transform = "scale(1.1)";
+            img.style.transition = "0.5s";
+        };
+
+        img.onmouseout = function() {
+
+            img.style.transform = "scale(1)";
+        };
+
+    });
+
+</script>
+
+    </script>
+</body>
+
+
+</html>

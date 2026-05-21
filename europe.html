@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .head {
+            position: absolute;
+            font-size: 3rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .bg-vid {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .content {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.4);
+            /* display: flex; */
+        }
+
+        .ls {
+            font-size: 40px;
+            /* font-weight: 400; */
+            text-align: center;
+            list-style: none;
+            padding: 30px;
+        }
+
+        .moroccan {
+            margin: 20px;
+            height: 20%;
+            width: 20%;
+            display: inline-block;
+            /* flex-direction: column; */
+            border-radius: 20px;
+            aspect-ratio: 1/1;
+        }
+
+        .description {
+            font-size: 24px;
+            text-align: center;
+            padding: 15px;
+            line-height: 30px;
+        }
+
+        .ls-content {
+            font-size: 20px;
+            list-style: none;
+            padding: 15px;
+        }
+
+        .element {
+            display: flex;
+            /* flex-direction: column; */
+        }
+
+        .ls-head {
+            padding: 20px;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .cards {
+            text-align: center;
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .images {
+            align-items: center;
+            align-self: center;
+            justify-content: center;
+            display: flex;
+            /* flex-direction: column; */
+            /* width:50%; */
+            /* margin:auto; */
+        }
+
+        hr {
+            width: 70%;
+            margin: auto;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            justify-content: center;
+            text-align: center;
+        }
+
+                .navbar{
+    position: fixed;
+    top:0;
+    width:100%;
+    z-index:1000;
+}
+
+.nav-container{
+    list-style:none;
+    display:flex;
+    justify-content:center;
+    background:rgba(0,0,0,0.5);
+}
+
+.nav_item{
+    padding:20px;
+    font-size:24px;
+}
+
+.nav_item a{
+    text-decoration:none;
+    color:white;
+}
+
+.dropdown{
+    position:relative;
+}
+
+.dropdown-content{
+    display:none;
+    position:absolute;
+    top:60px;
+    background:rgba(0,0,0,0.5);
+    min-width:200px;
+}
+
+.dropdown-content a{
+    display:block;
+    padding:10px;
+}
+
+.dropdown:hover .dropdown-content{
+    display:block;
+}
+        .footer{
+    text-align:center;
+    padding:30px;
+    border-top:1px solid #ddd;
+    color:#555;
+    font-size:1.2rem;
+    background:#f8fbff;
+}
+    </style>
+</head>
+
+<body>
+    <section class="hero">
+        <div class="navbar">
+        <nav class="nav">
+            <ul class="nav-container">
+                <li class="nav_item"><a href="grid.html"><b>Home</b></a></li>
+                <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Destinations</b></a>
+                    <div class="dropdown-content">
+                        <a href="africa.html">Africa </a>
+                        <a href="asia.html">Asia </a>
+                        <a href="america.html">America </a>
+                        <a href="europe.html">Europe </a>
+                        <a href="carribean.html">Carribean </a>
+                    </div>
+                </li>
+                <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Categories</b></a>
+                    <div class="dropdown-content">
+                        <a href="#">Beach</a>
+                        <a href="#">Mountains</a>
+                        <a href="#">Wildlife</a>
+                        <a href="#">Desert</a>
+                        <a href="#">Waterfall</a>
+                        <a href="#">Volcanoes</a>
+                    </div>
+                </li>
+                <li class="nav_item"><a href="imagegallery.html"><b>Gallery</b></a></li>
+                <li class="nav_item"><a href="#"><b>Contact us</b></a></li>
+                <li class="nav_item"><a href="#"><b>About us</b></a></li>
+            </ul>
+        </nav>
+        </div>
+        <video class="bg-vid" autoplay muted loop playsinline>
+            <source src="img_gagan/europe.mp4" type="video/mp4">
+        </video>
+        <div class="head">
+            <h1 class="heading"><b>Europe</b></h1>
+        </div>
+    </section>
+    <section class="content">
+        <section class="element1">
+            <ul class="list1">
+                <b>
+                    <li class="ls">France</li>
+                </b>
+                <p class="description">France is one of the most visited countries in the world, <br>
+                    known for its historic landmarks, art, culture, and cuisine.</p>
+                <hr>
+                <div class="card-container">
+                    <div class="cards">
+                        <ul class="nested-ls1">
+                            <h1 class="ls-head">Famous Cities</h1>
+                            <li class="ls-content">Paris – Capital city famous for the Eiffel Tower and museums</li>
+                            <li class="ls-content">Nice – Coastal city on the French Riviera</li>
+                            <li class="ls-content">Lyon – Known for food and historic architecture</li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls2">
+                            <h1 class="ls-head">Popular Attractions</h1>
+                            <li class="ls-content">Eiffel Tower – Iconic landmark in Paris</li>
+                            <li class="ls-content">Louvre Museum – One of the largest museums in the world</li>
+                            <li class="ls-content">Mont Saint-Michel – Famous island abbey</li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls3">
+                            <h1 class="ls-head">French Food</h1>
+
+                            <li class="ls-content">Croissants and baguettes</li>
+                            <li class="ls-content">Cheese and wine</li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls3">
+                            <h1 class="ls-head">Natural beauty</h1>
+
+                            <li class="ls-content">Beautiful countryside and vineyards</li>
+                            <li class="ls-content">Mediterranean beaches and mountains</li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls3">
+                            <h1 class="ls-head">Why Visit France?</h1>
+
+                            <li class="ls-content">Famous landmarks and museums</li>
+                            <li class="ls-content">Romantic cities</li>
+                            <li class="ls-content">World-class cuisine</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="images">
+                    <img src="img_gagan/france1.jpg" class="moroccan">
+                    <img src="img_gagan/france2.jpg" class="moroccan">
+                    <img src="img_gagan/france3.jpg" class="moroccan">
+                </div>
+        </section>
+        <b>
+            <li class="ls">Italy</li>
+        </b>
+        <p class="description">Italy is famous for its ancient history, art, architecture, and delicious food.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Rome – Historic capital with ancient ruins</li>
+                    <li class="ls-content">Venice – City of canals and gondolas</li>
+                    <li class="ls-content">Florence – Center of Renaissance art</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Colosseum – Ancient Roman amphitheater</li>
+                    <li class="ls-content">Leaning Tower of Pisa – Famous tilted tower</li>
+                    <li class="ls-content">Amalfi Coast – Beautiful coastal scenery</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Costa Rican Food</h1>
+                    <li class="ls-content">Pizza and pasta</li>
+                    <li class="ls-content">Gelato and Italian coffee</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Scenic countryside and hills</li>
+                    <li class="ls-content">Mediterranean coastlines</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Italy?</h1>
+                    <li class="ls-content">Ancient Roman history</li>
+                    <li class="ls-content">Famous art and architecture</li>
+                    <li class="ls-content">Delicious cuisine</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/italy1.jpg" class="moroccan">
+            <img src="img_gagan/italy2.jpg" class="moroccan">
+            <img src="img_gagan/italy3.webp" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Spain</li>
+        </b>
+        <p class="description">Spain is known for its vibrant culture, historic architecture, beaches, and festivals.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Madrid – Capital city with museums and royal palace</li>
+                    <li class="ls-content">Barcelona – Known for Gaudí architecture</li>
+                    <li class="ls-content">eville – Historic city with flamenco culture</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Sagrada Familia – Famous basilica in Barcelona</li>
+                    <li class="ls-content">Alhambra Palace – Historic palace in Granada</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Spanish Food</h1>
+                    <li class="ls-content">Paella (rice dish)</li>
+                    <li class="ls-content">Tapas (small snacks)</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Mediterranean beaches</li>
+                    <li class="ls-content">Mountains and countryside</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Spain?</h1>
+                    <li class="ls-content">Beautiful beaches</li>
+                    <li class="ls-content">Historic landmarks</li>
+                    <li class="ls-content">Vibrant festivals and culture</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/spain1.jpg" class="moroccan">
+            <img src="img_gagan/spain2.jpg" class="moroccan">
+            <img src="img_gagan/spain3.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">United Kingdom</li>
+        </b>
+        <p class="description">The United Kingdom is known for its historic cities, royal heritage,<br>
+            and beautiful countryside.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">London – Capital city with famous landmarks</li>
+                    <li class="ls-content">Edinburgh – Historic city in Scotland</li>
+                    <li class="ls-content">Manchester – Cultural and sports city</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Big Ben & Houses of Parliament – Famous landmark in London</li>
+                    <li class="ls-content">Tower Bridge – Iconic bridge over the River Thames</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">British Food</h1>
+                    <li class="ls-content">Fish and chips</li>
+                    <li class="ls-content">English breakfast</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Green countryside and hills</li>
+                    <li class="ls-content">Scenic lakes and coastlines</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit the UK?</h1>
+                    <li class="ls-content">Historic castles and landmarks</li>
+                    <li class="ls-content">Royal heritage</li>
+                    <li class="ls-content">Beautiful countryside</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/uk1.jpg" class="moroccan">
+            <img src="img_gagan/uk2.jpg" class="moroccan">
+            <img src="img_gagan/uk3.avif" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Germany</li>
+        </b>
+        <p class="description">Germany is famous for historic cities, castles, forests, and rich cultural traditions.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Berlin – Capital city with modern culture and history</li>
+                    <li class="ls-content">Munich – Known for Oktoberfest festival</li>
+                    <li class="ls-content">Hamburg – Major port city</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Brandenburg Gate – Historic landmark in Berlin</li>
+                    <li class="ls-content">Neuschwanstein Castle – Famous fairy-tale castle</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">German Food</h1>
+                    <li class="ls-content">Sausages (Bratwurst)</li>
+                    <li class="ls-content">Pretzels and bread</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Forests and rivers</li>
+                    <li class="ls-content">Mountains and countryside</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Germany</h1>
+                    <li class="ls-content">Historic castles</li>
+                    <li class="ls-content">Cultural festivals</li>
+                    <li class="ls-content">Scenic landscapes</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/germany1.jpg" class="moroccan">
+            <img src="img_gagan/germany2.webp" class="moroccan">
+            <img src="img_gagan/germany3.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Switzerland</li>
+        </b>
+        <p class="description">Switzerland is famous for its mountains, lakes, and beautiful alpine scenery.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Zurich – Largest city and financial center</li>
+                    <li class="ls-content">Geneva – International city near Lake Geneva</li>
+                    <li class="ls-content">Lucerne – Scenic city with historic bridges</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Matterhorn Mountain – One of the most famous peaks in the Alps</li>
+                    <li class="ls-content">Jungfraujoch – “Top of Europe” mountain railway</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Swiss Food</h1>
+                    <li class="ls-content">Cheese fondue</li>
+                    <li class="ls-content">Swiss chocolate</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Snow-covered Alps mountains</li>
+                    <li class="ls-content">Crystal-clear lakes and valleys</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Switzerland?</h1>
+                    <li class="ls-content">Stunning alpine scenery</li>
+                    <li class="ls-content">Outdoor adventure activities</li>
+                    <li class="ls-content">Beautiful cities and villages</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/swit1.jpg" class="moroccan">
+            <img src="img_gagan/swit2.jpeg" class="moroccan">
+            <img src="img_gagan/swit3.jpg" class="moroccan">
+        </div>
+
+        </ul>
+    </section>
+
+<div class="footer">
+    © 2026 Unfold Earth | Travel the world 🌎
+</div>
+</body>
+
+    <script>
+
+    let heading = document.querySelector(".heading");
+
+    heading.onclick = function () {
+
+        heading.style.color = "yellow";
+    };
+
+    let cards = document.querySelectorAll(".cards");
+
+    cards.forEach(function(card) {
+
+        card.onmouseover = function() {
+
+            card.style.backgroundColor = "rgba(255,255,255,0.2)";
+            card.style.transform = "scale(1.05)";
+            card.style.transition = "0.5s";
+        };
+
+        card.onmouseout = function() {
+
+            card.style.backgroundColor = "transparent";
+            card.style.transform = "scale(1)";
+        };
+
+    });
+
+
+    let images = document.querySelectorAll(".moroccan");
+
+    images.forEach(function(img) {
+
+        img.onmouseover = function() {
+
+            img.style.transform = "scale(1.1)";
+            img.style.transition = "0.5s";
+        };
+
+        img.onmouseout = function() {
+
+            img.style.transform = "scale(1)";
+        };
+
+    });
+    </script>
+</html>
