@@ -359,27 +359,21 @@ body{
 </div>
 
 <script>
-  // Scroll reveal for cards
-  window.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.card');
-
-    if (!('IntersectionObserver' in window)) {
-      cards.forEach(c => c.classList.add('show'));
-      return;
-    }
-
+    
+window.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".card");
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
+        entries.forEach((entry) => {
+            if(entry.isIntersecting){
+                entry.target.classList.add("show");
+            }
+        });
+    });
+    cards.forEach((card) => {
+        observer.observe(card);
+    });
+});
 
-    cards.forEach(card => observer.observe(card));
-  });
 </script>
-
 </body>
 </html>
