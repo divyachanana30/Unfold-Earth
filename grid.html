@@ -1060,6 +1060,282 @@
         <div class="footer">
             © 2026 Unfold Earth | Travel the world 🌎
         </div>
+        <script>
+(() => {
+  'use strict';
+
+  // Smooth scrolling for same-page hash links
+  document.addEventListener('click', (e) => {
+    const a = e.target && e.target.closest ? e.target.closest('a[href^="#"], a[href*="#"]') : null;
+    if (!a) return;
+
+    const href = a.getAttribute('href');
+    if (!href) return;
+
+    // Only handle same-page hash links (e.g., #section)
+    const hash = href.startsWith('#') ? href : href.includes('#') ? href.slice(href.indexOf('#')) : '';
+    if (!hash || hash === '#') return;
+    if (a.target && a.target !== '_self') return;
+
+    const idEl = document.querySelector(hash);
+    if (!idEl) return;
+
+    e.preventDefault();
+    idEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    history.pushState(null, '', hash);
+  }, { passive: false });
+
+  // Scroll reveal (fade + slide) without modifying existing layout
+  const revealSelector = '[data-reveal], .guide-card, .family-item, .booking-box, .rec-card, .card, .cell, .fact-item';
+  const revealEls = Array.from(document.querySelectorAll(revealSelector));
+
+  // Don't override if author already set transforms/opacity via inline styles.
+  revealEls.forEach((el) => {
+    const style = window.getComputedStyle(el);
+    if (style.opacity === '0') return;
+  });
+
+  // Inject minimal inline styles for reveal if they aren't already visible.
+  const styleId = 'bbai-scroll-reveal-style';
+  if (!document.getElementById(styleId)) {
+    const st = document.createElement('style');
+    st.id = styleId;
+    st.textContent = `
+      .bbai-reveal{ opacity:0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; will-change: opacity, transform; }
+      .bbai-reveal.bbai-in{ opacity:1; transform: translateY(0); }
+      @media (prefers-reduced-motion: reduce){ .bbai-reveal{ transition:none; transform:none; opacity:1; } }
+    `;
+    document.head.appendChild(st);
+  }
+
+  revealEls.forEach((el) => {
+    if (!el.classList.contains('bbai-reveal')) el.classList.add('bbai-reveal');
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('bbai-in');
+        io.unobserve(entry.target);
+      }
+    }
+  }, { root: null, threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+
+  revealEls.forEach((el) => io.observe(el));
+
+  // Typing/text animation (uses existing headings if present)
+  const typingHost = document.querySelector('.unfold .headd');
+  if (typingHost && !typingHost.dataset.typed) {
+    typingHost.dataset.typed = '1';
+    const baseText = typingHost.textContent.trim();
+    if (baseText) {
+      typingHost.textContent = '';
+      typingHost.style.whiteSpace = 'nowrap';
+      typingHost.style.borderRight = '3px solid rgba(255,255,255,0.75)';
+      typingHost.style.paddingRight = '6px';
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) {
+        typingHost.textContent = baseText;
+        typingHost.style.borderRight = 'none';
+      } else {
+        let i = 0;
+        const speed = 70;
+        const tick = () => {
+          i++;
+          typingHost.textContent = baseText.slice(0, i);
+          if (i < baseText.length) {
+            setTimeout(tick, speed);
+          } else {
+            typingHost.style.borderRight = 'none';
+          }
+        };
+        setTimeout(tick, 250);
+      }
+    }
+  }
+
+  // Image hover effects (add subtle glow + lift on touch/hover)
+  document.addEventListener('pointerover', (e) => {
+    const img = e.target && e.target.closest ? e.target.closest('img') : null;
+    if (!img) return;
+    const cell = img.closest('.cell');
+    if (!cell) return;
+    if (!cell.dataset.hovered) cell.dataset.hovered = '1';
+
+    img.style.transition = img.style.transition || 'transform .35s ease, opacity .35s ease';
+    img.style.willChange = 'transform';
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      img.style.transform = 'scale(1.03)';
+      img.style.opacity = '1';
+    }
+  }, { passive: true });
+
+  document.addEventListener('pointerout', (e) => {
+    const img = e.target && e.target.closest ? e.target.closest('img') : null;
+    if (!img) return;
+    const cell = img.closest('.cell');
+    if (!cell) return;
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      img.style.transform = 'scale(1)';
+      // restore to CSS default if present
+      img.style.opacity = '';
+    }
+  }, { passive: true });
+
+  // Button click animation (no layout change)
+  document.addEventListener('click', (e) => {
+    const btn = e.target && e.target.closest ? e.target.closest('button, .btn-primary') : null;
+    if (!btn) return;
+    btn.animate([{ transform: 'translateY(0px) scale(1)' }, { transform: 'translateY(2px) scale(0.98)' }, { transform: 'translateY(0px) scale(1)' }], {
+      duration: 220,
+      easing: 'ease-out',
+    });
+  }, { passive: true });
+
+  // Form validation enhancements (works with existing form markup)
+  const forms = Array.from(document.querySelectorAll('form'));
+  forms.forEach((form) => {
+    // Mark invalid fields on submit
+    form.addEventListener('submit', (ev) => {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      let ok = true;
+      const invalids = [];
+      const candidates = Array.from(form.querySelectorAll('input, select, textarea'));
+      candidates.forEach((el) => {
+        // Skip disabled fields
+        if (el.disabled) return;
+        // Let browser required/email constraints handle validity
+        if (!el.checkValidity()) {
+          ok = false;
+          invalids.push(el);
+          el.style.outline = '2px solid rgba(220, 38, 38, 0.8)';
+          el.style.outlineOffset = '2px';
+        } else {
+          el.style.outline = '';
+          el.style.outlineOffset = '';
+        }
+      });
+
+      if (!ok) {
+        ev.preventDefault();
+        // focus first invalid field
+        if (invalids.length) invalids[0].focus({ preventScroll: true });
+
+        invalids.forEach((el) => {
+          if (reduce) return;
+          el.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-6px)' }, { transform: 'translateX(6px)' }, { transform: 'translateX(0)' }], {
+            duration: 280,
+            easing: 'ease-in-out'
+          });
+        });
+        // Also show a lightweight message via built-in validation UI
+        form.reportValidity();
+      }
+    });
+
+    // Live validation on blur/input
+    const fields = Array.from(form.querySelectorAll('input, select, textarea'));
+    fields.forEach((field) => {
+      field.addEventListener('blur', () => {
+        if (field.checkValidity()) {
+          field.style.outline = '';
+          field.style.outlineOffset = '';
+        } else {
+          field.style.outline = '2px solid rgba(220, 38, 38, 0.8)';
+          field.style.outlineOffset = '2px';
+        }
+      });
+      field.addEventListener('input', () => {
+        if (field.checkValidity()) {
+          field.style.outline = '';
+          field.style.outlineOffset = '';
+        }
+      });
+    });
+  });
+
+  // Dark/Light toggle (optional, added as a small fixed button; does not touch navbar/footer)
+  const toggleKey = 'bbai-theme';
+  const applyTheme = (mode) => {
+    const root = document.documentElement;
+    if (mode === 'dark') {
+      root.style.filter = 'invert(1) hue-rotate(180deg)';
+      // attempt to keep navbar text readable: invert again for nav/footer content
+      const nav = document.querySelector('.nav') || document.querySelector('.navbar');
+      const footer = document.querySelector('.footer');
+      [nav, footer].forEach((el) => {
+        if (!el) return;
+        el.style.filter = 'invert(1) hue-rotate(180deg)';
+      });
+    } else {
+      root.style.filter = '';
+      const nav = document.querySelector('.nav') || document.querySelector('.navbar');
+      const footer = document.querySelector('.footer');
+      [nav, footer].forEach((el) => {
+        if (!el) return;
+        el.style.filter = '';
+      });
+    }
+  };
+
+  // Add toggle button only if no existing theme toggle exists.
+  if (!document.getElementById('bbai-theme-toggle')) {
+    const btn = document.createElement('button');
+    btn.id = 'bbai-theme-toggle';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Toggle dark mode');
+    btn.textContent = '🌓';
+    btn.style.position = 'fixed';
+    btn.style.right = '18px';
+    btn.style.bottom = '18px';
+    btn.style.zIndex = '99999';
+    btn.style.width = '52px';
+    btn.style.height = '52px';
+    btn.style.borderRadius = '50%';
+    btn.style.border = 'none';
+    btn.style.boxShadow = '0 14px 30px rgba(0,0,0,0.25)';
+    btn.style.background = 'rgba(51, 65, 85, 0.95)';
+    btn.style.color = '#fff';
+    btn.style.cursor = 'pointer';
+    btn.style.fontSize = '20px';
+    btn.style.transition = 'transform .2s ease, background .2s ease';
+
+    btn.addEventListener('pointerenter', () => { btn.style.transform = 'translateY(-2px)'; });
+    btn.addEventListener('pointerleave', () => { btn.style.transform = 'translateY(0px)'; });
+
+    btn.addEventListener('click', () => {
+      const current = localStorage.getItem(toggleKey) || 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      localStorage.setItem(toggleKey, next);
+      applyTheme(next);
+    });
+
+    document.body.appendChild(btn);
+  }
+
+  const savedTheme = localStorage.getItem(toggleKey) || 'light';
+  applyTheme(savedTheme);
+
+  // Mobile-friendly: close dropdown menus when tapping outside (keeps existing navbar intact)
+  document.addEventListener('touchstart', (e) => {
+    const target = e.target;
+    if (!(target instanceof Element)) return;
+
+    const dropdown = target.closest('.dropdown');
+    const nav = target.closest('.nav') || target.closest('.navbar');
+    if (!nav) return;
+    if (dropdown) return;
+
+    // Force-hide dropdown-content on touch outside
+    const contents = Array.from(document.querySelectorAll('.dropdown-content'));
+    contents.forEach((c) => {
+      c.style.display = '';
+    });
+  }, { passive: true });
+})();
+</script>
 </body>
 
 </html>
