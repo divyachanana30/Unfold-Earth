@@ -710,248 +710,37 @@ margin-top:40px;
 
 
 <script>
-  /*
-    Wildlife Theme JS Effects (inline only)
-    - Jungle-style ambient animations
-    - Floating wildlife cards
-    - Spotlight hover effect
-    - Image zoom effects
-    - Animated reveal sections
-    - Smooth fade transitions
-    - Animated counters (creates visible counters if none exist)
-    - Interactive gallery hover
-    - Typing hero effect
-    - Dark/Light mode
-    - Cinematic scrolling
-  */
+const elements = document.querySelectorAll(
+    ".card, .exp-card, .why-card, .req-item, h2"
+);
 
-  if (!window.__wildlifeEffectsApplied) {
-    window.__wildlifeEffectsApplied = true;
+elements.forEach(el => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(30px)";
+});
 
-    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const $ = (sel, root = document) => root.querySelector(sel);
-    const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+const observer = new IntersectionObserver((entries) => {
 
-    // Inject CSS
-    const style = document.createElement('style');
-    style.textContent = `
-      html{ scroll-behavior: smooth; }
+    entries.forEach(entry => {
 
-      /* Jungle ambient: animated fireflies dots */
-      #cg-fireflies{
-        position: fixed; inset: 0; pointer-events:none; z-index: 2;
-        background: transparent;
-      }
-      .cg-firefly{ position:absolute; width:4px; height:4px; border-radius:50%;
-        background: rgba(255, 255, 180, .9);
-        box-shadow: 0 0 18px rgba(255, 255, 120, .55);
-        opacity: .0;
-        animation: cgFly 5.5s ease-in-out infinite;
-      }
-      @keyframes cgFly{
-        0%{ transform: translate3d(0,0,0) scale(.8); opacity:0; }
-        20%{ opacity:.95; }
-        50%{ transform: translate3d(0,-80px,0) scale(1.2); opacity:.8; }
-        100%{ transform: translate3d(0,-140px,0) scale(.9); opacity:0; }
-      }
+        if(entry.isIntersecting){
 
-      /* Spotlight hover effect */
-      .card{ position: relative; overflow:hidden; }
-      .card::before{
-        content:''; position:absolute; inset:-40%;
-        background: radial-gradient(circle at var(--sx,50%) var(--sy,50%), rgba(0,255,128,0.20), transparent 45%);
-        opacity:0; transition: opacity .15s ease;
-        pointer-events:none;
-      }
-      .card:hover::before{ opacity:1; }
+            entry.target.style.transition = "0.8s";
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
 
-      /* Floating wildlife cards */
-      .card{ animation: cgLeafFloat 7s ease-in-out infinite; }
-      .card:nth-child(odd){ animation-duration: 8s; }
-      @keyframes cgLeafFloat{ 0%,100%{ transform: translateY(0px); } 50%{ transform: translateY(-10px);} }
-
-      /* Hover image zoom */
-      .card img{ transition: transform .55s ease, filter .55s ease; }
-      .card:hover img{ transform: scale(1.18); filter: saturate(1.2) contrast(1.05); }
-
-      /* Scroll reveal */
-      .cg-reveal{ opacity:0; transform: translateY(24px); transition: opacity .75s ease, transform .75s cubic-bezier(.2,.8,.2,1); }
-      .cg-reveal.cg-show{ opacity:1; transform: translateY(0); }
-
-      /* Animated counters glow */
-      .cg-counter{ font-size: 2rem; font-weight: 1000; color: #b8ff6a; text-shadow: 0 0 28px rgba(184,255,106,0.22); }
-
-      /* Dark mode quick */
-      body.cg-lightmode{ color:#0b1220; background:#f5fbf7 !important; }
-      body.cg-lightmode .overlay, body.cg-lightmode .bg-video{ filter:none; }
-      body.cg-lightmode .card{ background: rgba(255,255,255,0.78) !important; }
-      body.cg-lightmode .footer{ background:#fff !important; color:#333 !important; }
-
-      /* Top button hover */
-      .top-btn{ transition: transform .15s ease, box-shadow .2s ease; }
-      .top-btn:hover{ transform: translateY(-3px); box-shadow: 0 0 45px rgba(0,255,128,0.25);} 
-    `;
-    document.head.appendChild(style);
-
-    // Fireflies (strong + visible)
-    let flies = $('#cg-fireflies');
-    if (!flies) {
-      flies = document.createElement('div');
-      flies.id = 'cg-fireflies';
-      document.body.appendChild(flies);
-      const n = 18;
-      for (let i = 0; i < n; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'cg-firefly';
-        const x = Math.random() * 100;
-        const y = Math.random() * 60;
-        dot.style.left = x + '%';
-        dot.style.top = (20 + y) + '%';
-        dot.style.animationDelay = (Math.random() * 4) + 's';
-        dot.style.animationDuration = (4.5 + Math.random() * 3.5) + 's';
-        flies.appendChild(dot);
-      }
-    }
-
-    // Dark/Light mode
-    let modeBtn = $('#cg-wild-mode');
-    if (!modeBtn) {
-      modeBtn = document.createElement('button');
-      modeBtn.id = 'cg-wild-mode';
-      modeBtn.type = 'button';
-      modeBtn.textContent = '🌗 Mode';
-      modeBtn.style.cssText = `position: fixed; top: 18px; right: 18px; z-index: 99999; border: 1px solid rgba(184,255,106,0.35); background: rgba(0,0,0,0.55); color:#fff; border-radius: 14px; padding: 12px 14px; font-weight: 900; cursor: pointer; box-shadow:0 10px 30px rgba(0,0,0,0.25);`;
-      document.body.appendChild(modeBtn);
-    }
-    let mode = 'dark';
-    modeBtn.addEventListener('click', () => {
-      mode = mode === 'dark' ? 'light' : 'dark';
-      document.body.classList.toggle('cg-lightmode', mode === 'light');
-      modeBtn.textContent = mode === 'dark' ? '🌗 Mode' : '🌞 Light→Dark';
-      modeBtn.style.boxShadow = '0 0 35px rgba(184,255,106,0.25)';
-      setTimeout(() => (modeBtn.style.boxShadow = ''), 450);
-    });
-
-    // Typing effect for hero title
-    const hero = document.querySelector('section.hero');
-    const heroH1 = hero ? $('h1', hero) : null;
-    if (heroH1 && !heroH1.dataset.cgTyping) {
-      heroH1.dataset.cgTyping = '1';
-      const full = heroH1.textContent.trim();
-      heroH1.textContent = '';
-      heroH1.style.whiteSpace = 'nowrap';
-      heroH1.innerHTML = '<span id="cg-w-typing"></span><span style="color:#b8ff6a; font-weight:900;">▍</span>';
-      const typingEl = $('#cg-w-typing', heroH1);
-      let i = 0;
-      const run = () => {
-        if (prefersReduced) { typingEl.textContent = full; return; }
-        if (i < full.length) {
-          typingEl.textContent += full.charAt(i);
-          i++;
-          setTimeout(run, 45);
         }
-      };
-      run();
-    }
 
-    // Spotlight hover follow
-    $$('.card').forEach((card) => {
-      card.addEventListener('mousemove', (ev) => {
-        if (prefersReduced) return;
-        const r = card.getBoundingClientRect();
-        const x = ((ev.clientX - r.left) / r.width) * 100;
-        const y = ((ev.clientY - r.top) / r.height) * 100;
-        card.style.setProperty('--sx', x + '%');
-        card.style.setProperty('--sy', y + '%');
-      }, { passive: true });
     });
 
-    // Counters (animated + visible)
-    function ensureCounters() {
-      let wrap = $('#cg-wild-counters');
-      if (wrap) return wrap;
-      const popular = $('#popular') || document.body;
-      wrap = document.createElement('div');
-      wrap.id = 'cg-wild-counters';
-      wrap.style.cssText = 'margin: 24px auto 0; width: min(920px, 92vw); display:flex; gap:14px; justify-content:space-between; flex-wrap:wrap;';
-      wrap.innerHTML = `
-        <div style="flex:1 1 200px; background: rgba(255,255,255,0.08); border: 1px solid rgba(184,255,106,0.20); border-radius: 18px; padding: 14px;">
-          <div class="cg-counter" data-target="78">0</div>
-          <div style="color: rgba(255,255,255,0.75); font-weight:700; margin-top:6px;">Species Today</div>
-        </div>
-        <div style="flex:1 1 200px; background: rgba(255,255,255,0.08); border: 1px solid rgba(184,255,106,0.20); border-radius: 18px; padding: 14px;">
-          <div class="cg-counter" data-target="24">0</div>
-          <div style="color: rgba(255,255,255,0.75); font-weight:700; margin-top:6px;">Eco Zones</div>
-        </div>
-        <div style="flex:1 1 200px; background: rgba(255,255,255,0.08); border: 1px solid rgba(184,255,106,0.20); border-radius: 18px; padding: 14px;">
-          <div class="cg-counter" data-target="9">0</div>
-          <div style="color: rgba(255,255,255,0.75); font-weight:700; margin-top:6px;">Adventure Trails</div>
-        </div>
-      `;
-      popular.appendChild(wrap);
-      return wrap;
-    }
+}, {
+    threshold: 0.1
+});
 
-    const countersWrap = ensureCounters();
-    function animateCounters() {
-      const counters = $$('[data-target]', countersWrap);
-      counters.forEach((el) => {
-        const target = Number(el.getAttribute('data-target'));
-        let start = null;
-        const dur = prefersReduced ? 1 : 1400;
-        const step = (ts) => {
-          if (!start) start = ts;
-          const p = Math.min(1, (ts - start) / dur);
-          const cur = Math.floor(target * p);
-          el.textContent = String(cur);
-          if (p < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-      });
-    }
-    if (!prefersReduced && 'IntersectionObserver' in window) {
-      const obs = new IntersectionObserver((entries) => {
-        if (entries.some(e => e.isIntersecting)) {
-          animateCounters();
-          obs.disconnect();
-        }
-      }, { threshold: 0.2 });
-      obs.observe(countersWrap);
-    } else {
-      animateCounters();
-    }
+elements.forEach(el => {
+    observer.observe(el);
+});
 
-    // Scroll reveal
-    const revealTargets = $$('section, .card, .exp-card, .why-card, .req-item');
-    revealTargets.forEach((el, idx) => {
-      el.classList.add('cg-reveal');
-      el.style.transitionDelay = prefersReduced ? '0ms' : (idx % 18) * 30 + 'ms';
-    });
-
-    if (!prefersReduced && 'IntersectionObserver' in window) {
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach((en) => {
-          if (en.isIntersecting) {
-            en.target.classList.add('cg-show');
-            obs.unobserve(en.target);
-          }
-        });
-      }, { threshold: 0.15 });
-      revealTargets.forEach(t => obs.observe(t));
-    } else {
-      revealTargets.forEach(t => t.classList.add('cg-show'));
-    }
-
-    // Cinematic scrolling cue: add subtle fade of overlay based on scroll
-    const overlay = document.querySelector('.overlay');
-    if (overlay && !prefersReduced) {
-      window.addEventListener('scroll', () => {
-        const y = window.scrollY || 0;
-        const a = Math.max(0.18, 0.4 - y / 2400);
-        overlay.style.background = `rgba(0,0,0,${a})`;
-      }, { passive: true });
-    }
-  }
 </script>
 </body>
 </html>

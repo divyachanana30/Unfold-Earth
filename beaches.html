@@ -683,207 +683,38 @@ margin-top:40px;
 
 
 
-
 <script>
-  /*
-    Beaches Theme JS Effects (inline only)
-    - Wave-like smooth animations
-    - Floating beach cards
-    - Blue glow hover effects
-    - Animated beach gallery (subtle background wave)
-    - Scroll reveal
-    - Typing effect (hero)
-    - Dark/Light mode toggle
-    - Animated CTA buttons (Explore Now)
-    - Mouse-follow glow
-    - Parallax movement
-  */
+const elements = document.querySelectorAll(
+    ".card, .exp-card, .why-card, .req-item, h2"
+);
 
-  if (!window.__beachesEffectsApplied) {
-    window.__beachesEffectsApplied = true;
+elements.forEach(el => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(30px)";
+});
 
-    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const $ = (sel) => document.querySelector(sel);
-    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+const observer = new IntersectionObserver((entries) => {
 
-    // Inject CSS (strong & visible)
-    const style = document.createElement('style');
-    style.textContent = `
-      html{ scroll-behavior: smooth; }
+    entries.forEach(entry => {
 
-      /* Typing cursor */
-      .cg-typing-caret{ color:#4cc9f0; font-weight:900; animation: cgBlink .9s steps(2,end) infinite; }
-      @keyframes cgBlink{ 50%{ opacity:0; } }
+        if(entry.isIntersecting){
 
-      /* Wave animation for background overlay */
-      .cg-wave-overlay{ 
-        position: fixed; inset: -20vh -20vw auto -20vw; height: 60vh; 
-        background: radial-gradient(circle at 15% 20%, rgba(0,255,255,0.16), transparent 55%),
-                    radial-gradient(circle at 80% 35%, rgba(76,201,240,0.14), transparent 55%),
-                    linear-gradient(180deg, rgba(76,201,240,0.10), rgba(0,0,0,0));
-        z-index:-1; pointer-events:none;
-        filter: blur(1px);
-        transform: translateY(0);
-        animation: cgWaveMove 7s ease-in-out infinite;
-      }
-      @keyframes cgWaveMove{ 
-        0%,100%{ transform: translateY(0px); opacity:.95; }
-        50%{ transform: translateY(-18px); opacity:1; }
-      }
+            entry.target.style.transition = "0.8s";
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
 
-      /* Floating cards */
-      .card{ position:relative; }
-      .card{ animation: cgFloatSea 6.8s ease-in-out infinite; }
-      .card:nth-child(odd){ animation-duration: 7.6s; }
-      .card:nth-child(3n){ animation-duration: 8.4s; }
-      @keyframes cgFloatSea{ 0%,100%{ transform: translateY(0px); } 50%{ transform: translateY(-12px);} }
-
-      /* Hover glassmorphism + blue glow */
-      .card{ backdrop-filter: blur(10px); }
-      .card:hover{ transform: translateY(-10px) scale(1.03) !important; }
-      .card::before{ 
-        content:''; position:absolute; inset:-2px; 
-        background: linear-gradient(120deg, transparent 0%, rgba(76,201,240,0.35) 45%, transparent 70%);
-        transform: translateX(-60%);
-        opacity:0; 
-        pointer-events:none;
-      }
-      .card:hover::before{ opacity:1; animation: cgShine 0.9s ease; }
-      @keyframes cgShine{ from{ transform: translateX(-60%);} to{ transform: translateX(60%);} }
-
-      /* Scroll reveal */
-      .cg-reveal{ opacity:0; transform: translateY(22px) scale(.98); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
-      .cg-reveal.cg-show{ opacity:1; transform: translateY(0) scale(1); }
-
-      /* CTA pulse */
-      .hero a{ animation: cgCtaPulse 2.2s ease-in-out infinite; }
-      @keyframes cgCtaPulse{ 0%,100%{ box-shadow: 0 0 0 rgba(0,0,0,0); filter: brightness(1);} 50%{ box-shadow: 0 0 40px rgba(76,201,240,0.22); filter: brightness(1.18);} }
-
-      /* Parallax depth */
-      .cg-parallax-elem{ will-change: transform; }
-
-      /* Dark mode quick */
-      body.cg-lightmode{ color:#0b1220; }
-      body.cg-lightmode .card{ background: rgba(255,255,255,0.75) !important; }
-      body.cg-lightmode .overlay{ background: rgba(255,255,255,0.25) !important; }
-      body.cg-lightmode .footer{ background:#fff !important; }
-
-      /* Smooth section navigation hint */
-      .top-btn{ transition: transform .15s ease, box-shadow .2s ease; }
-      .top-btn:hover{ transform: translateY(-3px); box-shadow: 0 0 45px rgba(76,201,240,0.25);} 
-    `;
-    document.head.appendChild(style);
-
-    // Mouse follow glow
-    let glow = $('#cg-beach-glow');
-    if (!glow) {
-      glow = document.createElement('div');
-      glow.id = 'cg-beach-glow';
-      glow.style.cssText = `position:fixed; inset:0; pointer-events:none; z-index:1; background: radial-gradient(circle at var(--bx,50%) var(--by,50%), rgba(76,201,240,0.20), rgba(0,0,0,0) 42%); mix-blend-mode: screen; opacity:.9; transition: background-position .05s linear;`;
-      document.body.appendChild(glow);
-    }
-
-    window.addEventListener('mousemove', (ev) => {
-      const x = (ev.clientX / window.innerWidth) * 100;
-      const y = (ev.clientY / window.innerHeight) * 100;
-      document.body.style.setProperty('--bx', x + '%');
-      document.body.style.setProperty('--by', y + '%');
-    }, { passive: true });
-
-    // Wave overlay
-    let wave = $('#cg-wave-overlay');
-    if (!wave) {
-      wave = document.createElement('div');
-      wave.id = 'cg-wave-overlay';
-      wave.className = 'cg-wave-overlay';
-      document.body.appendChild(wave);
-    }
-
-    // Typing effect in hero (uses existing hero h1)
-    const hero = document.querySelector('section.hero');
-    const heroH1 = hero ? $('h1', hero) : null;
-    if (heroH1 && !heroH1.dataset.cgTyping) {
-      heroH1.dataset.cgTyping = '1';
-      const full = heroH1.textContent.trim();
-      heroH1.textContent = '';
-      heroH1.style.whiteSpace = 'nowrap';
-      heroH1.innerHTML = '<span id="cg-beach-typing"></span><span class="cg-typing-caret">▍</span>';
-      const typingEl = $('#cg-beach-typing', heroH1);
-      let i = 0;
-      const run = () => {
-        if (prefersReduced) { typingEl.textContent = full; return; }
-        if (i < full.length) {
-          typingEl.textContent += full.charAt(i);
-          i++;
-          setTimeout(run, 40);
         }
-      };
-      run();
-    }
 
-    // Dark/Light mode toggle
-    let modeBtn = $('#cg-beach-mode');
-    if (!modeBtn) {
-      modeBtn = document.createElement('button');
-      modeBtn.id = 'cg-beach-mode';
-      modeBtn.type = 'button';
-      modeBtn.textContent = '🌗 Mode';
-      modeBtn.style.cssText = `position:fixed; top:18px; right:18px; z-index:99999; border:1px solid rgba(76,201,240,0.35); background: rgba(0,0,0,0.55); color:#fff; border-radius:14px; padding:12px 14px; font-weight:900; cursor:pointer; box-shadow:0 10px 30px rgba(0,0,0,0.25);`;
-      document.body.appendChild(modeBtn);
-    }
-    let mode = 'dark';
-    modeBtn.addEventListener('click', () => {
-      mode = mode === 'dark' ? 'light' : 'dark';
-      document.body.classList.toggle('cg-lightmode', mode === 'light');
-      modeBtn.textContent = mode === 'dark' ? '🌗 Mode' : '🌞 Light→Dark';
-      modeBtn.style.boxShadow = '0 0 35px rgba(76,201,240,0.25)';
-      setTimeout(() => modeBtn.style.boxShadow = '', 450);
     });
 
-    // Scroll reveal targets
-    const revealTargets = $$('section, .card, .exp-card, .why-card, .req-item');
-    revealTargets.forEach((el, idx) => {
-      el.classList.add('cg-reveal');
-      el.style.transitionDelay = prefersReduced ? '0ms' : (idx % 18) * 35 + 'ms';
-    });
+}, {
+    threshold: 0.1
+});
 
-    if (!prefersReduced && 'IntersectionObserver' in window) {
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach((en) => {
-          if (en.isIntersecting) {
-            en.target.classList.add('cg-show');
-            obs.unobserve(en.target);
-          }
-        });
-      }, { threshold: 0.15 });
-      revealTargets.forEach(t => obs.observe(t));
-    } else {
-      revealTargets.forEach(t => t.classList.add('cg-show'));
-    }
+elements.forEach(el => {
+    observer.observe(el);
+});
 
-    // Parallax movement (smooth)
-    function wireParallax() {
-      if (prefersReduced) return;
-      const elems = $$('.card, .exp-card, .why-card');
-      let raf = 0;
-      window.addEventListener('scroll', () => {
-        if (raf) return;
-        raf = requestAnimationFrame(() => {
-          raf = 0;
-          const y = window.scrollY || 0;
-          elems.forEach((el, i) => {
-            const r = el.getBoundingClientRect();
-            if (r.bottom < 0 || r.top > window.innerHeight) return;
-            const speed = 0.03 + (i % 5) * 0.006;
-            el.style.transform = `translateY(${Math.sin((y + i * 120) / 240) * 8 * speed}px)`;
-          });
-          // keep overlay vibe
-          if (window.getComputedStyle(document.body).backgroundColor) {}
-        });
-      }, { passive: true });
-    }
-    wireParallax();
-  }
 </script>
 </body>
 </html>

@@ -405,613 +405,987 @@ margin-top:40px;
 
 
 
+
 <script>
-  /*
-    imagegallery.html - Strong visible JS effects
-    Requirements implemented:
-    - Animated loading
-    - Staggered entrance (masonry-like stagger)
-    - 3D hover tilt + stronger zoom
-    - Floating image animation
-    - Mouse-follow glow
-    - Lightbox with cinematic open/close
-    - Ripple click effect
-    - Dark/Light mode toggle
-    - Typing effect
-    - Parallax scrolling
-    - Glowing borders + premium hover shadows
-    - Smooth scrolling
-  */
 
-  // --------- Helpers
-  const $ = (sel, root = document) => root.querySelector(sel);
-  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+// ============================================================
+// PREMIUM CINEMATIC INTERACTIVE COUNTRY GALLERY (INLINE)
+// - No external JS files
+// - Strong animations that are visible on open
+// - Click any card to open large rectangular modal
+// - ESC closes, outside click closes
+// ============================================================
 
-  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-  // --------- Typing effect for page title (no layout change)
-  // We'll create a floating heading overlay above the grid.
-  function ensureTypingOverlay() {
-    let overlay = $('#cg-typing-overlay');
-    if (overlay) return overlay;
+const prefersReducedMotion =
+  window.matchMedia &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    overlay = document.createElement('div');
-    overlay.id = 'cg-typing-overlay';
-    overlay.setAttribute('aria-hidden', 'true');
-    overlay.style.cssText = `
-      position: fixed;
-      top: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 9999;
-      pointer-events: none;
-      text-align: center;
-      font-family: Arial, sans-serif;
-      width: min(1000px, 92vw);
-    `;
+// -------------------------
+// Cinematic loading overlay
+// -------------------------
+function ensureLoader() {
+  let loader = $("#cg-loader");
+  if (loader) return loader;
 
-    overlay.innerHTML = `
-      <div style="display:inline-block; padding:10px 16px; border-radius:999px; 
-                  background: rgba(0,0,0,0.55); border: 1px solid rgba(0,255,213,0.25);
-                  box-shadow: 0 0 40px rgba(0,255,213,0.12);
-                  color: #fff;">
-        <span id="cg-typing" style="font-weight: 900; letter-spacing: .5px;">
-        </span>
-        <span id="cg-caret" style="display:inline-block; width:10px; text-align:left; color:#00ffd5;">▍</span>
-      </div>
-    `;
+  loader = document.createElement("div");
+  loader.id = "cg-loader";
+  loader.style.cssText = `
+    position:fixed;
+    inset:0;
+    z-index:999999;
+    background: radial-gradient(circle at 30% 20%, rgba(0,255,213,.22), transparent 55%), #070b10;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:18px;
+  `;
 
-    document.body.appendChild(overlay);
-    return overlay;
-  }
+  loader.innerHTML = `
+    <div class="cg-loader-title">Unfold Earth</div>
+    <div class="cg-loader-bar-wrap">
+      <div id="cg-loader-bar" class="cg-loader-bar"></div>
+    </div>
+    <div id="cg-loader-text" class="cg-loader-text">0%</div>
+    <div class="cg-loader-spark" aria-hidden="true"></div>
+  `;
 
-  // --------- Dark/Light mode toggle button (top-right)
-  function ensureModeToggle() {
-    let btn = $('#cg-mode-toggle');
-    if (btn) return btn;
+  const style = document.createElement("style");
+  style.id = "cg-loader-style";
+  style.textContent = `
+    .cg-loader-title{
+      color:#00ffd5;
+      font-weight:900;
+      font-size:34px;
+      letter-spacing:.5px;
+      text-shadow:0 0 30px rgba(0,255,213,.25);
+      animation: cgFloat 1.6s ease-in-out infinite;
+    }
+    .cg-loader-bar-wrap{
+      width:min(520px,80vw);
+      height:14px;
+      background:rgba(255,255,255,.06);
+      border-radius:999px;
+      overflow:hidden;
+      box-shadow: inset 0 0 18px rgba(0,0,0,.45);
+    }
+    .cg-loader-bar{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, #00ffd5, #62a7ff, #00ffd5);
+      border-radius:999px;
+      transition: width .22s ease;
+      box-shadow:0 0 25px rgba(0,255,213,.25);
+    }
+    .cg-loader-text{
+      color:#e9faff;
+      font-weight:900;
+      font-size:16px;
+      opacity:.9;
+    }
+    .cg-loader-spark{
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      background:#00ffd5;
+      box-shadow:0 0 40px rgba(0,255,213,.45);
+      animation: cgSpark 1.1s ease-in-out infinite;
+    }
+    @keyframes cgFloat{
+      0%,100%{ transform: translateY(0); filter: hue-rotate(0deg); }
+      50%{ transform: translateY(-10px); filter: hue-rotate(24deg); }
+    }
+    @keyframes cgSpark{
+      0%,100%{ transform: scale(.95); opacity:.7; }
+      50%{ transform: scale(1.35); opacity:1; }
+    }
+  `;
+  document.head.appendChild(style);
 
-    btn = document.createElement('button');
-    btn.id = 'cg-mode-toggle';
-    btn.type = 'button';
-    btn.setAttribute('aria-label', 'Toggle dark/light');
-    btn.textContent = '🌗 Mode';
-    btn.style.cssText = `
-      position: fixed;
-      top: 18px;
-      right: 18px;
-      z-index: 99999;
-      border: 1px solid rgba(0,255,213,0.35);
-      background: rgba(0,0,0,0.55);
-      color: white;
-      border-radius: 14px;
-      padding: 12px 14px;
-      font-weight: 900;
-      cursor: pointer;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      transition: transform .15s ease;
-    `;
+  document.body.appendChild(loader);
+  return loader;
+}
 
-    btn.addEventListener('mouseenter', () => (btn.style.transform = 'translateY(-2px)'));
-    btn.addEventListener('mouseleave', () => (btn.style.transform = 'translateY(0px)'));
+function runLoader() {
+  const loader = ensureLoader();
 
-    document.body.appendChild(btn);
-    return btn;
-  }
+  const bar = $("#cg-loader-bar");
+  const txt = $("#cg-loader-text");
 
-  // --------- Make grid items buttons
-  function prepareCells() {
-    const cells = $$('.cell');
-    cells.forEach((cell, i) => {
-      cell.style.willChange = 'transform';
-      cell.style.transformOrigin = 'center';
+  let p = 0;
+  const tick = setInterval(() => {
+    p += 7;
+    if (p > 100) p = 100;
+    bar.style.width = p + "%";
+    txt.textContent = p + "%";
 
-      // Strong entrance animation setup (stagger)
-      if (!cell.dataset.cgIndex) cell.dataset.cgIndex = String(i);
+    if (p >= 100) {
+      clearInterval(tick);
+      loader.style.transition = "opacity .45s ease, transform .45s ease";
+      loader.style.opacity = "0";
+      loader.style.transform = "scale(1.02)";
+      setTimeout(() => loader.remove(), 480);
+    }
+  }, prefersReducedMotion ? 22 : 36);
+}
 
-      cell.style.transition = prefersReduced
-        ? 'none'
-        : 'transform .35s ease, box-shadow .35s ease, filter .35s ease';
+// -------------------------
+// Global cinematic scrolling
+// -------------------------
+(function injectGlobalStyles() {
+  const s = document.createElement("style");
+  s.textContent = `
+    html{ scroll-behavior:smooth; }
 
-      cell.style.border = '1px solid rgba(0,255,213,0.0)';
-      cell.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)';
-
-      // Ripple helper layer
-      let ripple = cell.querySelector('.cg-ripple-layer');
-      if (!ripple) {
-        ripple = document.createElement('span');
-        ripple.className = 'cg-ripple-layer';
-        ripple.style.cssText = `
-          position:absolute; inset:0; pointer-events:none; overflow:hidden; border-radius:15px;
-        `;
-        cell.appendChild(ripple);
-      }
-
-      cell.addEventListener('click', (e) => createRipple(cell, e));
-      cell.setAttribute('tabindex', '0');
-      cell.setAttribute('role', 'button');
-    });
-  }
-
-  // --------- Ripple effect (strong)
-  function createRipple(cell, e) {
-    const layer = cell.querySelector('.cg-ripple-layer');
-    if (!layer) return;
-
-    const rect = cell.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const ripple = document.createElement('span');
-    ripple.style.cssText = `
-      position:absolute;
-      left:${x}px;
-      top:${y}px;
-      width:12px;
-      height:12px;
-      background: radial-gradient(circle, rgba(0,255,213,0.35), rgba(0,255,213,0.0) 60%);
-      transform: translate(-50%, -50%) scale(1);
-      border-radius: 999px;
-      opacity: .95;
+    /* Mouse spotlight glow */
+    #cg-spotlight{
+      position:fixed;
+      inset:0;
       pointer-events:none;
-      animation: cgRipple .55s ease-out forwards;
-    `;
-
-    layer.appendChild(ripple);
-    ripple.addEventListener('animationend', () => ripple.remove());
-  }
-
-  // --------- Lightbox (modal) with cinematic transitions
-  function ensureLightbox() {
-    let modal = $('#cg-lightbox');
-    if (modal) return modal;
-
-    modal = document.createElement('div');
-    modal.id = 'cg-lightbox';
-    modal.style.cssText = `
-      position: fixed;
-      inset: 0;
-      z-index: 100000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    `;
-
-    modal.innerHTML = `
-      <div id="cg-lb-backdrop" style="position:absolute; inset:0; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); opacity:0; transition: opacity .22s ease;"></div>
-      <div id="cg-lb-panel" style="position:relative; width:min(1000px, 92vw); border-radius: 18px; 
-           background: rgba(10,15,20,0.92); border: 1px solid rgba(0,255,213,0.22);
-           box-shadow: 0 30px 90px rgba(0,0,0,0.7);
-           transform: translateY(16px) scale(.96); opacity:0; transition: transform .22s ease, opacity .22s ease;
-           overflow:hidden; padding: 16px;">
-        <button id="cg-lb-close" aria-label="Close" style="position:absolute; top: 10px; right: 12px; 
-          width:46px; height:46px; border-radius:14px; border: 1px solid rgba(255,255,255,0.12);
-          background: rgba(255,255,255,0.06); color: white; cursor:pointer; font-size:30px; line-height: 46px;">×</button>
-
-        <div style="display:flex; gap: 14px; flex-wrap: wrap; align-items: center;">
-          <div style="flex: 1 1 620px; min-width: 280px;">
-            <img id="cg-lb-img" alt="" style="width:100%; max-height: 70vh; object-fit: contain; border-radius: 14px; background: rgba(255,255,255,0.04);" />
-          </div>
-          <div style="flex: 0 0 260px;">
-            <div id="cg-lb-caption" style="color:#00ffd5; font-weight: 1000; font-size: 1.25rem; margin: 10px 0 8px;"> </div>
-            <div style="color: rgba(255,255,255,0.72); font-size: .95rem; line-height: 1.4;">
-              Tip: press <b>Esc</b> to close.
-            </div>
-            <div id="cg-lb-index" style="margin-top: 12px; color: rgba(255,255,255,0.75); font-weight: 700;"> </div>
-          </div>
-        </div>
-      </div>
-    `;
-
-    document.body.appendChild(modal);
-
-    const close = $('#cg-lb-close', modal);
-    const backdrop = $('#cg-lb-backdrop', modal);
-
-    const doClose = () => {
-      modal.classList.remove('cg-open');
-      modal.style.display = 'none';
-    };
-
-    close.addEventListener('click', doClose);
-    backdrop.addEventListener('click', doClose);
-
-    document.addEventListener('keydown', (ev) => {
-      if (ev.key === 'Escape' && modal.classList.contains('cg-open')) doClose();
-    });
-
-    modal.__doClose = doClose;
-    return modal;
-  }
-
-  // --------- Mouse-follow glow
-  function ensureGlow() {
-    let glow = $('#cg-mouse-glow');
-    if (glow) return glow;
-
-    glow = document.createElement('div');
-    glow.id = 'cg-mouse-glow';
-    glow.style.cssText = `
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 999;
-      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0,255,213,0.18), rgba(0,0,0,0) 40%);
-      transition: background-position .05s linear;
-      opacity: 0.9;
+      z-index:999;
+      background: radial-gradient(
+        circle at var(--cg-x, 50%) var(--cg-y, 50%),
+        rgba(0,255,213,.24),
+        rgba(0,255,213,.10) 18%,
+        transparent 45%
+      );
+      transition: opacity .2s ease;
       mix-blend-mode: screen;
-    `;
+      opacity:.95;
+    }
 
-    document.body.appendChild(glow);
-    return glow;
-  }
+    /* Gallery hover (strong) */
+    .cell{
+      transform-style: preserve-3d;
+      will-change: transform;
+      border:1px solid rgba(255,255,255,.06);
+    }
+    .cell.cg-ready{
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, filter .22s ease;
+      box-shadow: 0 10px 35px rgba(0,0,0,.12);
+    }
 
-  // --------- Gallery entrance + staggered reveals
-  function animateEntrance() {
-    const cells = $$('.cell');
-    const delayStep = prefersReduced ? 0 : 45; // ms
+    .cell.cg-card-glow::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      border-radius:16px;
+      background: conic-gradient(from 180deg, rgba(0,255,213,.0), rgba(0,255,213,.55), rgba(98,167,255,.55), rgba(0,255,213,.0));
+      opacity:0;
+      filter: blur(10px);
+      transition: opacity .25s ease;
+      z-index:0;
+      pointer-events:none;
+    }
+    .cell.cg-card-glow::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0));
+      opacity:0;
+      transition: opacity .25s ease;
+      z-index:1;
+      pointer-events:none;
+    }
+    .cell.cg-card-glow:hover::before{ opacity:1; }
+    .cell.cg-card-glow:hover::after{ opacity:1; }
 
-    // Start immediately (visible)
-    cells.forEach((cell) => {
-      const idx = Number(cell.dataset.cgIndex || '0');
-      cell.style.opacity = '0';
-      cell.style.transform = `translateY(20px) scale(.985)`;
-      cell.style.filter = 'saturate(0.8)';
+    /* Strong image hover */
+    .cell img{
+      transition: transform .35s ease, filter .35s ease;
+      filter: saturate(1.1) contrast(1.05);
+      transform: scale(1.01);
+      position: relative;
+      z-index:2;
+    }
+    .cell:hover img{ transform: scale(1.27); filter: saturate(1.25) contrast(1.12); }
 
-      const t = idx * delayStep;
-      setTimeout(() => {
-        cell.style.transition = prefersReduced
-          ? 'none'
-          : 'opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1), filter .6s ease';
-        cell.style.opacity = '1';
-        cell.style.transform = 'translateY(0px) scale(1)';
-        cell.style.filter = 'saturate(1.1)';
+    /* Stagger reveal */
+    .cell.cg-reveal{
+      opacity:0;
+      transform: translateY(46px) scale(.98);
+      filter: blur(6px);
+    }
+    .cell.cg-show{
+      opacity:1;
+      transform: translateY(0) scale(1);
+      filter: blur(0px);
+      transition: transform .9s cubic-bezier(.2,.9,.2,1), opacity .65s ease, filter .65s ease;
+    }
 
-        // glowing border
-        cell.style.border = '1px solid rgba(0,255,213,0.25)';
-        cell.style.boxShadow = '0 0 0 rgba(0,255,213,0), 0 12px 35px rgba(0,0,0,0.18)';
-      }, t);
-    });
-  }
+    /* Ripple */
+    .cg-ripple{
+      position:absolute;
+      width:18px;
+      height:18px;
+      border-radius:999px;
+      background: rgba(0,255,213,.55);
+      transform: translate(-50%,-50%);
+      pointer-events:none;
+      animation: cgRipple .75s ease-out forwards;
+      z-index:5;
+      mix-blend-mode: screen;
+    }
+    @keyframes cgRipple{
+      0%{ opacity:.95; transform: translate(-50%,-50%) scale(.7); }
+      70%{ opacity:.35; }
+      100%{ opacity:0; transform: translate(-50%,-50%) scale(18); }
+    }
 
-  // --------- Loading animation (overlay)
-  function ensureLoader() {
-    let loader = $('#cg-loader');
-    if (loader) return loader;
+    /* Floating particles background */
+    #cg-particles{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      opacity:.85;
+      overflow:hidden;
+    }
+    .cg-particle{
+      position:absolute;
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background: rgba(0,255,213,.35);
+      box-shadow: 0 0 25px rgba(0,255,213,.30);
+      animation: cgDrift 7s linear infinite;
+      will-change: transform;
+    }
+    @keyframes cgDrift{
+      0%{ transform: translate3d(0,0,0); opacity:.0; }
+      10%{ opacity:.9; }
+      100%{ transform: translate3d(0,-110vh,0); opacity:0; }
+    }
 
-    loader = document.createElement('div');
-    loader.id = 'cg-loader';
-    loader.style.cssText = `
-      position: fixed;
-      inset: 0;
-      z-index: 100000;
-      background: #0a0f14;
+    /* Typing (hero heading) */
+    #cg-hero{
+      margin: 16px auto 8px;
+      width:85%;
+      max-width:1200px;
+      padding: 18px 0;
+    }
+    .cg-hero-line1{
+      font-size: 26px;
+      font-weight: 900;
+      color:#071018;
+      letter-spacing:.4px;
+      text-shadow: 0 0 26px rgba(0,255,213,.18);
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      align-items:baseline;
+      flex-wrap:wrap;
+      user-select:none;
+    }
+    .cg-hero-glow{
+      color:#00ffd5;
+      text-shadow: 0 0 30px rgba(0,255,213,.35), 0 0 70px rgba(0,255,213,.15);
+    }
+    .cg-typing{
+      display:inline-block;
+      position:relative;
+      min-width: 6ch;
+    }
+    .cg-typing::after{
+      content:"";
+      position:absolute;
+      right:-10px;
+      top: 10%;
+      width: 6px;
+      height: 80%;
+      background:#00ffd5;
+      border-radius: 2px;
+      animation: cgCaret 1s steps(1) infinite;
+      opacity:.9;
+    }
+    @keyframes cgCaret{ 50%{ opacity:0; } }
+
+    .cg-hero-sub{
+      margin-top: 10px;
+      text-align:center;
+      color: rgba(0,0,0,.6);
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+
+    /* Dark mode adjustments */
+    body.cg-dark{
+      background:#070b10 !important;
+      color:#e9faff !important;
+    }
+    body.cg-dark .cg-hero-sub{ color: rgba(233,250,255,.72) !important; }
+    body.cg-dark .cg-hero-line1{ color:#e9faff !important; }
+
+    /* Modal */
+    #cg-country-modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      z-index:999999;
+      padding: 4vh 4vw;
+    }
+    #cg-country-modal.cg-open{ display:flex; }
+
+    #cg-modal-backdrop{
+      position:absolute;
+      inset:0;
+      background: rgba(0,0,0,.58);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      opacity:0;
+      transition: opacity .35s ease;
+    }
+
+    #cg-country-panel{
+      position:relative;
+      width: min(1100px, 96vw);
+      margin: 0 auto;
+      background: rgba(10,15,20,.70);
+      border: 1px solid rgba(0,255,213,.18);
+      border-radius: 20px;
+      box-shadow: 0 30px 120px rgba(0,0,0,.65);
+      overflow:hidden;
+      transform: translateY(18px) scale(.98);
+      opacity:0;
+      transition: transform .35s ease, opacity .35s ease;
+      display:grid;
+      grid-template-columns: 1.25fr 1fr;
+      min-height: 58vh;
+    }
+
+    #cg-country-modal.cg-open #cg-modal-backdrop{ opacity:1; }
+    #cg-country-modal.cg-open #cg-country-panel{ opacity:1; transform: translateY(0) scale(1); }
+
+    #cg-modal-panel-glow{
+      position:absolute;
+      inset:-2px;
+      background: conic-gradient(from 180deg, rgba(0,255,213,0), rgba(0,255,213,.45), rgba(98,167,255,.45), rgba(0,255,213,0));
+      filter: blur(18px);
+      opacity: .35;
+      animation: cgPanelGlow 2.4s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes cgPanelGlow{
+      0%,100%{ transform: rotate(0deg); opacity:.25; }
+      50%{ transform: rotate(16deg); opacity:.55; }
+    }
+
+    #cg-modal-left{
+      position:relative;
+      padding: 16px;
+      border-right: 1px solid rgba(255,255,255,.08);
       display:flex;
       align-items:center;
       justify-content:center;
-      flex-direction: column;
-      gap: 16px;
-    `;
+      overflow:hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0));
+    }
+    #cg-modal-left img{
+      width:100%;
+      height:100%;
+      max-height: 52vh;
+      object-fit: cover;
+      border-radius: 16px;
+      transform: scale(1.05);
+      filter: saturate(1.25) contrast(1.05);
+      animation: cgImgIn .45s cubic-bezier(.2,.9,.2,1) both;
+      box-shadow: 0 18px 55px rgba(0,0,0,.55);
+    }
+    @keyframes cgImgIn{
+      from{ transform: scale(1.10) translateY(8px); opacity:.2; }
+      to{ transform: scale(1.00) translateY(0); opacity:1; }
+    }
 
-    loader.innerHTML = `
-      <div style="font-weight:1000; color:#00ffd5; font-size: 28px; text-shadow: 0 0 30px rgba(0,255,213,0.25);">
-        Loading Gallery
-      </div>
-      <div style="width: min(420px, 80vw); height: 12px; border-radius: 999px; background: rgba(255,255,255,0.12); overflow:hidden;">
-        <div id="cg-loader-bar" style="height:100%; width: 0%; background: linear-gradient(90deg, rgba(0,255,213,0.8), rgba(0,255,213,0.2));
-          box-shadow: 0 0 30px rgba(0,255,213,0.25);
-          transition: width .22s ease;"></div>
-      </div>
-      <div id="cg-loader-sub" style="color: rgba(255,255,255,0.7); font-weight: 700;">0%</div>
-    `;
+    #cg-modal-right{
+      padding: 18px 18px 22px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      position:relative;
+    }
 
-    document.body.appendChild(loader);
-    return loader;
+    #cg-modal-title{
+      font-size: 30px;
+      font-weight: 950;
+      color:#e9faff;
+      letter-spacing:.3px;
+      text-shadow: 0 0 40px rgba(0,255,213,.18);
+    }
+
+    #cg-modal-desc{
+      color: rgba(233,250,255,.78);
+      font-weight:650;
+      line-height:1.5;
+      font-size: 14.8px;
+    }
+
+    #cg-modal-badges{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 6px;
+    }
+    .cg-badge{
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,255,213,.18);
+      background: rgba(0,255,213,.06);
+      color: rgba(0,255,213,.95);
+      font-weight: 900;
+      letter-spacing:.2px;
+      font-size: 12.5px;
+      box-shadow: inset 0 0 25px rgba(0,255,213,.08);
+    }
+
+    #cg-modal-close{
+      position:absolute;
+      top: 14px;
+      right: 14px;
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,255,213,.12);
+      color: #e9faff;
+      cursor:pointer;
+      font-size: 26px;
+      font-weight: 900;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 16px 50px rgba(0,0,0,.45);
+      transition: transform .15s ease, background .15s ease;
+      animation: cgCloseFloat 2.4s ease-in-out infinite;
+    }
+    #cg-modal-close:hover{ transform: translateY(-2px) scale(1.03); background: rgba(0,255,213,.2); }
+    @keyframes cgCloseFloat{
+      0%,100%{ transform: translateY(0); }
+      50%{ transform: translateY(-4px); }
+    }
+
+    #cg-modal-nav{
+      display:flex;
+      justify-content:space-between;
+      margin-top:auto;
+      gap: 12px;
+    }
+    .cg-navbtn{
+      flex: 1;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color:#e9faff;
+      padding: 12px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      font-weight: 950;
+      letter-spacing:.2px;
+      transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+      box-shadow: inset 0 0 30px rgba(0,0,0,.2);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      user-select:none;
+    }
+    .cg-navbtn:hover{
+      transform: translateY(-3px);
+      border-color: rgba(0,255,213,.35);
+      box-shadow: 0 20px 55px rgba(0,0,0,.55);
+    }
+
+    /* Responsive modal */
+    @media (max-width: 900px){
+      #cg-country-panel{ grid-template-columns: 1fr; }
+      #cg-modal-left{ border-right:none; border-bottom: 1px solid rgba(255,255,255,.08); }
+      #cg-modal-left img{ max-height: 36vh; }
+    }
+
+    /* Cursor */
+    body{ cursor: default; }
+    body.cg-grab{ cursor: crosshair; }
+  `;
+  document.head.appendChild(s);
+})();
+
+// -------------------------
+// Particles background
+// -------------------------
+function startParticles() {
+  const wrapId = "cg-particles";
+  if ($("#" + wrapId)) return;
+
+  const wrap = document.createElement("div");
+  wrap.id = wrapId;
+
+  const count = prefersReducedMotion ? 0 : 28;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement("div");
+    p.className = "cg-particle";
+
+    const left = Math.random() * 100;
+    const delay = Math.random() * 4;
+    const duration = 5 + Math.random() * 6;
+    const size = 4 + Math.random() * 7;
+
+    p.style.left = left + "%";
+    p.style.top = (80 + Math.random() * 20) + "vh";
+    p.style.width = size + "px";
+    p.style.height = size + "px";
+    p.style.animationDuration = duration + "s";
+    p.style.animationDelay = delay + "s";
+
+    wrap.appendChild(p);
   }
 
-  function runLoader() {
-    const loader = ensureLoader();
-    const bar = $('#cg-loader-bar');
-    const sub = $('#cg-loader-sub');
+  document.body.appendChild(wrap);
+}
 
-    let p = 0;
-    const start = Date.now();
-    const tick = setInterval(() => {
-      // Faster early, slower later
-      const elapsed = Date.now() - start;
-      const target = Math.min(96, Math.floor((elapsed / 1200) * 100));
-      if (p < target) p = target;
-      bar.style.width = p + '%';
-      sub.textContent = p + '%';
+// -------------------------
+// Mouse spotlight glow + cursor
+// -------------------------
+function ensureSpotlight() {
+  if ($("#cg-spotlight")) return;
 
-      if (p >= 96) {
-        clearInterval(tick);
-        // Wait for first paint of images
-        requestAnimationFrame(() => {
-          setTimeout(() => {
-            loader.style.transition = 'opacity .25s ease';
-            loader.style.opacity = '0';
-            setTimeout(() => loader.remove(), 250);
-          }, 250);
-        });
+  const spot = document.createElement("div");
+  spot.id = "cg-spotlight";
+  document.body.appendChild(spot);
+
+  window.addEventListener("mousemove", (e) => {
+    const x = (e.clientX / window.innerWidth) * 100;
+    const y = (e.clientY / window.innerHeight) * 100;
+    document.documentElement.style.setProperty("--cg-x", x + "%");
+    document.documentElement.style.setProperty("--cg-y", y + "%");
+  }, { passive: true });
+}
+
+// -------------------------
+// Typing hero effect
+// -------------------------
+function ensureHeroTyping() {
+  const existing = $("#cg-hero");
+  if (existing) return;
+
+  // Insert ABOVE the grid without changing the navbar/footer.
+  const headingWrap = $(".heading");
+  if (!headingWrap) return;
+
+  const hero = document.createElement("div");
+  hero.id = "cg-hero";
+  hero.innerHTML = `
+    <div class="cg-hero-line1">
+      <span class="cg-hero-glow">Explore</span>
+      <span>the</span>
+      <span class="cg-typing" id="cg-typing">World</span>
+    </div>
+    <div class="cg-hero-sub">Click a country card to open a cinematic preview.</div>
+  `;
+
+  headingWrap.insertAdjacentElement("afterend", hero);
+
+  const el = $("#cg-typing");
+  if (!el) return;
+
+  const words = ["World", "Destinations", "Adventure", "Culture", "Landmarks"];
+  let w = 0;
+  let i = 0;
+  let deleting = false;
+
+  const speed = prefersReducedMotion ? 0 : 55;
+
+  function step() {
+    if (prefersReducedMotion) {
+      el.textContent = words[0];
+      return;
+    }
+
+    const word = words[w];
+    if (!deleting) {
+      i++;
+      el.textContent = word.slice(0, i);
+      if (i >= word.length) {
+        deleting = true;
+        setTimeout(step, 820);
+        return;
       }
-    }, 60);
-
-    // Extra: if images load quickly, finalize
-    const imgs = $$('img', document).filter(i => i.getAttribute('src'));
-    let loaded = 0;
-    imgs.forEach((img) => {
-      img.addEventListener('load', () => {
-        loaded++;
-        const ratio = imgs.length ? loaded / imgs.length : 1;
-        const maybe = Math.min(96, Math.floor(ratio * 96));
-        if (maybe > p) {
-          p = maybe;
-          bar.style.width = p + '%';
-          sub.textContent = p + '%';
-        }
-      });
-    });
-  }
-
-  // --------- Hover effects: stronger 3D tilt + premium shadow
-  function wireHover3D() {
-    const cells = $$('.cell');
-
-    cells.forEach((cell) => {
-      const img = $('img', cell);
-      const h3 = $('h3', cell);
-
-      cell.addEventListener('mousemove', (ev) => {
-        if (prefersReduced) return;
-        const rect = cell.getBoundingClientRect();
-        const x = (ev.clientX - rect.left) / rect.width; // 0..1
-        const y = (ev.clientY - rect.top) / rect.height;
-
-        const rotY = (x - 0.5) * 18; // stronger
-        const rotX = -(y - 0.5) * 14;
-
-        const lift = -14; // px
-        cell.style.transform = `translateY(${lift}px) perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.05)`;
-        if (img) img.style.transform = 'scale(1.32)';
-        if (h3) h3.style.boxShadow = '0 0 22px rgba(0,255,213,0.25)';
-
-        // glowing border follows hover
-        cell.style.border = '1px solid rgba(0,255,213,0.55)';
-        cell.style.boxShadow = '0 0 0 rgba(0,255,213,0), 0 24px 60px rgba(0,0,0,0.35)';
-
-        // Mouse-follow glow background
-        const gx = Math.round((ev.clientX / window.innerWidth) * 100);
-        const gy = Math.round((ev.clientY / window.innerHeight) * 100);
-        document.documentElement.style.setProperty('--x', gx + '%');
-        document.documentElement.style.setProperty('--y', gy + '%');
-      });
-
-      cell.addEventListener('mouseleave', () => {
-        cell.style.transform = '';
-        if (img) img.style.transform = '';
-        if (h3) h3.style.boxShadow = '';
-        cell.style.border = '1px solid rgba(0,255,213,0.0)';
-        cell.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
-      });
-
-      // Floating animation (continuous)
-      if (!prefersReduced) {
-        cell.style.animation = `cgFloat ${10 + (Number(cell.dataset.cgIndex || 0) % 7)}s ease-in-out infinite`;
-      }
-    });
-
-    // Inject keyframes
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes cgFloat{
-        0%,100%{ transform: translateY(0px); }
-        50%{ transform: translateY(-10px); }
-      }
-      @keyframes cgRipple{
-        0%{ opacity: .95; transform: translate(-50%, -50%) scale(.3); }
-        100%{ opacity: 0; transform: translate(-50%, -50%) scale(14); }
-      }
-      html{ scroll-behavior:smooth; }
-    `;
-    document.head.appendChild(style);
-  }
-
-  // --------- Parallax scrolling
-  function wireParallax() {
-    if (prefersReduced) return;
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY || 0;
-      // Subtle background drift effect by translating images a bit
-      $$('.cell img').forEach((img, i) => {
-        // Only a few items closest to viewport
-        const cell = img.closest('.cell');
-        if (!cell) return;
-        const r = cell.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > window.innerHeight) return;
-        const speed = 0.08 + (i % 5) * 0.015;
-        const ty = (r.top - window.innerHeight / 2) * speed * 0.02;
-        img.style.transform = `translateY(${ty}px) scale(1.15)`;
-      });
-    }, { passive: true });
-  }
-
-  // --------- Lightbox wiring
-  function wireLightbox() {
-    const modal = ensureLightbox();
-    const cells = $$('.cell');
-
-    const openModal = (cell) => {
-      const img = $('img', cell);
-      const title = $('h3', cell);
-      const panelImg = $('#cg-lb-img', modal);
-      const caption = $('#cg-lb-caption', modal);
-      const index = $('#cg-lb-index', modal);
-
-      panelImg.src = img ? img.getAttribute('src') : '';
-      panelImg.alt = title ? title.textContent.trim() : 'Preview';
-      caption.textContent = title ? title.textContent.trim() : '';
-
-      const idx = Number(cell.dataset.cgIndex || '0') + 1;
-      index.textContent = `Item ${idx} of ${cells.length}`;
-
-      modal.style.display = 'flex';
-      // trigger transition
-      requestAnimationFrame(() => {
-        modal.classList.add('cg-open');
-        const backdrop = $('#cg-lb-backdrop', modal);
-        const panel = $('#cg-lb-panel', modal);
-        backdrop.style.opacity = '1';
-        panel.style.transform = 'translateY(0) scale(1)';
-        panel.style.opacity = '1';
-      });
-    };
-
-    cells.forEach((cell) => {
-      cell.addEventListener('click', () => openModal(cell));
-      cell.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openModal(cell);
-        }
-      });
-    });
-  }
-
-  // --------- Update dark/light mode
-  function wireModeToggle() {
-    const btn = ensureModeToggle();
-    const root = document.body;
-
-    // default: keep existing background (light)
-    const apply = (mode) => {
-      if (mode === 'dark') {
-        root.style.background = '#070b10';
-        root.style.color = 'white';
-        // cells
-        $$('.cell').forEach((cell) => {
-          cell.style.boxShadow = '0 16px 40px rgba(0,0,0,0.45)';
-          const img = $('img', cell);
-          if (img) img.style.filter = 'saturate(1.1) contrast(1.05) brightness(0.95)';
-        });
-        $('.footer')?.style && (document.querySelector('.footer').style.background = '#0a0f14');
-      } else {
-        root.style.background = '#f5f7fa';
-        root.style.color = 'inherit';
-        $$('.cell').forEach((cell) => {
-          const img = $('img', cell);
-          if (img) img.style.filter = '';
-        });
-      }
-    };
-
-    let mode = 'light';
-    btn.addEventListener('click', () => {
-      mode = mode === 'light' ? 'dark' : 'light';
-      apply(mode);
-      btn.textContent = mode === 'dark' ? '🌞 Dark→Light' : '🌗 Mode';
-
-      // Immediate visual pulse
-      btn.style.boxShadow = '0 0 35px rgba(0,255,213,0.25)';
-      setTimeout(() => (btn.style.boxShadow = ''), 450);
-    });
-
-    apply(mode);
-  }
-
-
-      // hide caret flicker after typing
-      setTimeout(() => {
-        caret.style.animation = 'none';
-        caret.style.opacity = '0';
-      }, Math.min(2000, text.length * 35 + 200));
-    ;
-
-    // position above navbar; already fixed
-    run();
-
-    // Floating headings effect
-    overlay.animate(
-      [
-        { transform: 'translateX(-50%) translateY(0px)', filter: 'brightness(1)' },
-        { transform: 'translateX(-50%) translateY(-6px)', filter: 'brightness(1.25)' },
-        { transform: 'translateX(-50%) translateY(0px)', filter: 'brightness(1)' },
-      ],
-      { duration: 2100, iterations: Infinity, easing: 'ease-in-out' }
-    );
-  
-
-  // --------- Smooth reveal + gallery entrance
-  function doStaggerReveal() {
-    animateEntrance();
-
-    // Secondary reveal: quick fade of h3 labels when in view
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const cell = entry.target;
-            const title = $('h3', cell);
-            if (title) {
-              title.style.transition = 'transform .55s cubic-bezier(.2,.8,.2,1), opacity .55s ease, box-shadow .55s ease';
-              title.style.transform = 'translateY(0px)';
-              title.style.opacity = '1';
-              title.style.boxShadow = '0 0 22px rgba(0,255,213,0.18)';
-            }
-            observer.unobserve(cell);
-          }
-        });
-      }, { threshold: 0.18 });
-
-      $$('.cell').forEach((cell) => {
-        const title = $('h3', cell);
-        if (title) {
-          title.style.opacity = '0';
-          title.style.transform = 'translateY(10px)';
-        }
-        observer.observe(cell);
-      });
     } else {
-      $$('.cell h3').forEach((h) => {
-        h.style.opacity = '1';
-        h.style.transform = 'translateY(0)';
-      });
+      i--;
+      el.textContent = word.slice(0, Math.max(0, i));
+      if (i <= 0) {
+        deleting = false;
+        w = (w + 1) % words.length;
+      }
     }
+
+    setTimeout(step, deleting ? 28 : speed);
   }
 
-  // --------- Cinematic modal opening: extra close animation is handled by remove/hide.
-  // --------- Init
-  window.addEventListener('DOMContentLoaded', () => {
-    // Remove any accidental external loader (if present)
-    // Start overlay loading for immediate visible effect
-    runLoader();
+  setTimeout(step, 650);
+}
 
-    wireTyping();
-    wireModeToggle();
-    ensureGlow();
-    ensureLightbox();
-    prepareCells();
-    wireHover3D();
-    wireLightbox();
-    wireParallax();
-    doStaggerReveal();
+// -------------------------
+// Dark/Light toggle (localStorage)
+// -------------------------
+function ensureThemeToggle() {
+  if ($("#cg-mode-toggle")) return;
 
-    // Ensure cinematic hover glow on scroll too
-    if (!prefersReduced) {
-      window.addEventListener('mousemove', (ev) => {
-        const gx = Math.round((ev.clientX / window.innerWidth) * 100);
-        const gy = Math.round((ev.clientY / window.innerHeight) * 100);
-        document.documentElement.style.setProperty('--x', gx + '%');
-        document.documentElement.style.setProperty('--y', gy + '%');
-      }, { passive: true });
-    }
+  const btn = document.createElement("button");
+  btn.id = "cg-mode-toggle";
+  btn.type = "button";
+  btn.innerHTML = "🌗";
 
-    // Hide typing overlay after a bit (still animated)
-    setTimeout(() => {
-      const overlay = $('#cg-typing-overlay');
-      if (overlay) overlay.style.opacity = '0.98';
-    }, 2600);
+  btn.style.cssText = `
+    position:fixed;
+    top:18px;
+    right:18px;
+    z-index:99999;
+    padding:12px 16px;
+    border:none;
+    border-radius:16px;
+    background: rgba(0,255,213,.92);
+    color:black;
+    font-weight:950;
+    cursor:pointer;
+    box-shadow: 0 18px 70px rgba(0,0,0,.45);
+    transition: transform .15s ease;
+  `;
+
+  document.body.appendChild(btn);
+  return btn;
+}
+
+function applyTheme(mode) {
+  const dark = mode === "dark";
+  document.body.classList.toggle("cg-dark", dark);
+
+  const btn = $("#cg-mode-toggle");
+  if (btn) btn.innerHTML = dark ? "☀️" : "🌗";
+
+  // also adjust loader text contrast quickly
+  document.body.style.transition = "background .35s ease, color .35s ease";
+}
+
+function wireThemeToggle() {
+  const btn = ensureThemeToggle();
+  const stored = localStorage.getItem("cg-theme") || "light";
+  applyTheme(stored);
+
+  let current = stored;
+  btn.addEventListener("click", () => {
+    current = current === "dark" ? "light" : "dark";
+    localStorage.setItem("cg-theme", current);
+    applyTheme(current);
+
+    // ripple-ish feedback
+    btn.style.transform = "scale(0.98)";
+    setTimeout(() => (btn.style.transform = "scale(1)"), 120);
+  });
+}
+
+// -------------------------
+// Card hover tilt + magnetic + glow border
+// -------------------------
+function setupCards() {
+  const cards = $$(".cell");
+
+  cards.forEach((card, idx) => {
+    card.classList.add("cg-card-glow", "cg-ready");
+    card.classList.add("cg-reveal");
+
+    // Better cursor on hover
+    card.style.willChange = "transform";
+
+    // Mouse tilt + magnetic attraction
+    card.addEventListener("mousemove", (ev) => {
+      const rect = card.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (ev.clientX - cx) / rect.width; // -0.5..0.5 approx
+      const dy = (ev.clientY - cy) / rect.height;
+
+      const rotY = dx * 26; // strong
+      const rotX = -dy * 22;
+      const lift = -10;
+      const magnetX = dx * 10;
+      const magnetY = dy * 8;
+
+      card.style.transform = `
+        translate3d(${magnetX}px, ${magnetY + lift}px, 0)
+        perspective(900px)
+        rotateX(${rotX}deg)
+        rotateY(${rotY}deg)
+        scale(1.06)
+      `;
+
+      // subtle shadow glow
+      card.style.borderColor = "rgba(0,255,213,.38)";
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "translate3d(0,0,0)";
+      card.style.borderColor = "rgba(255,255,255,.06)";
+    });
+
+    // Ripple on click (and open modal)
+    card.addEventListener("click", (ev) => {
+      createRipple(card, ev);
+      openModalFromCard(card);
+    });
+
+    // Ensure keyboard navigation as well
+    card.setAttribute("role", "button");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("aria-label", (card.querySelector("h3")?.textContent || "Country").trim());
+
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        createRipple(card, e);
+        openModalFromCard(card);
+      }
+    });
   });
 
+  // Stagger reveal immediately
+  const cardsArr = cards;
+  cardsArr.forEach((card, i) => {
+    const delay = prefersReducedMotion ? 0 : i * 25;
+    setTimeout(() => {
+      card.classList.add("cg-show");
+    }, delay);
+  });
+}
+
+function createRipple(card, ev) {
+  const rect = card.getBoundingClientRect();
+  const clientX = ev.clientX || (rect.left + rect.width / 2);
+  const clientY = ev.clientY || (rect.top + rect.height / 2);
+
+  const r = document.createElement("span");
+  r.className = "cg-ripple";
+
+  const size = 18 + Math.random() * 8;
+  r.style.width = size + "px";
+  r.style.height = size + "px";
+  r.style.left = (clientX - rect.left) + "px";
+  r.style.top = (clientY - rect.top) + "px";
+
+  card.appendChild(r);
+  r.addEventListener("animationend", () => r.remove());
+}
+
+// -------------------------
+// Parallax scrolling on cards
+// -------------------------
+function wireParallax() {
+  const imgs = $$(".cell img");
+  if (!imgs.length) return;
+
+  let raf = 0;
+  window.addEventListener("scroll", () => {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = 0;
+      const y = window.scrollY;
+      imgs.forEach((img) => {
+        const rect = img.getBoundingClientRect();
+        const inView = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
+        const t = inView / window.innerHeight;
+        img.style.transform = `translateY(${y * 0.015}px) scale(${1.02 + t * 0.18})`;
+      });
+    });
+  }, { passive: true });
+}
+
+// -------------------------
+// Country modal (click open, next/prev, keyboard)
+// -------------------------
+let modalState = {
+  open: false,
+  index: 0,
+  cards: []
+};
+
+function ensureModal() {
+  if ($("#cg-country-modal")) return;
+
+  const modal = document.createElement("div");
+  modal.id = "cg-country-modal";
+  modal.setAttribute("aria-hidden", "true");
+
+  modal.innerHTML = `
+    <div id="cg-modal-backdrop" data-close></div>
+
+    <div id="cg-country-panel" role="dialog" aria-modal="true" aria-label="Country preview">
+      <div id="cg-modal-panel-glow" aria-hidden="true"></div>
+      <button id="cg-modal-close" type="button" aria-label="Close">×</button>
+
+      <div id="cg-modal-left">
+        <img id="cg-modal-img" alt="" />
+      </div>
+
+      <div id="cg-modal-right">
+        <div id="cg-modal-title">Country</div>
+        <div class="cg-modal-sub" id="cg-modal-desc">Description</div>
+
+        <div id="cg-modal-badges">
+          <div class="cg-badge">Cinematic</div>
+          <div class="cg-badge">Premium</div>
+          <div class="cg-badge">Interactive</div>
+        </div>
+
+        <div id="cg-modal-nav">
+          <button class="cg-navbtn" id="cg-modal-prev" type="button">← Previous</button>
+          <button class="cg-navbtn" id="cg-modal-next" type="button">Next →</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  // Close interactions
+  modal.addEventListener("click", (e) => {
+    const target = e.target;
+    if (target && target.getAttribute("data-close") !== null) {
+      closeModal();
+    }
+  });
+
+  $("#cg-modal-close").addEventListener("click", closeModal);
+
+  // Stop clicks inside panel
+  $("#cg-country-panel").addEventListener("click", (e) => e.stopPropagation());
+
+  // Next/prev
+  $("#cg-modal-next").addEventListener("click", () => moveModal(1));
+  $("#cg-modal-prev").addEventListener("click", () => moveModal(-1));
+
+  // Keyboard
+  document.addEventListener("keydown", (e) => {
+    if (!modalState.open) return;
+
+    if (e.key === "Escape") {
+      e.preventDefault();
+      closeModal();
+      return;
+    }
+
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      moveModal(1);
+      return;
+    }
+
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      moveModal(-1);
+      return;
+    }
+  });
+}
+
+function normalizeDescription(countryName) {
+  // Beginner-friendly: short modern description generated from name.
+  return `${countryName} is a place where landscapes, culture, and stories come together. Click Next/Previous to explore more countries in a cinematic preview.`;
+}
+
+function openModalFromCard(card) {
+  ensureModal();
+  const cards = $$(".cell");
+  modalState.cards = cards;
+
+  const idx = cards.indexOf(card);
+  if (idx >= 0) modalState.index = idx;
+
+  const img = card.querySelector("img");
+  const titleEl = card.querySelector("h3");
+  const title = (titleEl?.textContent || "Country").trim();
+
+  const modal = $("#cg-country-modal");
+  const panelImg = $("#cg-modal-img");
+  const panelTitle = $("#cg-modal-title");
+  const panelDesc = $("#cg-modal-desc");
+
+  panelImg.src = img ? img.src : "";
+  panelImg.alt = title;
+  panelTitle.textContent = title;
+  panelDesc.textContent = normalizeDescription(title);
+
+  // Cinematic open
+  modalState.open = true;
+  modal.classList.add("cg-open");
+  modal.setAttribute("aria-hidden", "false");
+
+  // Focus close for accessibility
+  setTimeout(() => $("#cg-modal-close")?.focus(), 60);
+
+  // Small interaction zoom flash
+  const left = $("#cg-modal-left");
+  left && (left.style.transform = "translateY(-1px) scale(1.005)");
+  setTimeout(() => left && (left.style.transform = ""), 220);
+}
+
+function closeModal() {
+  const modal = $("#cg-country-modal");
+  if (!modal) return;
+
+  modalState.open = false;
+  modal.classList.remove("cg-open");
+  modal.setAttribute("aria-hidden", "true");
+}
+
+function moveModal(delta) {
+  if (!modalState.cards.length) return;
+  modalState.index = (modalState.index + delta + modalState.cards.length) % modalState.cards.length;
+  openModalFromCard(modalState.cards[modalState.index]);
+}
+
+// -------------------------
+// Small extra: cinematic floating shadows on cards
+// -------------------------
+function wireFloatingGallery() {
+  const cards = $$(".cell");
+  if (!cards.length || prefersReducedMotion) return;
+
+  let t = 0;
+  function loop() {
+    t += 0.016;
+    cards.forEach((c, i) => {
+      // only when not actively hovered
+      if (c.matches(":hover")) return;
+      const wobble = Math.sin(t + i * 0.18) * 1.2;
+      const lift = -3 + wobble;
+      c.style.filter = `drop-shadow(0 ${lift}px 18px rgba(0,0,0,.25))`;
+    });
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+}
+
+// -------------------------
+// INIT
+// -------------------------
+window.addEventListener("DOMContentLoaded", () => {
+  runLoader();
+  startParticles();
+  ensureSpotlight();
+
+  ensureHeroTyping();
+  wireThemeToggle();
+
+  setupCards();
+  ensureModal();
+
+  wireParallax();
+  wireFloatingGallery();
+
+  // Make sure modal close button doesn't get left behind
+  // (no-op, just ensuring element exists)
+});
 </script>
 
 </body>
