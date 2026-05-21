@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Art Galleries</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0a0a0a;
+      color: #f1f1f1;
+      line-height: 1.6;
+    }
+
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-bg {
+        z-index: -1;
+        height: 100vh;
+        width: 100%;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      padding: 0 20px;
+    }
+
+    .hero h1 {
+      font-size: 4.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #0c0707, #5b5b5b);
+      z-index: 2;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      overflow: hidden;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      opacity: 0.9;
+      margin-bottom: 40px;
+      z-index: 2;
+      position: absolute;
+      top: 65%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .cta-btn {
+      padding: 18px 52px;
+      font-size: 1.25rem;
+      background: transparent;
+      color: white;
+      border: 3px solid white;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.4s ease-in;
+      position: absolute;
+      top: 75%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .cta-btn:hover {
+        background-color: #ab45cd;
+        scroll-behavior: smooth;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 3rem;
+      margin: 100px 0 70px;
+      color: #ddd;
+    }
+    .galleries-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 30px;
+      padding: 0 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .gallery-card {
+      background: #111;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      transition: all 0.5s ease;
+      position: relative;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-20px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+    }
+
+    .gallery-card:hover img {
+      transform: translate3d(3px);
+    }
+
+    .gallery-info {
+      padding: 28px;
+    }
+
+    .gallery-info h3 {
+      font-size: 1.65rem;
+      margin-bottom: 8px;
+    }
+
+    .location {
+      color: #a5b4fc;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+
+    .description {
+      color: #ccc;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+
+    .visit-btn {
+      background: #e0e0e0;
+      color: #0a0a0a;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .visit-btn:hover {
+      background: #fff;
+    }
+    .footer {
+      background: #111;
+      padding: 80px 5% 50px;
+      text-align: center;
+      margin-top: 120px;
+    }
+
+    .footer h2 {
+      font-size: 2.4rem;
+      margin-bottom: 20px;
+    }
+
+    .cities {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin: 40px 0;
+    }
+
+    .city-tag {
+      background: #1f1f1f;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 1.15rem;
+    }
+
+    .scroll-btn{
+        padding: 12px;
+        text-decoration: none;
+        border: 2px solid #868686;
+        background-color: #f5f5f5;
+        border-radius: 25px;
+        color: #090606;
+        margin-left: 97%;
+    }
+
+    .headd {
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        margin-top: 12%;
+        text-shadow: 0 0 50px black;
+      }
+
+    .nav_item {
+        list-style: none;
+        display: inline-block;
+        padding: 20px;
+        font-size: 30px;
+        text-shadow: 0 0 20px black;
+        pointer-events: auto;
+      }
+
+    .nav_item a {
+        text-decoration: none;
+        color: white;
+        }
+
+    .nav {
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        }
+ 
+    .nav-container{
+        list-style: none;
+        display: flex;
+        justify-content: center;
+
+        }
+    .dropdown{
+        position:relative;
+}
+    .dropbtn{
+        cursor:pointer;
+        padding-bottom:20px;
+}
+    .dropdown-content{
+        display:none;
+        position:absolute;
+        top:80%;
+        left:0;
+        z-index:9999;
+        background:rgba(0, 0, 0, 0.5);
+        min-width:220px;
+        border-radius:3px;
+        box-shadow:0 5px 20px rgba(0,0,0,0.12)
+}
+.dropdown-content a{
+    padding:12px;
+    display:block;
+    text-decoration:none;
+    font-size:15px;
+    border-bottom:1px solid white;
+    font-size: 16px;
+    font-weight: 600;
+}
+.dropdown-content a:hover{
+    background:rgba(0, 0, 0, 0.5);
+}
+.dropdown:hover .dropdown-content{
+    display:block;
+}
+    </style>
+</head>
+
+<body>
+          <div class="heading">
+            <nav class="nav">
+                <ul class="nav-container">
+                    <li class="nav_item"><a href="index.html"><b>Home</b></a></li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Destinations</b></a>
+                    <div class="dropdown-content">
+                        <a href="africa.html">Africa </a>
+                        <a href="asia.html">Asia </a>
+                        <a href="america.html">America </a>
+                        <a href="europe.html">Europe </a>
+                        <a href="carribean.html">Carribean </a>
+                    </div>
+                </li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Categories</b></a>
+                    <div class="dropdown-content">
+                        <a href="beaches.html">Beach</a>
+                        <a href="mountains.html">Mountains</a>
+                        <a href="wildlife.html">Wildlife</a>
+                        <a href="desert.html">Desert</a>
+                        <a href="waterfall.html">Waterfall</a>
+                        <a href="volcanos.html">Volcanoes</a>
+                        <a href="monuments.html">Monuments</a>
+                    </div></li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Gallery</b></a>
+                    <div class="dropdown-content">
+                      <a href="artgallery.html">Art Gallery</a>
+                      <a href="imagegallery.html">Image Gallery</a>
+
+                    </div></li>
+                    <li class="nav_item"><a href="contact.html"><b>Contact us</b></a></li>
+                    <li class="nav_item"><a href="aboutus.html"><b>About us</b></a></li>
+                </ul>
+              </nav>
+  <section class="hero" id="heroo">
+    <video autoplay muted loop class="hero-bg">
+  <source src="gallery.mp4" type="video/mp4">
+    </video>
+    <div class="hero-content">
+      <h1>Galleries</h1>
+      <p>Discover the world's most extraordinary art galleries</p>
+      <button class="cta-btn"><a href="#galleries">
+        Explore Global Galleries</a>
+      </button>
+    </div>
+  </section>
+  <section class="section" id="galleries">
+    <h2 class="section-title">Iconic Galleries Around the World</h2>
+
+    <div class="galleries-grid">
+      <div class="gallery-card">
+        <img src="louvre.jpeg" alt="The Louvre">
+        <div class="gallery-info">
+          <h3>The Louvre</h3>
+          <div class="location">Paris, France</div>
+          <p class="description">Home to the Mona Lisa and thousands of masterpieces spanning centuries.</p>
+          <div class="details">
+            <span>Since 1793 • 38,000+ artworks</span>
+            <button class="visit-btn">Plan Visit</button>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img src="met.jpeg" alt="The Met">
+        <div class="gallery-info">
+          <h3>The Metropolitan Museum of Art</h3>
+          <div class="location">New York, USA</div>
+          <p class="description">One of the world's largest art museums with over 2 million works.</p>
+          <div class="details">
+            <span>Since 1870 • 2M+ artworks</span>
+            <button class="visit-btn">Plan Visit</button>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img src="tate.jpeg" alt="Tate Modern">
+        <div class="gallery-info">
+          <h3>Tate Modern</h3>
+          <div class="location">London, United Kingdom</div>
+          <p class="description">World-renowned modern and contemporary art in a historic power station.</p>
+          <div class="details">
+            <span>Since 2000 • Contemporary focus</span>
+            <button class="visit-btn">Plan Visit</button>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img src="uffizi.jpeg" alt="Uffizi Gallery">
+        <div class="gallery-info">
+          <h3>Uffizi Gallery</h3>
+          <div class="location">Florence, Italy</div>
+          <p class="description">One of the oldest and most famous art museums in the Western world.</p>
+          <div class="details">
+            <span>Since 1581 • Renaissance treasures</span>
+            <button class="visit-btn">Plan Visit</button>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img src="tokyo.jpeg" alt="Tokyo National Museum">
+        <div class="gallery-info">
+          <h3>Tokyo National Museum</h3>
+          <div class="location">Tokyo, Japan</div>
+          <p class="description">Japan's oldest and largest museum showcasing Asian art and history.</p>
+          <div class="details">
+            <span>Since 1872 • Extensive Asian collection</span>
+            <button class="visit-btn">Plan Visit</button>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img src="modern.jpeg" alt="National Gallery of Modern Art">
+        <div class="gallery-info">
+          <h3>National Gallery of Modern Art</h3>
+          <div class="location">Mumbai, India</div>
+          <p class="description">Showcasing modern and contemporary Indian art in a heritage building.</p>
+          <div class="details">
+            <span>Since 1954 • Indian masters</span>
+            <button class="visit-btn">Plan Visit</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <footer class="footer">
+    <h2>Art Has No Borders</h2>
+    <p>LUMINA connects art lovers with the finest galleries across continents.</p>
+    
+    <div class="cities">
+      <div class="city-tag">Paris</div>
+      <div class="city-tag">New York</div>
+      <div class="city-tag">London</div>
+      <div class="city-tag">Florence</div>
+      <div class="city-tag">Tokyo</div>
+      <div class="city-tag">Mumbai</div>
+      <div class="city-tag">Sydney</div>
+      <div class="city-tag">Dubai</div>
+    </div>
+
+    <p>©️ 2026 Lumina • Your Gateway to the World's Greatest Art Galleries</p>
+  </footer>
+<a href="#heroo" class="scroll-btn">↑</a>
+</body>
+<script>
+let buttons = document.querySelectorAll(".visit-btn");
+
+buttons.forEach(function(btn){
+
+    btn.addEventListener("click", function(){
+
+        btn.innerHTML = "Visit Planned ✓";
+
+    });
+
+});
+
+let cards = document.querySelectorAll(".gallery-card");
+
+cards.forEach(function(card){
+
+    card.addEventListener("click", function(){
+
+        cards.forEach(function(c){
+            c.style.border = "none";
+        });
+
+        card.style.border = "3px solid gold";
+
+        let galleryName =
+        card.querySelector("h3").innerHTML;
+
+        alert("Selected Gallery: " + galleryName);
+
+    });
+
+});
+
+let cities = document.querySelectorAll(".city-tag");
+
+cities.forEach(function(city){
+
+    city.addEventListener("click", function(){
+
+        let colors = [
+            "crimson",
+            "royalblue",
+            "green",
+            "orange",
+            "purple"
+        ];
+
+        let random =
+        Math.floor(Math.random() * colors.length);
+
+        city.style.backgroundColor =
+        colors[random];
+
+    });
+
+});
+
+</script>
+</html>
