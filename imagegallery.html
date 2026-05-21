@@ -918,34 +918,13 @@ margin-top:40px;
     apply(mode);
   }
 
-  // --------- Typing effect
-  function wireTyping() {
-    const overlay = ensureTypingOverlay();
-    const el = $('#cg-typing');
-    const caret = $('#cg-caret');
-
-    const text = '🌍 Premium World Gallery • Hover • Click • Discover';
-    let i = 0;
-    el.textContent = '';
-
-    const run = () => {
-      if (prefersReduced) {
-        el.textContent = text;
-        return;
-      }
-      const step = () => {
-        el.textContent = text.slice(0, i);
-        i++;
-        if (i <= text.length) setTimeout(step, 35);
-      };
-      step();
 
       // hide caret flicker after typing
       setTimeout(() => {
         caret.style.animation = 'none';
         caret.style.opacity = '0';
       }, Math.min(2000, text.length * 35 + 200));
-    };
+    ;
 
     // position above navbar; already fixed
     run();
@@ -959,7 +938,7 @@ margin-top:40px;
       ],
       { duration: 2100, iterations: Infinity, easing: 'ease-in-out' }
     );
-  }
+  
 
   // --------- Smooth reveal + gallery entrance
   function doStaggerReveal() {
