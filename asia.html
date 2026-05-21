@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .head {
+            position: absolute;
+            font-size: 3rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .bg-vid {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .content {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.4);
+            /* display: flex; */
+        }
+
+        .ls {
+            font-size: 40px;
+            /* font-weight: 400; */
+            text-align: center;
+            list-style: none;
+            padding: 30px;
+        }
+
+        .moroccan {
+            margin: 20px;
+            height: 20%;
+            width: 20%;
+            display: inline-block;
+            border-radius: 20px;
+            aspect-ratio: 1/1;
+        }
+
+        .description {
+            font-size: 24px;
+            text-align: center;
+            padding: 15px;
+            line-height: 30px;
+        }
+
+        .ls-content {
+            font-size: 20px;
+            list-style: none;
+            padding: 15px;
+        }
+
+        .element {
+            display: flex;
+            /* flex-direction: column; */
+        }
+
+        .ls-head {
+            padding: 20px;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .cards {
+            text-align: center;
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .images {
+            align-items: center;
+            align-self: center;
+            justify-content: center;
+            display: flex;
+        }
+
+        hr {
+            width: 70%;
+            margin: auto;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* .nav_item {
+            list-style: none;
+            display: inline-block;
+            padding: 20px;
+            font-size: 30px;
+            justify-content: center;
+            text-shadow: 0 0 20px black;
+            pointer-events: auto;
+            position: fixed;
+        }
+
+        .nav_item a {
+            text-decoration: none;
+            color: white;
+            position: fixed;
+        }
+
+        .nav {
+            justify-content: center;
+            position: fixed;
+        }
+        nav{
+            position: fixed;
+        }
+
+        .nav_container {
+            list-style: none;
+            position: fixed;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropbtn {
+            cursor: pointer;
+            padding-bottom: 20px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 80%;
+            left: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.5);
+            min-width: 220px;
+            border-radius: 3px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12)
+        }
+
+        .dropdown-content a {
+            padding: 12px;
+            display: block;
+            text-decoration: none;
+            font-size: 15px;
+            border-bottom: 1px solid white;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .navbar{
+            position:fixed;
+        } */
+
+        .navbar{
+    position: fixed;
+    top:0;
+    width:100%;
+    z-index:1000;
+}
+
+.nav-container{
+    list-style:none;
+    display:flex;
+    justify-content:center;
+    background:rgba(0,0,0,0.5);
+}
+
+.nav_item{
+    padding:20px;
+    font-size:24px;
+}
+
+.nav_item a{
+    text-decoration:none;
+    color:white;
+}
+
+.dropdown{
+    position:relative;
+}
+
+.dropdown-content{
+    display:none;
+    position:absolute;
+    top:60px;
+    background:rgba(0,0,0,0.5);
+    min-width:200px;
+}
+
+.dropdown-content a{
+    display:block;
+    padding:10px;
+}
+
+.dropdown:hover .dropdown-content{
+    display:block;
+}
+        .footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid #ddd;
+            color: #555;
+            font-size: 1.2rem;
+            background: #f8fbff;
+        }
+
+        /* ====== Content enhancements (navbar/footer unchanged) ====== */
+        .element1 {
+            padding: 120px 24px 30px;
+        }
+
+        .cards {
+            background: rgba(10, 10, 10, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+            transform: translateY(14px);
+            opacity: 0;
+            transition: transform 700ms cubic-bezier(.2,.8,.2,1), opacity 700ms ease, box-shadow 300ms ease, border-color 300ms ease;
+            position: relative;
+            overflow: hidden;
+            will-change: transform, opacity;
+        }
+
+        .cards::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 20%), rgba(255,255,255,0.18), transparent 40%);
+            opacity: 0;
+            transition: opacity 300ms ease;
+            pointer-events: none;
+        }
+
+        .cards:hover {
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 26px 70px rgba(0, 0, 0, 0.35);
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .cards:hover::before {
+            opacity: 1;
+        }
+
+        .cards.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .moroccan {
+            margin: 18px;
+            width: clamp(120px, 20vw, 220px);
+            height: clamp(120px, 20vw, 220px);
+            object-fit: cover;
+            border-radius: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+            opacity: 0;
+            transform: translateY(14px) scale(0.98);
+            transition: transform 700ms cubic-bezier(.2,.8,.2,1), opacity 700ms ease;
+            will-change: transform, opacity;
+        }
+
+        .moroccan.reveal {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .moroccan:hover {
+            transform: translateY(-6px) scale(1.03);
+        }
+
+        /* Highlight current visible section title */
+        .ls {
+            position: relative;
+            padding: 30px 22px;
+        }
+
+        .ls::after {
+            content: "";
+            position: absolute;
+            left: 10%;
+            right: 10%;
+            bottom: 12px;
+            height: 3px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(0, 229, 255, 0), rgba(0, 229, 255, 0.9), rgba(0, 229, 255, 0));
+            opacity: 0;
+            transform: scaleX(0.6);
+            transition: opacity 300ms ease, transform 300ms ease;
+        }
+
+        .ls.active::after {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        @media (max-width: 900px) {
+            .card-container { grid-template-columns: 1fr; }
+            .moroccan { width: 42vw; height: 42vw; }
+            .element1 { padding-top: 160px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cards, .moroccan { transition: none; transform: none; opacity: 1; }
+            .cards:hover { transform: none; }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="hero">
+        <div class="navbar">
+        <nav class="nav">
+            <ul class="nav-container">
+                <li class="nav_item"><a href="grid.html"><b>Home</b></a></li>
+                <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Destinations</b></a>
+                    <div class="dropdown-content">
+                        <a href="africa.html">Africa </a>
+                        <a href="asia.html">Asia </a>
+                        <a href="america.html">America </a>
+                        <a href="europe.html">Europe </a>
+                        <a href="carribean.html">Carribean </a>
+                    </div>
+                </li>
+                <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Categories</b></a>
+                    <div class="dropdown-content">
+                        <a href="beaches.html">Beach</a>
+                        <a href="#">Mountains</a>
+                        <a href="wildlife.html">Wildlife</a>
+                        <a href="desert.html">Desert</a>
+                        <a href="#">Waterfall</a>
+                        <a href="#">Volcanoes</a>
+                    </div>
+                </li>
+                <li class="nav_item"><a href="imagegallery.html"><b>Gallery</b></a></li>
+                <li class="nav_item"><a href="contact.html"><b>Contact us</b></a></li>
+                <li class="nav_item"><a href="#"><b>About us</b></a></li>
+            </ul>
+        </nav>
+        </div>
+        <video class="bg-vid" autoplay muted loop playsinline>
+            <source src="img_gagan/eastasia.mp4" type="video/mp4">
+        </video>
+        <div class="head">
+            <h1 class="heading"><b>Asia</b></h1>
+        </div>
+    </section>
+    <section class="content">
+        <section class="element1">
+            <ul class="list1">
+                <b>
+                    <li class="ls">India</li>
+                </b>
+                <p class="description">India is a vast and diverse country in South Asia, known for its rich
+                    history,<br>
+                    cultures, traditions, and landscapes ranging from mountains to beaches.</p>
+                <hr>
+                <div class="card-container">
+                    <div class="cards">
+                        <ul class="nested-ls1">
+                            <h1 class="ls-head">Famous Cities</h1>
+                            <li class="ls-content">New Delhi – Capital city with historical monuments</li>
+
+                            <li class="ls-content">Mumbai – Financial capital and city of dreams</li>
+
+                            <li class="ls-content">Jaipur – Pink City known for palaces and forts</li>
+
+                            <li class="ls-content">Varanasi – One of the oldest spiritual cities</li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls2">
+                            <h1 class="ls-head">Popular Attractions</h1>
+                            <li class="ls-content">Taj Mahal – One of the Seven Wonders</li>
+
+                            <li class="ls-content">Qutub Minar – Historic monument</li>
+                            <li class="ls-content">The Himalayas in the north</li>
+
+                            <li class="ls-content">Beaches in Goa and Kerala</li>
+
+                            <li class="ls-content">Forests, deserts, and rivers across the country</li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls3">
+                            <h1 class="ls-head">Indian Food</h1>
+
+                            <li class="ls-content">Diverse cuisines with spices </li>
+
+                            <li class="ls-content">Popular dishes: curry, biryani, dosa</li>
+
+                            <li class="ls-content">Street food culture is very famous</li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls3">
+                            <h1 class="ls-head">Culture And Lifestyle</h1>
+
+                            <li class="ls-content">Many religions, languages, and traditions</li>
+                            <li class="ls-content">Festivals like Diwali and Holi </li>
+                            <li class="ls-content">Rich heritage and traditions</li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls3">
+                            <h1 class="ls-head">Why Visit India?</h1>
+
+                            <li class="ls-content">Cultural diversity </li>
+                            <li class="ls-content">Historical monuments </li>
+                            <li class="ls-content">Variety of landscapes</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="images">
+                    <img src="img_gagan/india1.jpg" class="moroccan">
+                    <img src="img_gagan/india2.jpg" class="moroccan">
+                    <img src="img_gagan/india3.jpg" class="moroccan">
+                </div>
+        </section>
+        <b>
+            <li class="ls">Bhutan</li>
+        </b>
+        <p class="description">Bhutan is a peaceful country in the Himalayas, known for its<br>
+            natural beauty, monasteries, and happiness-focused lifestyle.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Thimphu – Capital city</li>
+
+                    <li class="ls-content">Paro – Known for monasteries and airport</li>
+
+                    <li class="ls-content">Punakha – Famous for its dzong</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Tiger's Nest Monastery– Cliffside monastery</li>
+
+                    <li class="ls-content">Punakha Dzong – Beautiful fortress</li>
+
+
+                    <li class="ls-content">Mountain landscapes of the Himalayas</li>
+
+                    <li class="ls-content">Rivers, forests, and valleys</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Bhutanese Food</h1>
+                    <li class="ls-content">Ema Datshi (chili and cheese dish)</li>
+
+                    <li class="ls-content">Rice-based meals</li>
+
+                    <li class="ls-content">Simple and traditional food</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Culture and Lifestyle</h1>
+                    <li class="ls-content">Strong Buddhist traditions</li>
+                    <li class="ls-content">Focus on Gross National Happiness </li>
+                    <li class="ls-content">Peaceful and eco-friendly lifestyle</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Bhutan?</h1>
+                    <li class="ls-content">Peaceful environment</li>
+                    <li class="ls-content">Stunning mountains</li>
+                    <li class="ls-content">Unique culture</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/bhutan2.jpg" class="moroccan">
+            <img src="img_gagan/bhutan3.jpg" class="moroccan">
+            <img src="img_gagan/bhutan1.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Nepal</li>
+        </b>
+        <p class="description">Nepal is a beautiful country in South Asia, known for mountains, culture, and<br>
+            adventure. It is home to the highest peak in the world.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Kathmandu – Capital city with temples</li>
+
+                    <li class="ls-content">Pokhara – Scenic city with lakes and mountains</li>
+
+                    <li class="ls-content">Lumbini – Birthplace of Buddha</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Everest Base Camp trek</li>
+
+                    <li class="ls-content"> Temples and monasteries</li>
+                    <li class="ls-content">Home to Mount Everest </li>
+
+                    <li class="ls-content">Himalayas, valleys, and rivers</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Nepali Food</h1>
+                    <li class="ls-content">Dal Bhat (lentils and rice) </li>
+
+                    <li class="ls-content">Momos (dumplings)</li>
+
+                    <li class="ls-content">Simple and healthy meals</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Culture and Lifestyle</h1>
+                    <li class="ls-content">Mix of Hindu and Buddhist traditions</li>
+                    <li class="ls-content">Rich festivals and heritage</li>
+                    <li class="ls-content">Friendly people</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Nepal?</h1>
+                    <li class="ls-content">Adventure trekking </li>
+                    <li class="ls-content">Spiritual experience </li>
+                    <li class="ls-content">Beautiful mountain views</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/nepal3.jpg" class="moroccan">
+            <img src="img_gagan/nepal2.jpg" class="moroccan">
+            <img src="img_gagan/nepal 1.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Maldives</li>
+        </b>
+        <p class="description">Maldives is a tropical island country in the Indian Ocean, famous for its<br>
+            crystal-clear waters, luxury resorts, and white sandy beaches.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Male – Capital city</li>
+
+                    <li class="ls-content">Private islands and resorts</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Snorkeling and scuba diving</li>
+
+                    <li class="ls-content">Water villas and luxury resorts</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Bhutanese Food</h1>
+                    <li class="ls-content">Seafood dishes </li>
+
+                    <li class="ls-content">Coconut-based curries</li>
+
+                    <li class="ls-content">Rice and fish staples</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Culture and Lifestyle</h1>
+                    <li class="ls-content">Relaxed island lifestyle</li>
+                    <li class="ls-content">Influenced by South Asian and Arab cultures</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Maldives?</h1>
+                    <li class="ls-content">Perfect for honeymoon</li>
+                    <li class="ls-content">Luxury and relaxation</li>
+                    <li class="ls-content">Beautiful ocean views</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/maldives1.jpg" class="moroccan">
+            <img src="img_gagan/maldives4.jpg" class="moroccan">
+            <img src="img_gagan/maldives3.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">China</li>
+        </b>
+        <p class="description">China is one of the oldest civilizations in the world, located in East Asia,
+            known for <br>
+            its rich history, massive population, and rapid modern development.</p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Beijing – Capital city with historic landmarks</li>
+                    <li class="ls-content">Shanghai – Modern financial hub</li>
+                    <li class="ls-content">Xi'an – Famous for ancient history</li>
+                    <li class="ls-content">Guangzhou – Major trade and cultural center</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Great Wall Of China – One of the Seven Wonders</li>
+                    <li class="ls-content">Forbidden City – Imperial palace</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Chinese Food</h1>
+
+                    <li class="ls-content">Noodles, dumplings, rice dishes</li>
+                    <li class="ls-content">Regional cuisines like Sichuan (spicy)</li>
+                    <li class="ls-content">Famous worldwide</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Culture And Lifestyle</h1>
+
+                    <li class="ls-content">Ancient traditions and festivals</li>
+                    <li class="ls-content">Influenced by Confucianism and history</li>
+                    <li class="ls-content">Blend of traditional and modern life</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Why Visit China?</h1>
+
+                    <li class="ls-content">Rich history and culture </li>
+                    <li class="ls-content">Famous landmarks </li>
+                    <li class="ls-content">Modern cities and traditions</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/china1.jpg" class="moroccan">
+            <img src="img_gagan/china2.jpg" class="moroccan">
+            <img src="img_gagan/china3.jpg" class="moroccan">
+        </div>
+
+        <b>
+            <li class="ls">Japan</li>
+        </b>
+        <p class="description">Japan is an island country in East Asia, known for its mix <br>
+            of modern technology and traditional culture.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Tokyo – Capital city with modern lifestyle</li>
+                    <li class="ls-content">Kyoto – Known for temples and traditions</li>
+                    <li class="ls-content">Osaka – Famous for food and nightlife</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Mount Fuji– Iconic mountain </li>
+                    <li class="ls-content">Fushimi Inari Shrine – Famous torii gates</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Japanese Food</h1>
+                    <li class="ls-content">Sushi , ramen , tempura</li>
+                    <li class="ls-content">Fresh seafood and simple flavors</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Culture and Lifestyle</h1>
+                    <li class="ls-content">Respect, discipline, and tradition</li>
+                    <li class="ls-content">Blend of ancient culture and modern life</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Japan?</h1>
+                    <li class="ls-content">Unique culture</li>
+                    <li class="ls-content">Beautiful nature</li>
+                    <li class="ls-content">Advanced technology</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/japan1.jpg" class="moroccan">
+            <img src="img_gagan/japan2.jpg" class="moroccan">
+            <img src="img_gagan/japan3.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Mongolia</li>
+        </b>
+        <p class="description">Mongolia is a vast and sparsely populated country in East Asia,<br>
+            known for its open landscapes, nomadic culture, and history.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Ulaanbaatar – Capital city</li>
+                    <li class="ls-content">Darkhan – Industrial city</li>
+                    <li class="ls-content">Erdenet – Mining city</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Gobi Desert – Vast desert landscape</li>
+                    <li class="ls-content">National parks and open countryside</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Mongolian Food</h1>
+                    <li class="ls-content">Meat-based dishes</li>
+                    <li class="ls-content">Dairy products</li>
+                    <li class="ls-content">Simple traditional meals</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Culture and Lifestyle</h1>
+                    <li class="ls-content">Nomadic lifestyle</li>
+                    <li class="ls-content">Rich traditions and festivals</li>
+                    <li class="ls-content">Influenced by history of Genish Khan</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Mongolia?</h1>
+                    <li class="ls-content">Unique nomadic culture</li>
+                    <li class="ls-content">Wide open landscapes</li>
+                    <li class="ls-content">Adventure and exploration</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/mongolia1.jpg" class="moroccan">
+            <img src="img_gagan/mongolia2.jpg" class="moroccan">
+            <img src="img_gagan/mongolia3.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Taiwan</li>
+        </b>
+        <p class="description">Taiwan is an island country in East Asia, known for its <br>
+            modern cities, night markets, and scenic landscapes
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Taipei– Capital city with modern attractions</li>
+                    <li class="ls-content">Kaohsiung – Port city with cultural spots</li>
+                    <li class="ls-content">Taichung – Known for art and markets</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Taiepi 101– Iconic skyscraper</li>
+                    <li class="ls-content">Night markets and temples</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Taiwanese Food</h1>
+                    <li class="ls-content">Street food culture</li>
+                    <li class="ls-content">Bubble tea</li>
+                    <li class="ls-content">Dumplings and noodles</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Culture and Lifestyle</h1>
+                    <li class="ls-content">Blend of Chinese traditions and modern lifestyle</li>
+                    <li class="ls-content">Friendly and vibrant culture</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Taiwan?</h1>
+                    <li class="ls-content">Amazing street food</li>
+                    <li class="ls-content">Modern cities and nature</li>
+                    <li class="ls-content">Friendly atmosphere</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/taiwan1.jpg" class="moroccan">
+            <img src="img_gagan/taiwan2.jpg" class="moroccan">
+            <img src="img_gagan/taiwan3.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Brunei</li>
+        </b>
+        <p class="description">Brunei is a small but wealthy country in Southeast Asia, known for<br>
+            its rich oil reserves, peaceful environment, and Islamic culture.</p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Bandar Seri Begawan – Capital city with grand mosques</li>
+                    <li class="ls-content">Kuala Belait – Important oil town</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Sultan Omar Ali Saifuddien Mosque – Iconic mosque</li>
+                    <li class="ls-content">Water villages (Kampong Ayer)</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Bruneian Food</h1>
+
+                    <li class="ls-content">Rice-based dishes</li>
+                    <li class="ls-content">Seafood and Malay cuisine </li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Culture And Lifestyle</h1>
+
+                    <li class="ls-content">Strong Islamic traditions</li>
+                    <li class="ls-content">Calm and peaceful lifestyle</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Why Visit Brunei?</h1>
+
+                    <li class="ls-content">Peaceful and clean country</li>
+                    <li class="ls-content">Beautiful mosques</li>
+                    <li class="ls-content">Unique culture</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/brunei1.jpg" class="moroccan">
+            <img src="img_gagan/brunei2.jpg" class="moroccan">
+            <img src="img_gagan/brunei3.jpg" class="moroccan">
+        </div>
+        <b>
+            <li class="ls">Cambodia</li>
+        </b>
+        <p class="description">Cambodia is a historic country in Southeast Asia, known for <br>
+            ancient temples and rich culture.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Phnom Penh – Capital city</li>
+                    <li class="ls-content">Siem Reap – Gateway to Angkor temples</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Angkor War – Largest religious monument in the world</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Cambodian Food</h1>
+                    <li class="ls-content">Rice and fish dishes</li>
+                    <li class="ls-content">Mild flavors and soups</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Culture and Lifestyle</h1>
+                    <li class="ls-content">Deep historical heritage</li>
+                    <li class="ls-content">Influenced by ancient Khmer civilization</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Cambodia?</h1>
+                    <li class="ls-content">Ancient temples</li>
+                    <li class="ls-content">Rich history</li>
+                    <li class="ls-content">Affordable travel</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/cambodia1.jpg" class="moroccan">
+            <img src="img_gagan/cambodia2.jpg" class="moroccan">
+            <img src="img_gagan/cambodia3.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Indonesia</li>
+        </b>
+        <p class="description">Indonesia is a large island country in Southeast Asia, known<br>
+            for beaches, volcanoes, and diverse culture.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Jakarta – Capital city</li>
+                    <li class="ls-content">Bali – Popular tourist island</li>
+                    <li class="ls-content">Yogyakarta – Cultural center</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Borobudur – Ancient Buddhist temple
+                    <li class="ls-content">Bali beaches</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Indonesian Food</h1>
+                    <li class="ls-content">Nasi Goreng (fried rice) </li>
+                    <li class="ls-content">Satay (grilled meat) </li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Culture and Lifestyle</h1>
+                    <li class="ls-content">Diverse cultures and traditions</li>
+                    <li class="ls-content">Influenced by many religions</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Indonesia?</h1>
+                    <li class="ls-content">Beautiful islands </li>
+                    <li class="ls-content">Rich culture</li>
+                    <li class="ls-content">Adventure and relaxation</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/indonesia1.jpg" class="moroccan">
+            <img src="img_gagan/indonesia2.jpg" class="moroccan">
+            <img src="img_gagan/indonesia3.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Laos</li>
+        </b>
+        <p class="description">Laos is a peaceful country in Southeast Asia, known <br>
+            for mountains, rivers, and Buddhist culture.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Vientiane – Capital city</li>
+                    <li class="ls-content">Luang Prabang – UNESCO heritage town</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Kuang Si Falls – Beautiful waterfalls</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Laotian Food</h1>
+                    <li class="ls-content">Sticky rice</li>
+                    <li class="ls-content">Fresh herbs and local dishes</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Culture and Lifestyle</h1>
+                    <li class="ls-content">Strong Buddhist influence</li>
+                    <li class="ls-content">Slow and relaxed lifestyle</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Laos?</h1>
+                    <li class="ls-content">Peaceful environment </li>
+                    <li class="ls-content">Natural beauty </li>
+                    <li class="ls-content">Cultural experiences</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/laos1.jpg" class="moroccan">
+            <img src="img_gagan/laos2.jpg" class="moroccan">
+            <img src="img_gagan/laos3.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Malaysia</li>
+        </b>
+        <p class="description">Malaysia is a diverse country in Southeast Asia, known <br>
+            for modern cities, rainforests, and beaches.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Kuala Lumpur – Capital city</li>
+                    <li class="ls-content">George Town – Cultural hub</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Petronas Twin Towers – Iconic skyscrapers</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Malaysian Food</h1>
+                    <li class="ls-content">Nasi Lemak </li>
+                    <li class="ls-content">Roti Canai </li>
+                    <li class="ls-content">Diverse cuisines</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Culture and Lifestyle</h1>
+                    <li class="ls-content">Mix of Malay, Chinese, and Indian cultures</li>
+                    <li class="ls-content">Vibrant and modern</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Malaysia?</h1>
+                    <li class="ls-content">Cultural diversity</li>
+                    <li class="ls-content">Modern cities + nature</li>
+                    <li class="ls-content">Great food</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/malaysia1.jpg" class="moroccan">
+            <img src="img_gagan/malaysia2.jpg" class="moroccan">
+            <img src="img_gagan/malaysia3.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Mayanmar</li>
+        </b>
+        <p class="description">Myanmar is a culturally rich country in Southeast Asia,<br>
+            known for temples and traditions.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Yangon – Largest city</li>
+                    <li class="ls-content">Mandalay – Cultural center</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Bagan – Thousands of ancient temples</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Mayanmar Food</h1>
+                    <li class="ls-content">Rice-based meals</li>
+                    <li class="ls-content">Curries and soups</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Culture and Lifestyle</h1>
+                    <li class="ls-content">Strong Buddhist traditions</li>
+                    <li class="ls-content">Traditional lifestyle</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Mayanmar?</h1>
+                    <li class="ls-content">Ancient temples</li>
+                    <li class="ls-content">Rich traditions</li>
+                    <li class="ls-content">Unique culture</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/mayanmar1.jpg" class="moroccan">
+            <img src="img_gagan/mayanmar2.jpg" class="moroccan">
+            <img src="img_gagan/mayanmar3.jpg" class="moroccan">
+        </div>
+        </ul>
+    </section>
+
+    <div class="footer">
+        © 2026 Unfold Earth | Travel the world 🌎
+    </div>
+    <script>
+
+    let heading = document.querySelector(".heading");
+
+    heading.onclick = function () {
+
+        heading.style.color = "yellow";
+    };
+
+    let cards = document.querySelectorAll(".cards");
+
+    cards.forEach(function(card) {
+
+        card.onmouseover = function() {
+
+            card.style.backgroundColor = "rgba(255,255,255,0.2)";
+            card.style.transform = "scale(1.05)";
+            card.style.transition = "0.5s";
+        };
+
+        card.onmouseout = function() {
+
+            card.style.backgroundColor = "transparent";
+            card.style.transform = "scale(1)";
+        };
+
+    });
+
+
+    let images = document.querySelectorAll(".moroccan");
+
+    images.forEach(function(img) {
+
+        img.onmouseover = function() {
+
+            img.style.transform = "scale(1.1)";
+            img.style.transition = "0.5s";
+        };
+
+        img.onmouseout = function() {
+
+            img.style.transform = "scale(1)";
+        };
+
+    });
+    </script>
+</body>
+
+</html>
