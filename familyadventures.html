@@ -366,13 +366,13 @@
         <p>In today's fast-paced world, quality time together is the greatest gift you can give your family. Our carefully curated family adventures combine excitement, learning, and pure joy — creating memories that strengthen bonds and inspire wonder in every generation.</p>
         <p>From toddlers discovering the ocean for the first time to teens conquering their first mountain peak, every experience is thoughtfully designed with safety, comfort, and fun at the heart of everything we do.</p>
         
-        <div class="stats">
+            <div class="stats">
             <div class="stat-item">
-                <div class="stat-number">1.2M+</div>
+                <div class="stat-number counter" data-target="1200000">1.2M+</div>
                 <div>Miles explored together</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">487</div>
+                <div class="stat-number counter" data-target="487">487</div>
                 <div>Destinations worldwide</div>
             </div>
         </div>
@@ -642,5 +642,416 @@
         <p>© 2026 Unfold Earth | Travel the world 🌎</p>
     </footer>
 
+    <style>
+      /* --- JS-driven premium effects (familyadventures) --- */
+      body.ue-theme-light {
+        filter: saturate(1.02);
+      }
+      .ue-theme-toggle {
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        z-index: 99999;
+        width: 52px;
+        height: 52px;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        background: radial-gradient(circle at 30% 20%, #ffffff55, transparent 55%),
+                    linear-gradient(135deg, #ff6b00, #ffb74d);
+        color: #fff;
+        box-shadow: 0 18px 50px rgba(255,107,0,0.35);
+        display: grid;
+        place-items: center;
+        font-size: 20px;
+        transition: transform 200ms ease, box-shadow 200ms ease, filter 200ms ease;
+      }
+      .ue-theme-toggle:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 26px 70px rgba(255,107,0,0.5); }
+      .ue-theme-toggle:active { transform: translateY(0px) scale(0.98); }
+
+      .ue-loading {
+        position: fixed;
+        inset: 0;
+        z-index: 999999;
+        background: radial-gradient(circle at 20% 10%, rgba(255,107,0,0.35), transparent 45%),
+                    linear-gradient(180deg, rgba(0,0,0,0.88), rgba(0,0,0,0.55));
+        display: grid;
+        place-items: center;
+        color: #fff;
+        font-family: inherit;
+        transition: opacity 280ms ease;
+        opacity: 1;
+      }
+      .ue-loading .ue-loading-card {
+        width: min(520px, 92vw);
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.14);
+        border-radius: 22px;
+        padding: 26px 24px;
+        text-align: center;
+        box-shadow: 0 30px 90px rgba(0,0,0,0.45);
+        backdrop-filter: blur(10px);
+      }
+      .ue-loading .ue-spinner {
+        width: 54px;
+        height: 54px;
+        margin: 0 auto 14px;
+        border-radius: 50%;
+        background: conic-gradient(from 180deg, #ff6b00, #ffb74d, #00b4d8, #ff6b00);
+        -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 10px), #000 0);
+        mask: radial-gradient(farthest-side, transparent calc(100% - 10px), #000 0);
+        animation: ue-spin 0.9s linear infinite;
+      }
+      @keyframes ue-spin { to { transform: rotate(360deg);} }
+
+      /* Cursor glow */
+      .ue-cursor-glow {
+        position: fixed;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 0;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(circle at center, rgba(255,107,0,0.18), transparent 60%);
+        filter: blur(2px);
+        opacity: 0;
+        transition: opacity 200ms ease;
+      }
+
+      /* Stronger reveal base */
+      .ue-reveal {
+        opacity: 0;
+        transform: translate3d(0, 34px, 0) scale(0.98);
+        filter: blur(10px);
+        transition: opacity 900ms cubic-bezier(.2,.8,.2,1), transform 1000ms cubic-bezier(.2,.8,.2,1), filter 900ms ease;
+      }
+      .ue-reveal.ue-in {
+        opacity: 1;
+        transform: translate3d(0,0,0) scale(1);
+        filter: blur(0px);
+      }
+
+      /* Card 3D tilt + glow */
+      .ue-tilt {
+        transform-style: preserve-3d;
+        will-change: transform;
+        position: relative;
+      }
+      .ue-tilt::after {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,107,0,0.35), transparent 55%),
+                    linear-gradient(135deg, rgba(255,255,255,0.18), transparent 45%);
+        opacity: 0;
+        transition: opacity 220ms ease;
+        pointer-events: none;
+      }
+      .ue-tilt:hover::after { opacity: 1; }
+      .ue-tilt.ue-tilting { transition: box-shadow 220ms ease; box-shadow: 0 26px 70px rgba(255,107,0,0.18) !important; }
+
+      /* Button ripple + gradient movement */
+      .ue-ripple-btn {
+        position: relative;
+        overflow: hidden;
+      }
+      .ue-ripple-btn::before {
+        content: '';
+        position: absolute;
+        inset: -40px;
+        background: radial-gradient(circle at var(--bx, 50%) var(--by, 50%), rgba(255,255,255,0.55), transparent 45%);
+        opacity: 0;
+        transform: scale(0.8);
+        transition: opacity 200ms ease, transform 300ms ease;
+        pointer-events: none;
+      }
+      .ue-ripple-btn:hover::before { opacity: 1; transform: scale(1); }
+
+      .ue-gradient-move {
+        background-size: 200% 200%;
+        animation: ue-grad 3.5s ease infinite;
+      }
+      @keyframes ue-grad {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      /* Image hover (none on this page but keep generic) */
+      img.ue-parallax {
+        transition: transform 450ms ease, box-shadow 450ms ease;
+      }
+      img.ue-parallax:hover {
+        transform: scale(1.04) translateZ(0);
+        box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+      }
+    </style>
+
+    <div class="ue-loading" id="ueLoader">
+      <div class="ue-loading-card">
+        <div class="ue-spinner"></div>
+        <div style="font-weight:700;font-size:1.15rem;letter-spacing:0.3px;">Loading Family Adventures…</div>
+        <div style="margin-top:10px;opacity:0.9;font-size:0.95rem;">Preparing premium experience</div>
+      </div>
+    </div>
+
+    <div class="ue-cursor-glow" id="ueCursorGlow" aria-hidden="true"></div>
+
+    <button class="ue-theme-toggle" id="ueThemeToggle" type="button" aria-label="Toggle theme">🌙</button>
+
+    <script>
+    (() => {
+      const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+
+      // Smooth scrolling for in-page anchors
+      if (!prefersReducedMotion) {
+        document.addEventListener('click', (e) => {
+          const a = e.target && e.target.closest && e.target.closest('a[href^="#"]');
+          if (!a) return;
+          const href = a.getAttribute('href') || '';
+          if (!href || href === '#') return;
+          const id = href.slice(1);
+          const target = document.getElementById(id);
+          if (!target) return;
+
+          e.preventDefault();
+
+          const nav = document.querySelector('nav.nav, nav');
+          const navH = nav && nav.getBoundingClientRect ? nav.getBoundingClientRect().height : 0;
+          const top = target.getBoundingClientRect().top + window.pageYOffset - navH - 12;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }, { passive: false });
+      }
+
+      // Page-specific typing: hero CTA label cycling
+      const cta = document.querySelector('header .cta-button');
+      const hero = document.querySelector('header');
+      if (cta && hero && !prefersReducedMotion) {
+        const base = 'Plan Your Adventure Now →';
+        const variants = [
+          'Plan Your Adventure Now →',
+          'Plan Your Family Adventure →',
+          'Plan Your Perfect Escape →'
+        ];
+        let idx = 0;
+        cta.textContent = variants[idx];
+        setInterval(() => {
+          idx = (idx + 1) % variants.length;
+          // typing-like effect (stronger, but short)
+          const next = variants[idx];
+          let i = 0;
+          cta.textContent = '';
+          const start = () => {
+            cta.textContent = next.slice(0, i);
+            i++;
+            if (i <= next.length) setTimeout(start, 28);
+          };
+          start();
+        }, 3500);
+      }
+
+      // Reveal animations (stronger)
+      const revealEls = Array.from(document.querySelectorAll('.destination-card, .type-card, .tip-card, .why-card, .testimonial, header .hero-content, section > h2, section > p'));
+      const io = (window.IntersectionObserver && !prefersReducedMotion) ? new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          el.classList.add('ue-reveal');
+          io.unobserve(el);
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }) : null;
+
+      if (io) {
+        const styleId = 'ue-family-reveal-style';
+        if (!document.getElementById(styleId)) {
+          const st = document.createElement('style');
+          st.id = styleId;
+          st.textContent = `
+            .ue-reveal {
+              opacity: 1 !important;
+              transform: translateY(0) scale(1) !important;
+              filter: blur(0px) !important;
+            }
+            header .hero-content,
+            section > h2,
+            section > p,
+            .destination-card,
+            .type-card,
+            .tip-card,
+            .why-card,
+            .testimonial {
+              opacity: 0;
+              transform: translateY(22px) scale(0.99);
+              filter: blur(6px);
+              transition: opacity 800ms ease, transform 900ms cubic-bezier(.2,.8,.2,1), filter 900ms ease;
+            }
+          `;
+          document.head.appendChild(st);
+        }
+        revealEls.forEach((el) => io.observe(el));
+      } else {
+        // Reduced motion: ensure visible
+        revealEls.forEach((el) => el.style.opacity = '1');
+      }
+
+      // Counters (animate when visible) - uses existing data-target markup
+      const counters = Array.from(document.querySelectorAll('.counter[data-target]'));
+      const formatNumber = (value, el) => {
+        const raw = (el.textContent || '').trim();
+        const m = raw.match(/^([\d,.]+)\s*(.*)$/);
+        const suffix = m && m[2] ? m[2] : '';
+        return `${Math.floor(value).toLocaleString()}${suffix}`;
+      };
+
+      if (!prefersReducedMotion && counters.length && 'IntersectionObserver' in window) {
+        const cStyleId = 'ue-family-counter-style';
+        if (!document.getElementById(cStyleId)) {
+          const st = document.createElement('style');
+          st.id = cStyleId;
+          st.textContent = `.counter{ will-change: contents; }`;
+          document.head.appendChild(st);
+        }
+
+        const counterIO = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const target = Number(el.getAttribute('data-target'));
+            if (!Number.isFinite(target)) return;
+            if (el.dataset.ueCountStarted) return;
+            el.dataset.ueCountStarted = '1';
+
+            const start = performance.now();
+            const duration = 1200;
+            const from = 0;
+
+            const tick = (now) => {
+              const t = Math.min(1, (now - start) / duration);
+              const eased = 1 - Math.pow(1 - t, 4);
+              const val = from + (target - from) * eased;
+              el.textContent = formatNumber(val, el);
+              if (t < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+
+            counterIO.unobserve(el);
+          });
+        }, { threshold: 0.35 });
+
+        counters.forEach((el) => counterIO.observe(el));
+      }
+
+      // Stronger hover/modern transitions on cards and buttons
+      const styleId = 'ue-family-hover-style';
+      if (!document.getElementById(styleId)) {
+        const st = document.createElement('style');
+        st.id = styleId;
+        st.textContent = `
+          .destination-card,
+          .type-card,
+          .tip-card,
+          .why-card,
+          .testimonial {
+            transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+            border: 1px solid rgba(255,107,0,0);
+          }
+          .destination-card:hover,
+          .type-card:hover,
+          .tip-card:hover,
+          .why-card:hover,
+          .testimonial:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 18px 45px rgba(255,107,0,0.16);
+            border-color: rgba(255,107,0,0.25);
+          }
+          .cta-button,
+          .form-button {
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(0);
+            transition: transform 180ms ease, box-shadow 240ms ease;
+          }
+          .cta-button::after,
+          .form-button::after {
+            content:'';
+            position:absolute;
+            inset:-60px;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.45), transparent 50%);
+            opacity: 0;
+            transition: opacity 200ms ease;
+            pointer-events:none;
+          }
+          .cta-button:hover::after,
+          .form-button:hover::after {
+            opacity: 1;
+          }
+          .cta-button:hover,
+          .form-button:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 18px 40px rgba(255,107,0,0.22);
+          }
+          .destination-card:focus-visible,
+          .type-card:focus-visible,
+          .tip-card:focus-visible,
+          .why-card:focus-visible,
+          .testimonial:focus-visible {
+            outline: 3px solid rgba(255,107,0,0.35);
+            outline-offset: 4px;
+          }
+        `;
+        document.head.appendChild(st);
+      }
+
+      // Button ripple tracking
+      document.querySelectorAll('.cta-button, .form-button').forEach((btn) => {
+        btn.addEventListener('pointermove', (e) => {
+          const r = btn.getBoundingClientRect();
+          const x = ((e.clientX - r.left) / r.width) * 100;
+          const y = ((e.clientY - r.top) / r.height) * 100;
+          btn.style.setProperty('--x', `${x}%`);
+          btn.style.setProperty('--y', `${y}%`);
+        });
+      });
+
+      // Loading animation: only if no existing loader, use small fade for first paint
+      // (kept subtle to avoid layout changes)
+      window.requestAnimationFrame(() => {
+        document.body.style.transition = prefersReducedMotion ? '' : 'opacity 500ms ease';
+        document.body.style.opacity = '1';
+      });
+
+      // Dark/Light toggle: only if a toggle button exists already (not adding new UI)
+      const themeBtn = document.querySelector('[data-theme-toggle]');
+      if (themeBtn) {
+        const key = 'ue_theme_family';
+        const apply = (mode) => {
+          const isLight = mode === 'light';
+          document.body.classList.toggle('light', isLight);
+          document.body.classList.toggle('light-mode', isLight);
+          themeBtn.textContent = isLight ? '☀️' : '🌙';
+          localStorage.setItem(key, mode);
+        };
+        const saved = localStorage.getItem(key);
+        apply(saved || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));
+        themeBtn.addEventListener('click', () => {
+          const next = document.body.classList.contains('light') ? 'dark' : 'light';
+          apply(next);
+        });
+      }
+
+      // Image hover zoom (only if any images exist; this page has no images)
+      // Interactive select cards: add subtle press effect
+      document.querySelectorAll('.destination-card, .type-card, .tip-card, .why-card').forEach((card) => {
+        card.tabIndex = card.tabIndex >= 0 ? card.tabIndex : 0;
+        card.addEventListener('pointerdown', () => card.style.transform = 'translateY(-6px) scale(0.99)');
+        card.addEventListener('pointerup', () => card.style.transform = '');
+        card.addEventListener('pointercancel', () => card.style.transform = '');
+      });
+
+    })();
+    </script>
 </body>
 </html>

@@ -82,6 +82,7 @@
 body{
     background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
     color: white;
+    overflow-x:hidden;
 }
 .hero{
     height:70vh;
@@ -96,6 +97,11 @@ body{
     background: rgba(0,0,0,0.6);
     padding:20px;
     border-radius:10px;
+    animation: heroGlow 2.8s ease-in-out infinite;
+}
+@keyframes heroGlow{
+    0%,100%{ box-shadow: 0 0 0 rgba(0,255,213,0); }
+    50%{ box-shadow: 0 0 35px rgba(0,255,213,0.25); }
 }
 .section-title{
     text-align:center;
@@ -115,9 +121,38 @@ body{
     overflow:hidden;
     transition:0.4s;
     backdrop-filter: blur(10px);
+    position:relative;
+    transform: translateY(18px);
+    opacity: 0;
+}
+.card.show{
+    opacity: 1;
+    transform: translateY(0);
+    transition:0.6s;
+}
+.card::after{
+    content:"";
+    position:absolute;
+    top:-40%;
+    left:-50%;
+    width:60%;
+    height:180%;
+    background: linear-gradient(90deg, transparent, rgba(0,255,213,0.35), transparent);
+    transform: rotate(25deg);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events:none;
 }
 .card:hover{
     box-shadow:0 10px 25px rgba(0,0,0,0.5);
+}
+.card:hover::after{
+    opacity: 1;
+    animation: shine 0.7s ease;
+}
+@keyframes shine{
+    from{ left:-70%; }
+    to{ left:130%; }
 }
 .card img{
     width:100%;
@@ -319,10 +354,32 @@ body{
 <div class="scroll-card">🇬🇷 Greece has over 6,000 islands.</div>
 </div>
 
-
 <div class="footer">
 <p>© 2026 Unfold Earth | Explore More 🌍</p>
 </div>
+
+<script>
+  // Scroll reveal for cards
+  window.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.card');
+
+    if (!('IntersectionObserver' in window)) {
+      cards.forEach(c => c.classList.add('show'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    cards.forEach(card => observer.observe(card));
+  });
+</script>
 
 </body>
 </html>

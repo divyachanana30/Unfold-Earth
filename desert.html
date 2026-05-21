@@ -808,6 +808,303 @@
 
   <a href="#" class="top-btn">↑</a>
 
+
+<script>
+  /*
+    Desert Theme JS Effects (inline only)
+    - Sand-like floating animation
+    - Warm glowing hover effects
+    - Desert sunset gradient transitions
+    - Parallax scrolling
+    - Animated section reveals
+    - Zoom-in cards on hover
+    - Cinematic scrolling
+    - Animated counters
+    - Floating text animations
+    - Dark/Light mode toggle
+    - Ripple buttons
+    - Image hover zoom
+  */
+
+  // Stop if already initialized
+  if (!window.__desertEffectsApplied) {
+    window.__desertEffectsApplied = true;
+
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Helpers
+    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+    const $ = (sel) => document.querySelector(sel);
+
+    // -------- Dark/Light mode toggle (keeps layout/content unchanged)
+    function ensureModeToggle() {
+      let btn = $('#cg-desert-mode');
+      if (btn) return btn;
+      btn = document.createElement('button');
+      btn.id = 'cg-desert-mode';
+      btn.type = 'button';
+      btn.textContent = '🌗 Mode';
+      btn.style.cssText = `position: fixed; top: 18px; right: 18px; z-index:99999;
+        border:1px solid rgba(255,170,0,0.35); background: rgba(0,0,0,0.55); color:#fff;
+        border-radius:14px; padding:12px 14px; font-weight:900; cursor:pointer;`;
+      document.body.appendChild(btn);
+      return btn;
+    }
+
+    const modeBtn = ensureModeToggle();
+    let mode = 'dark';
+
+    function applyMode(newMode) {
+      const body = document.body;
+      if (newMode === 'light') {
+        body.style.background = '#fbf1d6';
+        body.style.color = '#111';
+        $$('.card, .why-card, .req-item, .exp-card, .overlay, summary').forEach(el => {
+          // make sure text stays readable when possible
+          el.style.filter = 'saturate(1.05)';
+        });
+        // subtle dune glow
+        body.style.boxShadow = 'inset 0 0 120px rgba(255,170,0,0.25)';
+      } else {
+        body.style.background = '';
+        body.style.color = '';
+        body.style.boxShadow = '';
+      }
+    }
+
+    applyMode(mode);
+    modeBtn.addEventListener('click', () => {
+      mode = mode === 'dark' ? 'light' : 'dark';
+      applyMode(mode);
+      modeBtn.textContent = mode === 'dark' ? '🌗 Mode' : '🌞 Light→Dark';
+      modeBtn.style.boxShadow = '0 0 35px rgba(255,170,0,0.25)';
+      setTimeout(()=> modeBtn.style.boxShadow = '', 500);
+    });
+
+    // -------- Insert desert-specific CSS animations
+    const style = document.createElement('style');
+    style.textContent = `
+      html { scroll-behavior: smooth; }
+
+      /* Sand-like floating animation */
+      .card, .exp-card, .why-card, .req-item {
+        animation: cgSandFloat 9s ease-in-out infinite;
+        will-change: transform;
+      }
+      @keyframes cgSandFloat {
+        0%,100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+      }
+
+      /* Warm glowing borders */
+      .card, .why-card, .req-item {
+        border: 1px solid rgba(255,170,0,0.0);
+        transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease, filter .35s ease;
+      }
+      .card:hover, .why-card:hover, .req-item:hover {
+        border-color: rgba(255,170,0,0.35);
+        box-shadow: 0 0 30px rgba(255,170,0,0.18), 0 18px 60px rgba(0,0,0,0.35);
+      }
+
+      /* Desert sunset gradient transitions */
+      .hero {
+        background: linear-gradient(120deg, rgba(255,120,0,0.28), rgba(0,80,120,0.12));
+      }
+      .hero h1, .hero p {
+        animation: cgSunPulse 2.6s ease-in-out infinite;
+        text-shadow: 0 0 35px rgba(255,170,0,0.2);
+      }
+      @keyframes cgSunPulse {
+        0%,100%{ filter: brightness(1); transform: translateY(0px); }
+        50%{ filter: brightness(1.25); transform: translateY(-3px); }
+      }
+
+      /* Hover image zoom */
+      .card img, .exp-card img {
+        transition: transform .6s ease;
+      }
+      .card:hover img, .exp-card:hover img {
+        transform: scale(1.18);
+      }
+
+      /* Ripple effect */
+      .cg-ripple-layer {
+        position:absolute; inset:0; border-radius: 20px; pointer-events:none; overflow:hidden;
+      }
+      .cg-ripple {
+        position:absolute;
+        border-radius:999px;
+        width: 10px; height: 10px;
+        transform: translate(-50%,-50%) scale(1);
+        background: radial-gradient(circle, rgba(255,170,0,0.35), rgba(255,170,0,0) 60%);
+        animation: cgRipple 0.6s ease-out forwards;
+        pointer-events:none;
+      }
+      @keyframes cgRipple {
+        0% { opacity: .95; transform: translate(-50%,-50%) scale(.3); }
+        100%{ opacity: 0; transform: translate(-50%,-50%) scale(18); }
+      }
+
+      /* Reveal */
+      .cg-reveal {
+        opacity: 0;
+        transform: translateY(22px) scale(.99);
+        transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1);
+      }
+      .cg-reveal.cg-show {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+      }
+
+      /* Simple counters glow */
+      .cg-counter { color: #ffb24d; font-weight: 1000; text-shadow: 0 0 25px rgba(255,170,0,0.25); }
+
+      /* Stronger cinematic scroll cues */
+      .top-btn {
+        transition: transform .15s ease, box-shadow .15s ease;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      }
+      .top-btn:hover { transform: translateY(-3px); box-shadow: 0 0 45px rgba(255,170,0,0.22); }
+    `;
+    document.head.appendChild(style);
+
+    // -------- Apply reveal class to sections/cards
+    const revealTargets = $$('.card, .exp-card, .why-card, .req-item, section');
+    revealTargets.forEach((t, i) => {
+      if (t.tagName === 'SECTION' && t.querySelectorAll('.card').length === 0) {
+        // keep hero readable
+      } else {
+        t.classList.add('cg-reveal');
+        t.style.transitionDelay = prefersReduced ? '0ms' : (i % 12) * 40 + 'ms';
+      }
+    });
+
+    // Scroll Reveal
+    if (!prefersReduced && 'IntersectionObserver' in window) {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(en => {
+          if (en.isIntersecting) {
+            en.target.classList.add('cg-show');
+            obs.unobserve(en.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      revealTargets.forEach(t => obs.observe(t));
+    } else {
+      revealTargets.forEach(t => t.classList.add('cg-show'));
+    }
+
+    // -------- Counters (animated) - create counters overlay near experiences/requirements if none exist
+    function ensureCounters() {
+      let wrap = $('#cg-desert-counters');
+      if (wrap) return wrap;
+      // place after #popular if exists
+      const popular = $('#popular');
+      if (!popular) return null;
+
+      wrap = document.createElement('div');
+      wrap.id = 'cg-desert-counters';
+      wrap.style.cssText = 'margin: 25px auto 0; width: min(900px, 92vw); display:flex; gap:14px; justify-content:space-between; flex-wrap:wrap;';
+      wrap.innerHTML = `
+        <div style="flex:1 1 160px; background: rgba(255,255,255,0.08); border:1px solid rgba(255,170,0,0.18); border-radius:18px; padding:14px;">
+          <div class="cg-counter" data-target="120" style="font-size:2rem;">0</div>
+          <div style="color: rgba(255,255,255,0.75); font-weight:700;">Desert Spots</div>
+        </div>
+        <div style="flex:1 1 160px; background: rgba(255,255,255,0.08); border:1px solid rgba(255,170,0,0.18); border-radius:18px; padding:14px;">
+          <div class="cg-counter" data-target="35" style="font-size:2rem;">0</div>
+          <div style="color: rgba(255,255,255,0.75); font-weight:700;">Countries</div>
+        </div>
+        <div style="flex:1 1 160px; background: rgba(255,255,255,0.08); border:1px solid rgba(255,170,0,0.18); border-radius:18px; padding:14px;">
+          <div class="cg-counter" data-target="24" style="font-size:2rem;">0</div>
+          <div style="color: rgba(255,255,255,0.75); font-weight:700;">Adventure Types</div>
+        </div>
+      `;
+      popular.appendChild(wrap);
+      return wrap;
+    }
+
+    const countersWrap = ensureCounters();
+
+    function animateCounters() {
+      if (!countersWrap) return;
+      const counters = $$('.cg-counter', countersWrap);
+      counters.forEach(el => {
+        const target = Number(el.getAttribute('data-target') || '0');
+        let cur = 0;
+        const dur = prefersReduced ? 1 : 1400;
+        const start = performance.now();
+        const step = (t) => {
+          const p = Math.min(1, (t - start) / dur);
+          cur = Math.floor(target * p);
+          el.textContent = String(cur);
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    }
+
+    if (countersWrap && 'IntersectionObserver' in window) {
+      const obs = new IntersectionObserver((entries) => {
+        if (entries.some(e => e.isIntersecting)) {
+          animateCounters();
+          obs.disconnect();
+        }
+      }, { threshold: 0.2 });
+      obs.observe(countersWrap);
+    } else {
+      animateCounters();
+    }
+
+    // -------- Ripple buttons (for interactive elements)
+    function wireRipples() {
+      const clickable = $$('.card, .why-card, .req-item, summary, .top-btn');
+      clickable.forEach(el => {
+        el.style.position = el.style.position || 'relative';
+        if (!el.querySelector('.cg-ripple-layer')) {
+          const layer = document.createElement('span');
+          layer.className = 'cg-ripple-layer';
+          el.appendChild(layer);
+        }
+        el.addEventListener('click', (e) => {
+          const rect = el.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const ripple = document.createElement('span');
+          ripple.className = 'cg-ripple';
+          ripple.style.left = x + 'px';
+          ripple.style.top = y + 'px';
+          el.querySelector('.cg-ripple-layer').appendChild(ripple);
+          ripple.addEventListener('animationend', () => ripple.remove());
+        }, { passive: true });
+      });
+    }
+    wireRipples();
+
+    // -------- Parallax scrolling (desert dunes movement)
+    function wireParallax() {
+      if (prefersReduced) return;
+      const bgVid = document.querySelector('.bg-video');
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY || 0;
+        if (bgVid) {
+          bgVid.style.transform = `translateY(${y * 0.04}px) scale(1.02)`;
+        }
+
+        $$('.card img, .exp-card img').forEach((img, i) => {
+          const cell = img.closest('.card') || img.closest('.exp-card');
+          if (!cell) return;
+          const r = cell.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > window.innerHeight) return;
+          const ty = (r.top - window.innerHeight / 2) * (0.02 + (i % 5) * 0.004);
+          img.style.transform = `translateY(${ty}px) scale(1.12)`;
+        });
+      }, { passive: true });
+    }
+    wireParallax();
+  }
+</script>
 </body>
 
 </html>
+
+
