@@ -416,6 +416,67 @@
         </div>
         <p>© 2026 Unfold Earth • Wellness & Relaxation Journeys</p>
     </footer>
+    </body>
+<script>
+let cards = document.querySelectorAll(".dest-card, .type-card, .exp-card");
 
-</body>
+window.addEventListener("scroll", function () {
+
+    cards.forEach(function(card) {
+
+        let position = card.getBoundingClientRect().top;
+        let screenHeight = window.innerHeight;
+
+        if(position < screenHeight - 100){
+            card.style.opacity = "1";
+            card.style.transform = "translateY(0px)";
+        }
+
+    });
+
+});
+cards.forEach(function(card){
+
+    card.style.opacity = "0";
+    card.style.transform = "translateY(50px)";
+    card.style.transition = "1s";
+
+});
+let images = document.querySelectorAll("img");
+
+images.forEach(function(img){
+
+    img.addEventListener("click", function(){
+
+        if(img.style.transform == "scale(1.2)"){
+
+            img.style.transform = "scale(1)";
+        }
+        else{
+
+            img.style.transform = "scale(1.2)";
+        }
+
+        img.style.transition = "0.5s";
+    });
+
+});
+let buttons = document.querySelectorAll("a");
+
+buttons.forEach(function(btn){
+
+    btn.addEventListener("mouseover", function(){
+
+        btn.style.opacity = "0.7";
+    });
+
+    btn.addEventListener("mouseout", function(){
+
+        btn.style.opacity = "1";
+    });
+
+});
+
+</script>
+
 </html>
