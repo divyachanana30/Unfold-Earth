@@ -532,6 +532,52 @@
 <div class="footer">
     © 2026 Unfold Earth | Travel the world 🌎
 </div>
+   <script>
+
+    let heading = document.querySelector(".heading");
+
+    heading.onclick = function () {
+
+        heading.style.color = "yellow";
+    };
+
+    let cards = document.querySelectorAll(".cards");
+
+    cards.forEach(function(card) {
+
+        card.onmouseover = function() {
+
+            card.style.backgroundColor = "rgba(255,255,255,0.2)";
+            card.style.transform = "scale(1.05)";
+            card.style.transition = "0.5s";
+        };
+
+        card.onmouseout = function() {
+
+            card.style.backgroundColor = "transparent";
+            card.style.transform = "scale(1)";
+        };
+
+    });
+
+
+    let images = document.querySelectorAll(".moroccan");
+
+    images.forEach(function(img) {
+
+        img.onmouseover = function() {
+
+            img.style.transform = "scale(1.1)";
+            img.style.transition = "0.5s";
+        };
+
+        img.onmouseout = function() {
+
+            img.style.transform = "scale(1)";
+        };
+
+    });
+    </script>
 </body>
 
 </html>
