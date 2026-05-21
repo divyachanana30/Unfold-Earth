@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .head {
+            position: absolute;
+            font-size: 3rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .bg-vid {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .content {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.4);
+            /* display: flex; */
+        }
+
+        .ls {
+            font-size: 40px;
+            /* font-weight: 400; */
+            text-align: center;
+            list-style: none;
+            padding: 30px;
+        }
+
+        .moroccan {
+            margin: 20px;
+            height: 20%;
+            width: 20%;
+            display: inline-block;
+            /* flex-direction: column; */
+            border-radius: 20px;
+            aspect-ratio: 1/1;
+        }
+
+        .description {
+            font-size: 24px;
+            text-align: center;
+            padding: 15px;
+            line-height: 30px;
+        }
+
+        .ls-content {
+            font-size: 20px;
+            list-style: none;
+            padding: 15px;
+        }
+
+        .element {
+            display: flex;
+            /* flex-direction: column; */
+        }
+
+        .ls-head {
+            padding: 20px;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .cards {
+            text-align: center;
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .images {
+            align-items: center;
+            align-self: center;
+            justify-content: center;
+            display: flex;
+            /* flex-direction: column; */
+            /* width:50%; */
+            /* margin:auto; */
+        }
+
+        hr {
+            width: 70%;
+            margin: auto;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            justify-content: center;
+            text-align: center;
+        }
+
+                .navbar{
+    position: fixed;
+    top:0;
+    width:100%;
+    z-index:1000;
+}
+
+.nav-container{
+    list-style:none;
+    display:flex;
+    justify-content:center;
+    background:rgba(0,0,0,0.5);
+}
+
+.nav_item{
+    padding:20px;
+    font-size:24px;
+}
+
+.nav_item a{
+    text-decoration:none;
+    color:white;
+}
+
+.dropdown{
+    position:relative;
+}
+
+.dropdown-content{
+    display:none;
+    position:absolute;
+    top:60px;
+    background:rgba(0,0,0,0.5);
+    min-width:200px;
+}
+
+.dropdown-content a{
+    display:block;
+    padding:10px;
+}
+
+.dropdown:hover .dropdown-content{
+    display:block;
+}
+        .footer{
+    text-align:center;
+    padding:30px;
+    border-top:1px solid #ddd;
+    color:#555;
+    font-size:1.2rem;
+    background:#f8fbff;
+}
+    </style>
+</head>
+
+<body>
+    <section class="hero">
+        <div class="navbar">
+        <nav class="nav">
+            <ul class="nav-container">
+                <li class="nav_item"><a href="grid.html"><b>Home</b></a></li>
+                <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Destinations</b></a>
+                    <div class="dropdown-content">
+                        <a href="africa.html">Africa </a>
+                        <a href="asia.html">Asia </a>
+                        <a href="america.html">America </a>
+                        <a href="europe.html">Europe </a>
+                        <a href="carribean.html">Carribean </a>
+
+                    </div>
+                </li>
+                <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Categories</b></a>
+                    <div class="dropdown-content">
+                        <a href="#">Beach</a>
+                        <a href="#">Mountains</a>
+                        <a href="#">Wildlife</a>
+                        <a href="#">Desert</a>
+                        <a href="#">Waterfall</a>
+                        <a href="#">Volcanoes</a>
+                    </div>
+                </li>
+                <li class="nav_item"><a href="imagegallery.html"><b>Gallery</b></a></li>
+                <li class="nav_item"><a href="#"><b>Contact us</b></a></li>
+                <li class="nav_item"><a href="#"><b>About us</b></a></li>
+            </ul>
+        </nav>
+        </div>
+        <video class="bg-vid" autoplay muted loop playsinline>
+            <source src="img_gagan/carribean.mp4" type="video/mp4">
+        </video>
+        <div class="head">
+            <h1 class="heading"><b>Carribean</b></h1>
+        </div>
+    </section>
+    <section class="content">
+        <section class="element1">
+            <ul class="list1">
+                <b>
+                    <li class="ls">Bahamas</li>
+                </b>
+                <p class="description">The Bahamas is a tropical island country in the Caribbean known for its
+                    crystal-clear<br>
+                    waters, white-sand beaches, and luxury resorts.></p>
+                <hr>
+                <div class="card-container">
+                    <div class="cards">
+                        <ul class="nested-ls1">
+                            <h1 class="ls-head">Famous Cities</h1>
+                            <li class="ls-content">Nassau – Capital city and main tourist center</li>
+                            <li class="ls-content">Freeport – Popular beach destination</li>
+                            <li class="ls-content">Marsh Harbour – Gateway to the Abaco Islands</li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls2">
+                            <h1 class="ls-head">Popular Attractions</h1>
+                            <li class="ls-content">Atlantis Paradise Island – Famous luxury resort</li>
+                            <li class="ls-content">Exuma Islands – Known for swimming pigs and clear waters</li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls3">
+                            <h1 class="ls-head">Bahamian Food</h1>
+
+                            <li class="ls-content">Seafood dishes</li>
+                            <li class="ls-content">Conch salad and grilled fish </li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls3">
+                            <h1 class="ls-head">Natural beauty</h1>
+
+                            <li class="ls-content">Turquoise ocean waters</li>
+                            <li class="ls-content">Coral reefs and tropical islands</li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls3">
+                            <h1 class="ls-head">Why Visit Bahamas?</h1>
+                            <li class="ls-content">Beautiful beaches</li>
+                            <li class="ls-content">Luxury resorts</li>
+                            <li class="ls-content">Clear blue waters</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="images">
+                    <img src="img_gagan/bahamas1.webp" class="moroccan">
+                    <img src="img_gagan/bahamas2.jpg" class="moroccan">
+                    <img src="img_gagan/bahamas3.webp" class="moroccan">
+                </div>
+        </section>
+        <b>
+            <li class="ls">Jamaica</li>
+        </b>
+        <p class="description">Costa Rica is famous for its biodiversity, national parks, and eco-tourism.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Kingston – Capital city and cultural center</li>
+                    <li class="ls-content">Montego Bay – Popular resort destination</li>
+                    <li class="ls-content">Negril – Known for beautiful beaches</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Dunn’s River Falls – Famous waterfall you can climb</li>
+                    <li class="ls-content">Blue Mountains – Scenic mountain range</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Jamaican Food</h1>
+                    <li class="ls-content">Jerk chicken</li>
+                    <li class="ls-content">Rice and peas</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Tropical beaches and mountains</li>
+                    <li class="ls-content">Waterfalls and rainforests</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Jamaica?</h1>
+                    <li class="ls-content">Beautiful beaches</li>
+                    <li class="ls-content">Music and culture</li>
+                    <li class="ls-content">Delicious food</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/jamaica.jpg" class="moroccan">
+            <img src="img_gagan/jamaica1.jpg" class="moroccan">
+            <img src="img_gagan/jamaica3.webp" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Dominican Republic</li>
+        </b>
+        <p class="description">The Dominican Republic is one of the most visited Caribbean <br>
+            destinations, known for beaches, resorts, and historic sites.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Santo Domingo – Capital city with historic architecture</li>
+                    <li class="ls-content">Punta Cana – Famous beach resort area</li>
+                    <li class="ls-content">Santiago – Cultural and historic city</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Punta Cana Beaches – White sand and clear water</li>
+                    <li class="ls-content">Saona Island – Beautiful tropical island</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Dominican Food</h1>
+                    <li class="ls-content">Rice and beans dishes</li>
+                    <li class="ls-content">Seafood and tropical fruits</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Tropical beaches and islands</li>
+                    <li class="ls-content">Mountains and waterfalls</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Dominican Republic?</h1>
+                    <li class="ls-content">Luxury beach resorts</li>
+                    <li class="ls-content">Historic cities</li>
+                    <li class="ls-content">Tropical scenery</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/domi1.jpg" class="moroccan">
+            <img src="img_gagan/domi2.jpg" class="moroccan">
+            <img src="img_gagan/domi3.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Cuba</li>
+        </b>
+        <p class="description">Cuba is known for its colorful cities, classic cars, music, and unique culture.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Havana – Capital city with colonial architecture</li>
+                    <li class="ls-content">Varadero – Famous beach resort town</li>
+                    <li class="ls-content">Santiago de Cuba – Cultural and historic center</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Old Havana – Historic UNESCO site</li>
+                    <li class="ls-content">Varadero Beach – One of the best beaches in the Caribbean</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Cuban Food</h1>
+                    <li class="ls-content">Rice and beans dishes</li>
+                    <li class="ls-content">Pork and seafood meals</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Tropical beaches and valleys</li>
+                    <li class="ls-content">Mountains and countryside</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Cuba?</h1>
+                    <li class="ls-content">Rich culture and music</li>
+                    <li class="ls-content">Historic cities</li>
+                    <li class="ls-content">Beautiful beaches</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/cuba1.jpg" class="moroccan">
+            <img src="img_gagan/cuba2.jpg" class="moroccan">
+            <img src="img_gagan/cuba3.jpeg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Barbados</li>
+        </b>
+        <p class="description">Barbados is a beautiful Caribbean island known for its beaches, coral reefs, and vibrant
+            culture.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Bridgetown – Capital city and UNESCO heritage site</li>
+                    <li class="ls-content">Speightstown – Historic coastal town</li>
+                    <li class="ls-content">Holetown – Popular tourist area</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Carlisle Bay – Popular beach area</li>
+                    <li class="ls-content">Bathsheba Beach – Known for rock formations</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Barbadian Food</h1>
+                    <li class="ls-content">Flying fish and cou-cou</li>
+                    <li class="ls-content">Fresh seafood dishes</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Coral reefs and beaches</li>
+                    <li class="ls-content">Tropical forests and coastline</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Barbados?</h1>
+                    <li class="ls-content">Stunning beaches</li>
+                    <li class="ls-content">Relaxed island atmosphere</li>
+                    <li class="ls-content">Great surfing and diving</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/bar2.jpg" class="moroccan">
+            <img src="img_gagan/bar1.jpg" class="moroccan">
+            <img src="img_gagan/bar3.jpg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Nicaragua</li>
+        </b>
+        <p class="description">Saint Lucia is a scenic Caribbean island famous for its mountains,<br>
+            beaches, and lush rainforests.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Castries – Capital city and port</li>
+                    <li class="ls-content">Soufrière – Historic town near the Pitons</li>
+                    <li class="ls-content">Vieux Fort – Coastal town with beaches</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">The Pitons – Famous volcanic twin mountains</li>
+                    <li class="ls-content">Sulphur Springs – World’s only drive-in volcano</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Saint Lucian Food</h1>
+                    <li class="ls-content">Seafood dishes</li>
+                    <li class="ls-content">Creole cuisine</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Natural Beauty</h1>
+                    <li class="ls-content">Volcanic mountains and rainforests</li>
+                    <li class="ls-content">Tropical beaches and waterfalls</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Why Visit Saint Lucia ?</h1>
+                    <li class="ls-content">Dramatic mountain scenery</li>
+                    <li class="ls-content">Romantic tropical beaches</li>
+                    <li class="ls-content">Luxury resorts and nature</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/saint1.jpg" class="moroccan">
+            <img src="img_gagan/saint2.webp" class="moroccan">
+            <img src="img_gagan/saint3.webp" class="moroccan">
+        </div>
+
+        </ul>
+
+    </section>
+
+<div class="footer">
+    © 2026 Unfold Earth | Travel the world 🌎
+</div>
+   <script>
+
+    let heading = document.querySelector(".heading");
+
+    heading.onclick = function () {
+
+        heading.style.color = "yellow";
+    };
+
+    let cards = document.querySelectorAll(".cards");
+
+    cards.forEach(function(card) {
+
+        card.onmouseover = function() {
+
+            card.style.backgroundColor = "rgba(255,255,255,0.2)";
+            card.style.transform = "scale(1.05)";
+            card.style.transition = "0.5s";
+        };
+
+        card.onmouseout = function() {
+
+            card.style.backgroundColor = "transparent";
+            card.style.transform = "scale(1)";
+        };
+
+    });
+
+
+    let images = document.querySelectorAll(".moroccan");
+
+    images.forEach(function(img) {
+
+        img.onmouseover = function() {
+
+            img.style.transform = "scale(1.1)";
+            img.style.transition = "0.5s";
+        };
+
+        img.onmouseout = function() {
+
+            img.style.transform = "scale(1)";
+        };
+
+    });
+    </script>
+</body>
+
+</html>

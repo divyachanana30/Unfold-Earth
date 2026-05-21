@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .head {
+            position: absolute;
+            font-size: 3rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+        }
+
+        .bg-vid {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .content {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.4);
+            /* display: flex; */
+        }
+
+        .ls {
+            font-size: 40px;
+            /* font-weight: 400; */
+            text-align: center;
+            list-style: none;
+            padding: 30px;
+        }
+
+        .moroccan {
+            margin: 20px;
+            height: 20%;
+            width: 20%;
+            display: inline-block;
+            border-radius: 20px;
+            aspect-ratio: 1/1;
+        }
+
+        .description {
+            font-size: 24px;
+            text-align: center;
+            padding: 15px;
+            line-height: 30px;
+        }
+
+        .ls-content {
+            font-size: 20px;
+            list-style: none;
+            padding: 15px;
+
+        }
+
+        .element {
+            display: flex;
+            /* flex-direction: column; */
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .images {
+            align-items: center;
+            align-self: center;
+            justify-content: center;
+            display: flex;
+        }
+
+        .cards {
+            text-align: center;
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        hr {
+            width: 70%;
+            margin: auto;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            /* z-index:1000; */
+        }
+
+        .nav-container {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .nav_item {
+            padding: 20px;
+            font-size: 24px;
+        }
+
+        .nav_item a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 60px;
+            background: rgba(0, 0, 0, 0.5);
+            min-width: 200px;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid #ddd;
+            color: #555;
+            font-size: 1.2rem;
+            background: #f8fbff;
+        }
+
+        /* ====== Content enhancements (navbar/footer unchanged) ====== */
+        .element1 {
+            padding: 120px 24px 30px;
+        }
+
+        .cards {
+            background: rgba(10, 10, 10, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+            transform: translateY(14px);
+            opacity: 0;
+            transition: transform 700ms cubic-bezier(.2,.8,.2,1), opacity 700ms ease, box-shadow 300ms ease, border-color 300ms ease;
+            position: relative;
+            overflow: hidden;
+            will-change: transform, opacity;
+        }
+
+        .cards::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 20%), rgba(255,255,255,0.18), transparent 40%);
+            opacity: 0;
+            transition: opacity 300ms ease;
+            pointer-events: none;
+        }
+
+        .cards:hover {
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 26px 70px rgba(0, 0, 0, 0.35);
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .cards:hover::before {
+            opacity: 1;
+        }
+
+        .cards.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .moroccan {
+            margin: 18px;
+            width: clamp(120px, 20vw, 220px);
+            height: clamp(120px, 20vw, 220px);
+            object-fit: cover;
+            border-radius: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+            opacity: 0;
+            transform: translateY(14px) scale(0.98);
+            transition: transform 700ms cubic-bezier(.2,.8,.2,1), opacity 700ms ease;
+            will-change: transform, opacity;
+        }
+
+        .moroccan.reveal {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .moroccan:hover {
+            transform: translateY(-6px) scale(1.03);
+        }
+
+        /* Highlight current visible section title */
+        .ls {
+            position: relative;
+            padding: 30px 22px;
+        }
+
+        .ls::after {
+            content: "";
+            position: absolute;
+            left: 10%;
+            right: 10%;
+            bottom: 12px;
+            height: 3px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(0, 229, 255, 0), rgba(0, 229, 255, 0.9), rgba(0, 229, 255, 0));
+            opacity: 0;
+            transform: scaleX(0.6);
+            transition: opacity 300ms ease, transform 300ms ease;
+        }
+
+        .ls.active::after {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        @media (max-width: 900px) {
+            .card-container { grid-template-columns: 1fr; }
+            .moroccan { width: 42vw; height: 42vw; }
+            .element1 { padding-top: 160px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cards, .moroccan { transition: none; transform: none; opacity: 1; }
+            .cards:hover { transform: none; }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="hero">
+        <div class="navbar">
+            <nav class="nav">
+                <ul class="nav-container">
+                    <li class="nav_item"><a href="grid.html"><b>Home</b></a></li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Destinations</b></a>
+                    <div class="dropdown-content">
+                        <a href="africa.html">Africa </a>
+                        <a href="asia.html">Asia </a>
+                        <a href="america.html">America </a>
+                        <a href="europe.html">Europe </a>
+                        <a href="carribean.html">Carribean </a>
+                    </div>
+                </li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Categories</b></a>
+                    <div class="dropdown-content">
+                        <a href="beaches.html">Beach</a>
+                        <a href="mountains.html">Mountains</a>
+                        <a href="wildlife.html">Wildlife</a>
+                        <a href="desert.html">Desert</a>
+                        <a href="waterfall.html">Waterfall</a>
+                        <a href="volcanos.html">Volcanoes</a>
+                        <a href="monuments.html">Monuments</a>
+                    </div></li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Gallery</b></a>
+                    <div class="dropdown-content">
+                      <a href="artgallery.html">Art Gallery</a>
+                      <a href="imagegallery.html">Image Gallery</a>
+
+                    </div></li>
+                    <li class="nav_item"><a href="contact.html"><b>Contact us</b></a></li>
+                    <li class="nav_item"><a href="aboutus.html"><b>About us</b></a></li>
+                </ul>
+              </nav>
+        </div>
+        <video class="bg-vid" autoplay muted loop playsinline>
+            <source src="img_gagan/northafrica.mp4" type="video/mp4">
+        </video>
+        <div class="head">
+            <h1 class="heading"><b>Africa</b></h1>
+        </div>
+    </section>
+    <section class="content">
+        <section class="element1">
+            <ul class="list1">
+                <b>
+                    <li class="ls">Morrocon</li>
+                </b>
+                <p class="description">Morocco is a beautiful country in North Africa, located between the Atlantic
+                    Ocean
+                    and<br> the Mediterranean Sea.
+                    It’s known for its rich culture, colorful cities, deserts, and historic architecture.</p>
+                <hr>
+                <div class="card-container">
+                    <div class="cards">
+                        <ul class="nested-ls1">
+                            <h1 class="ls-head">Famous Cities</h1>
+                            <li class="ls-content">Marrakech - Known for busy markets (souks), palaces, and street life
+                            </li>
+
+                            <li class="ls-content">Casablanca – Modern city with the famous Hassan II Mosque</li>
+
+                            <li class="ls-content">Fes – One of the oldest cities with traditional culture</li>
+
+                            <li class="ls-content">Chefchaouen – The “Blue City” famous for its blue-painted streets
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls2">
+                            <h1 class="ls-head">Popular Attractions</h1>
+                            <li class="ls-content">Jemaa el-Fnaa – A lively square with street performers</li>
+
+                            <li class="ls-content">Hassan II Mosque – One of the largest mosques in the world</li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls3">
+                            <h1 class="ls-head">Moroccan Food</h1>
+
+                            <li class="ls-content">Tagine – Slow-cooked dish with meat and vegetables</li>
+
+                            <li class="ls-content">Couscous – Staple food made from semolina</li>
+
+                            <li class="ls-content">Mint tea – A symbol of hospitality</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="images">
+                    <img src="img_gagan/moroccan1.1.png" class="moroccan">
+                    <img src="img_gagan/moroccon2.jpg.jpeg" class="moroccan">
+                    <img src="img_gagan/moroccon3.jpg.jpeg" class="moroccan">
+                </div>
+                <b>
+                    <li class="ls">Tunisia</li>
+                </b>
+                <p class="description">Tunisia is a beautiful country in North Africa, located along the <br>
+                    Mediterranean Sea. It is known for its mix of ancient history, beaches, deserts, and vibrant
+                    culture.</p>
+                <hr>
+                <div class="card-container">
+                    <div class="cards">
+                        <ul class="nested-ls1">
+
+                            <h1 class="ls-head">Famous Cities</h1>
+                            <li class="ls-content">Tunis – Capital city with historic medina and modern life</li>
+
+                            <li class="ls-content">Sousse – Popular coastal city with beaches and resorts</li>
+
+                            <li class="ls-content">Sfax – A major cultural and economic center</li>
+
+                            <li class="ls-content">Kairouan – One of the holiest cities in Islam</li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls2">
+                            <h1 class="ls-head">Popular Attractions</h1>
+                            <li class="ls-content">Carthage – Ruins of a powerful ancient civilization</li>
+
+                            <li class="ls-content">El Djem Amphitheatre – One of the best-preserved Roman amphitheaters
+                            </li>
+
+                            <li class="ls-content">Medina of Tunis (UNESCO World Heritage site)</li>
+                        </ul>
+                    </div>
+                    <div class="cards">
+                        <ul class="nested-ls3">
+                            <h1 class="ls-head">Tunisian Food</h1>
+
+                            <li class="ls-content">Couscous – National dish</li>
+
+                            <li class="ls-content">Brik (crispy pastry with egg filling)</li>
+
+                            <li class="ls-content">Spicy flavors with harissa (chili paste) </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="images">
+                    <img src="img_gagan/tunisia1.jpg.jpeg" class="moroccan">
+                    <img src="img_gagan/tunisia2.jpg.jpeg" class="moroccan">
+                    <img src="img_gagan/tunisia3.jpg.jpeg" class="moroccan">
+                </div>
+        </section>
+        <b>
+            <li class="ls">Uganda</li>
+        </b>
+        <p class="description">Uganda is a beautiful country in East Africa, known as the “Pearl of Africa” for<br>
+            its lush greenery, wildlife, and lakes. It offers a mix of adventure and natural beauty.</p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Kampala – Capital city with vibrant culture</li>
+
+                    <li class="ls-content">Entebbe – Lakeside city near the international airport</li>
+
+                    <li class="ls-content">Jinja – Adventure hub near the Nile River</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Maasai Mara National Reserve – Famous for the Great Migration 🦁
+
+                    <li class="ls-content">Amboseli National Park – Views of elephants and Mount Kilimanjaro</li>
+                    <li class="ls-content">Vast savannahs and national parks</li>
+
+                    <li class="ls-content">Great Rift Valley landscapes</li>
+
+                    <li class="ls-content">Beautiful coastline along the Indian Ocean</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Ugandan Food</h1>
+                    <li class="ls-content">Matoke (cooked bananas) </li>
+
+                    <li class="ls-content">Posho (maize meal)</li>
+
+                    <li class="ls-content">Fresh fish from lakes </li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/uganda1.jpg.jpeg" class="moroccan">
+            <img src="img_gagan/uganda2.jpg.jpeg" class="moroccan">
+            <img src="img_gagan/uganda3.jpg.jpeg" class="moroccan">
+        </div>
+        </ul>
+
+        <b>
+            <li class="ls">Kenya</li>
+        </b>
+        <p class="description">Kenya is a famous country in East Africa, known for its wildlife safaris, savannah<br>
+            landscapes, and rich culture. It is one of the best safari destinations in the world.</p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Nairobi – Capital city and safari gateway</li>
+
+                    <li class="ls-content">Mombasa – Coastal city with beaches</li>
+
+                    <li class="ls-content">Kisumu – City near Lake Victoria</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Bwindi Impenetrable Forest – Famous for gorilla trekking </li>
+
+                    <li class="ls-content">Murchison Falls National Park – Powerful waterfalls and wildlife</li>
+                    <li class="ls-content">Source of the Nile River</li>
+
+                    <li class="ls-content">Lush forests, lakes, and mountains</li>
+
+                    <li class="ls-content">Beautiful landscapes and waterfalls</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Kenya Food</h1>
+                    <li class="ls-content">Ugali (maize dish) </li>
+
+                    <li class="ls-content">Nyama Choma (grilled meat) </li>
+
+                    <li class="ls-content">Fresh coastal seafood</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/kenya2.jpg.jpeg" class="moroccan">
+            <img src="img_gagan/kenya1.jpg.jpeg" class="moroccan">
+            <img src="img_gagan/kenya3.jpg.jpeg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Egypt</li>
+        </b>
+        <p class="description">Egypt is one of the oldest civilizations in the world, located in North Africa along
+            <br>the famous Nile River.
+            It is known for its ancient history, monuments, deserts, and vibrant culture.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">– Capital city with museums and markets</li>
+
+                    <li class="ls-content">Alexandria – Coastal city on the Mediterranean Sea</li>
+
+                    <li class="ls-content">Luxor – Known as the world’s greatest open-air museum</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Famous Historical Sites</h1>
+                    <li class="ls-content">Pyramids of Giza – One of the Seven Wonders of the Ancient World</li>
+
+                    <li class="ls-content">Great Sphinx of Giza – A massive statue with a lion’s body and human head
+                    </li>
+
+                    <li class="ls-content">Valley of the Kings – Tombs of ancient pharaohs</li>
+
+                    <li class="ls-content">Abu Simbel Temples – Magnificent rock temples</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Egyptian Food</h1>
+                    <li class="ls-content">Koshari – Mix of rice, pasta, lentils, and sauce</li>
+
+                    <li class="ls-content">Ful Medames – Cooked fava beans</li>
+
+                    <li class="ls-content">Fresh bread and grilled dishes are common</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/egypt1.jpg.jpeg" class="moroccan">
+            <img src="img_gagan/egypt2.jpg.jpeg" class="moroccan">
+            <img src="img_gagan/egypt3.jpg.jpeg" class="moroccan">
+        </div>
+        </ul>
+        <b>
+            <li class="ls">Namibia</li>
+        </b>
+        <p class="description">Namibia is a beautiful country in Southern Africa, known for its vast deserts,
+            unique landscapes,<br> and rich wildlife. It is one of the least crowded travel destinations,
+            perfect for nature lovers.</p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Windhoek – Capital city, calm and modern</li>
+
+                    <li class="ls-content">Swakopmund – Coastal town known for adventure and beaches</li>
+
+                    <li class="ls-content">Walvis Bay – Famous for lagoons and flamingos</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Etosha National Park – Famous for wildlife safaris</li>
+
+                    <li class="ls-content">Skeleton Coast – unique and mysterious coastline</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Namibian Food</h1>
+
+                    <li class="ls-content">Grilled meats (braai)</li>
+
+                    <li class="ls-content">Seafood along the coast</li>
+
+                    <li class="ls-content">Traditional dishes influenced by African and German culture</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/nambia1.jpg.jpeg" class="moroccan">
+            <img src="img_gagan/nambia2.jpg.jpeg" class="moroccan">
+            <img src="img_gagan/nambia3.jpg.jpeg" class="moroccan">
+        </div>
+
+        <b>
+            <li class="ls">Zimbabwe</li>
+        </b>
+        <p class="description">Zimbabwe is a beautiful country in Southern Africa, known for its waterfalls,<br>
+            wildlife, and ancient history. It offers a mix of adventure and culture.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Harare – Capital city with modern lifestyle</li>
+
+                    <li class="ls-content">Bulawayo – Cultural hub with history and museums</li>
+
+                    <li class="ls-content">Victoria Falls – Tourist town near the waterfall</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Great Zimbabwe – Ancient stone ruins</li>
+
+                    <li class="ls-content">National parks with wildlife safaris</li>
+
+                    <li class="ls-content">Victoria Falls – One of the largest waterfalls in the world</li>
+
+                    <li class="ls-content">Rivers, forests, and national parks</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Zimbabwean Food</h1>
+                    <li class="ls-content">Sadza (staple food made from maize)</li>
+
+                    <li class="ls-content">Meat and vegetable dishes</li>
+
+                    <li class="ls-content">Traditional African cuisine</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/zimbabwe1.jpg.jpeg" class="moroccan">
+            <img src="img_gagan/zimbabwe2.jpg.jpeg" class="moroccan">
+            <img src="img_gagan/zimbabwe3.jpg.jpeg" class="moroccan">
+        </div>
+        </ul>
+
+        <b>
+            <li class="ls">South Africa</li>
+        </b>
+        <p class="description">South Africa is a diverse and vibrant country in Southern Africa, known for its<br>
+            wildlife, beautiful landscapes, modern cities, and rich cultural heritage.
+        </p>
+        <hr>
+        <div class="card-container">
+            <div class="cards">
+                <ul class="nested-ls1">
+                    <h1 class="ls-head">Famous Cities</h1>
+                    <li class="ls-content">Cape Town – Famous for beaches and mountains</li>
+                    <li class="ls-content">Johannesburg – Largest city and economic hub</li>
+                    <li class="ls-content">Durban – Coastal city with warm beaches</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls2">
+                    <h1 class="ls-head">Popular Attractions</h1>
+                    <li class="ls-content">Kurger National Park – Famous for safari and Big Five </li>
+                    <li class="ls-content">Cape Winelands – vineyards and wine tasting</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">South African Food</h1>
+                    <li class="ls-content">Braai (barbecue) </li>
+                    <li class="ls-content">Biltong (dried meat snack)</li>
+                    <li class="ls-content">Diverse cuisine influenced by many cultures</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Culture and Lifestyla</h1>
+                    <li class="ls-content">Known as the “Rainbow Nation” </li>
+                    <li class="ls-content">Mix of African, European, and Asian cultures</li>
+                    <li class="ls-content">Rich traditions, music, and languages</li>
+                </ul>
+            </div>
+            <div class="cards">
+                <ul class="nested-ls3">
+                    <h1 class="ls-head">Best Time To Visit</h1>
+                    <li class="ls-content">May to September ✅ (best for safaris)</li>
+                    <li class="ls-content">November to March (great for beaches)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="images">
+            <img src="img_gagan/zimbabwe1.jpg.jpeg" class="moroccan">
+            <img src="img_gagan/zimbabwe2.jpg.jpeg" class="moroccan">
+            <img src="img_gagan/zimbabwe3.jpg.jpeg" class="moroccan">
+        </div>
+        </ul>
+    </section>
+
+    <div class="footer">
+        © 2026 Unfold Earth | Travel the world 🌎
+    </div>
+
+ 
+<script>
+
+    let heading = document.querySelector(".heading");
+
+    heading.onclick = function () {
+
+        heading.style.color = "yellow";
+    };
+
+    let cards = document.querySelectorAll(".cards");
+
+    cards.forEach(function(card) {
+
+        card.onmouseover = function() {
+
+            card.style.backgroundColor = "rgba(255,255,255,0.2)";
+            card.style.transform = "scale(1.05)";
+            card.style.transition = "0.5s";
+        };
+
+        card.onmouseout = function() {
+
+            card.style.backgroundColor = "transparent";
+            card.style.transform = "scale(1)";
+        };
+
+    });
+
+
+    let images = document.querySelectorAll(".moroccan");
+
+    images.forEach(function(img) {
+
+        img.onmouseover = function() {
+
+            img.style.transform = "scale(1.1)";
+            img.style.transition = "0.5s";
+        };
+
+        img.onmouseout = function() {
+
+            img.style.transform = "scale(1)";
+        };
+
+    });
+    </script>
+</body>
+
+</html>
