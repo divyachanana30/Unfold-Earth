@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us</title>
+
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: Arial, sans-serif;
+background: linear-gradient(to bottom, #0f172a, #1e293b);
+color: white;
+}
+
+.nav_item {
+list-style: none;
+display: inline-block;
+padding: 20px;
+font-size: 30px;
+text-shadow: 0 0 20px black;
+}
+
+.nav_item a {
+text-decoration: none;
+color: white;
+}
+
+.nav {
+justify-content: center;
+background-color: rgba(0, 0, 0, 0.5);
+}
+
+.nav-container{
+list-style: none;
+display: flex;
+justify-content: center;
+}
+
+.dropdown{
+position:relative;
+}
+.dropbtn{
+cursor:pointer;
+padding-bottom:20px;
+}
+.dropdown-content{
+display:none;
+position:absolute;
+top:80%;
+left:0;
+z-index:9999;
+background:rgba(0, 0, 0, 0.5);
+min-width:220px;
+border-radius:3px;
+box-shadow:0 5px 20px rgba(0,0,0,0.12)
+}
+.dropdown-content a{
+padding:12px;
+display:block;
+text-decoration:none;
+border-bottom:1px solid white;
+font-size:16px;
+font-weight:600;
+}
+.dropdown-content a:hover{
+background:rgba(0, 0, 0, 0.5);
+}
+.dropdown:hover .dropdown-content{
+display:block;
+}
+
+.heading {
+text-align: center;
+font-size: 2.7rem;
+margin: 50px 0 20px;
+}
+
+.about-text {
+width: 70%;
+margin: auto;
+text-align: center;
+color: #cbd5e1;
+line-height: 1.6;
+margin-bottom: 50px;
+}
+
+.profiles {
+display: flex;
+justify-content: center;
+gap: 40px;
+flex-wrap: wrap;
+padding: 20px;
+}
+
+.profile-card {
+background: rgba(255,255,255,0.05);
+backdrop-filter: blur(10px);
+border-radius: 15px;
+width: 260px;
+text-align: center;
+padding: 25px;
+transition: 0.3s;
+box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.profile-card:hover {
+transform: translateY(-10px);
+}
+
+.profile-img {
+width: 120px;
+height: 120px;
+border-radius: 50%;
+object-fit: cover;
+margin-bottom: 15px;
+border: 2px solid #38bdf8;
+}
+
+.profile-card h3 {
+margin-bottom: 8px;
+}
+
+.profile-card p {
+color: #94a3b8;
+}
+
+.footer {
+text-align: center;
+padding: 20px;
+margin-top: 60px;
+color: #94a3b8;
+border-top: 1px solid #334155;
+}
+</style>
+</head>
+
+<body>
+
+<nav class="nav">
+<ul class="nav-container">
+    <li class="nav_item"><a href="grid.html"><b>Home</b></a></li>
+<li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Destinations</b></a>
+<div class="dropdown-content">
+<a href="africa.html">Africa</a>
+<a href="asia.html">Asia</a>
+<a href="america.html">America</a>
+<a href="europe.html">Europe</a>
+<a href="carribean.html">Carribean</a>
+</div>
+</li>
+<li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Categories</b></a>
+<div class="dropdown-content">
+<a href="beaches.html">Beach</a>
+<a href="mountains.html">Mountains</a>
+<a href="wildlife.html">Wildlife</a>
+<a href="desert.html">Desert</a>
+<a href="waterfall.html">Waterfall</a>
+<a href="volcanos.html">Volcanoes</a>
+<a href="monuments.html">Monuments</a>
+</div>
+</li>
+<li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Gallery</b></a>
+<div class="dropdown-content">
+<a href="artgallery.html">Art Gallery</a>
+<a href="imagegallery.html">Image Gallery</a>
+</div>
+</li>
+<li class="nav_item"><a href="contact.html"><b>Contact us</b></a></li>
+<li class="nav_item"><a href="aboutus.html"><b>About us</b></a></li>
+</ul>
+</nav>
+
+<h1 class="heading">Meet Our Team</h1>
+
+<p class="about-text">
+We are a passionate team building a platform to explore the world's most beautiful places.
+</p>
+
+<div class="profiles">
+
+<div class="profile-card">
+<img src="divya.jpeg" class="profile-img">
+<h3>Divya Chanana</h3>
+<p>Team Head</p>
+</div>
+
+<div class="profile-card">
+<img src="gagan.jpeg" class="profile-img">
+<h3>Gagan Kashyap</h3>
+<p>Team Member</p>
+</div>
+
+<div class="profile-card">
+<img src="ria.jpeg" class="profile-img">
+<h3>Devanshi Kanwar</h3>
+<p>Team Member</p>
+</div>
+</div>
+
+<div class="footer">
+© 2026 Unfold Earth 🌎
+</div>
+<script>
+window.onload = function() {
+    alert("Welcome to Our Team Page!");
+};
+
+let cards = document.querySelectorAll(".profile-card");
+
+cards.forEach(function(card, index) {
+
+    card.style.opacity = "0";
+
+    setTimeout(function() {
+        card.style.transition = "0.8s";
+        card.style.opacity = "1";
+    }, index * 500);
+
+});
+
+cards.forEach(function(card) {
+
+    card.addEventListener("click", function() {
+
+        cards.forEach(function(c) {
+            c.style.border = "none";
+        });
+
+        card.style.border = "2px solid #38bdf8";
+
+    });
+
+});
+
+let heading = document.querySelector(".heading");
+
+heading.addEventListener("click", function() {
+
+    heading.style.color = "#38bdf8";
+
+});
+</script>
+</body>
+</html>
