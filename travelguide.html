@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Private Travel Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a2540 0%, #1a3a5f 50%, #0f2b4a 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(rgba(10, 37, 64, 0.75), rgba(10, 37, 64, 0.85));
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            background: #ffc87b;
+            color: #0a2540;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none; 
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            background: #cf7b57;
+            transition: 0.5s ease-in-out;
+        }
+
+        section {
+            padding: 100px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 40px 30px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 119, 0.2);
+        }
+
+        .service-card h3 {
+            font-size: 1.6rem;
+            margin: 20px 0 15px;
+            color: #d4af77;
+        }
+
+        .destinations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .dest-card {
+            background: rgba(255, 255, 255, 0.95);
+            color: #0a2540;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .dest-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .dest-card h3 {
+            padding: 20px 20px 10px;
+            font-size: 1.5rem;
+        }
+
+        .dest-card p {
+            padding: 0 20px 25px;
+            color: #555;
+        }
+
+        .guides {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .guide-card {
+            text-align: center;
+            background: rgba(255,255,255,0.08);
+            padding: 30px;
+            border-radius: 16px;
+        }
+
+        .guide-card img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #d4af77;
+            margin-bottom: 20px;
+        }
+
+        .final-cta {
+            background: linear-gradient(135deg, #f9b958, #cc911c);
+            color: #0a2540;
+            text-align: center;
+            padding: 120px 40px;
+        }
+
+        .final-cta h2 {
+            color: #0a2540;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(10, 37, 64, 0.95);
+            border-top: 1px solid rgba(212,175,119,0.2);
+        }
+
+        h2{
+            color: #d4af77;
+        }
+
+        .headd {
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        margin-top: 12%;
+        text-shadow: 0 0 50px black;
+      }
+
+      .nav_item {
+        list-style: none;
+        display: inline-block;
+        padding: 20px;
+        font-size: 30px;
+        text-shadow: 0 0 20px black;
+        pointer-events: auto;
+      }
+
+        .nav_item a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav {
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.81);
+        }
+ 
+        .nav-container{
+            list-style: none;
+            display: flex;
+            justify-content: center;
+
+        }
+        .dropdown{
+    position:relative;
+}
+.dropbtn{
+    cursor:pointer;
+    padding-bottom:20px;
+}
+.dropdown-content{
+    display:none;
+    position:absolute;
+    top:80%;
+    left:0;
+    z-index:9999;
+    background:rgba(0, 0, 0, 0.5);
+    min-width:220px;
+    border-radius:3px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.12)
+}
+.dropdown-content a{
+    padding:12px;
+    display:block;
+    text-decoration:none;
+    font-size:15px;
+    border-bottom:1px solid white;
+    font-size: 16px;
+    font-weight: 600;
+}
+.dropdown-content a:hover{
+    background:rgba(0, 0, 0, 0.5);
+}
+.dropdown:hover .dropdown-content{
+    display:block;
+}
+
+.last{
+    color: #8d8d8dd8;
+}
+    </style>
+</head>
+<body>
+        <div class="heading">
+            <nav class="nav">
+                <ul class="nav-container">
+                    <li class="nav_item"><a href="grid.html"><b>Home</b></a></li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Destinations</b></a>
+                    <div class="dropdown-content">
+                        <a href="africa.html">Africa </a>
+                        <a href="asia.html">Asia </a>
+                        <a href="america.html">America </a>
+                        <a href="europe.html">Europe </a>
+                        <a href="carribean.html">Carribean </a>
+                    </div>
+                </li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Categories</b></a>
+                    <div class="dropdown-content">
+                        <a href="beaches.html">Beach</a>
+                        <a href="#">Mountains</a>
+                        <a href="wildlife.html">Wildlife</a>
+                        <a href="desert.html">Desert</a>
+                        <a href="#">Waterfall</a>
+                        <a href="#">Volcanoes</a>
+                    </div></li>
+                    <li class="nav_item"><a href="/imagegallery/a1gallery.html"><b>Gallery</b></a></li>
+                    <li class="nav_item"><a href="#"><b>Contact us</b></a></li>
+                    <li class="nav_item"><a href="#"><b>About us</b></a></li>
+                </ul>
+              </nav>
+    <header class="header">
+        <div class="hero-content">
+            <h1>Your Personal Luxury Travel Guide</h1>
+            <p>Experience the world with private, expert guides who make every journey extraordinary and unforgettable.</p>
+            <a href="#contact" class="btn">Book Your Private Guide</a>
+        </div>
+    </header>
+    <section id="services">
+        <h2>Our Premium Services</h2>
+        <div class="services">
+            <div class="service-card">
+                <h3>Private Cultural Tours</h3>
+                <p>Skip the crowds with exclusive access to museums, temples, and historical sites led by local experts.</p>
+            </div>
+            <div class="service-card">
+                <h3>Luxury Adventures</h3>
+                <p>Helicopter rides, private yacht charters, and personalized safaris with your dedicated guide.</p>
+            </div>
+            <div class="service-card">
+                <h3>Gastronomic Experiences</h3>
+                <p>Private chef dinners, wine tastings, and cooking classes with world-class local chefs.</p>
+            </div>
+        </div>
+    </section>
+    <section id="destinations">
+        <h2>Popular Destinations</h2>
+        <div class="destinations">
+            <div class="dest-card">
+                <img src="paris.jpg" alt="Paris">
+                <h3>Paris, France</h3>
+                <p>Private Louvre tours, romantic Seine cruises &amp; hidden gems.</p>
+            </div>
+            <div class="dest-card">
+                <img src="santorini.jpg" alt="Santorini">
+                <h3>Santorini, Greece</h3>
+                <p>Sunset yacht trips, volcanic beaches &amp; luxury villas.</p>
+            </div>
+            <div class="dest-card">
+                <img src="kyoto.jpg" alt="Kyoto">
+                <h3>Kyoto, Japan</h3>
+                <p>Private temple visits, tea ceremonies &amp; traditional ryokans.</p>
+            </div>
+        </div>
+    </section>
+    <section id="guides">
+        <h2>Meet Our Expert Guides</h2>
+        <div class="guides">
+            <div class="guide-card">
+                <img src="guide3.jpg" alt="Guide">
+                <h3>Vince Laurent</h3>
+                <p>Paris Specialist • 12+ years</p>
+            </div>
+            <div class="guide-card">
+                <img src="guide2.jpg" alt="Guide">
+                <h3>Hiroshi Tanaka</h3>
+                <p>Kyoto &amp; Tokyo Expert</p>
+            </div>
+            <div class="guide-card">
+                <img src="guide1.jpg" alt="Guide">
+                <h3>Sophia Papadakis</h3>
+                <p>Greece &amp; Islands Guide</p>
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="final-cta">
+        <h2>Ready for an Unforgettable Journey?</h2>
+        <p>
+            Let our private luxury guides create a personalized experience just for you.
+        </p>
+        <a href="#" onclick="alert('Thank you! Our team will contact you soon. ✨')" class="btn">Start Planning Your Trip</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Travel Guide • Premium Private Travel Guides</p>
+        <p class="last">Made for those who seek extraordinary experiences</p>
+    </footer>
+<script>
+let destinations = document.querySelectorAll(".dest-card");
+
+destinations.forEach(function(card){
+
+    card.addEventListener("click", function(){
+
+        destinations.forEach(function(c){
+            c.style.border = "none";
+        });
+
+        card.style.border = "3px solid blue";
+
+    });
+
+});
+
+let title = document.querySelector("#destinations h2");
+
+destinations.forEach(function(card){
+
+    card.addEventListener("click", function(){
+
+        let place =
+        card.querySelector("h3").innerText;
+
+        title.innerText =
+        "Selected Destination: " + place;
+
+    });
+
+});
+
+let guides = document.querySelectorAll(".guide-card");
+
+guides.forEach(function(guide){
+
+    guide.addEventListener("click", function(){
+
+        guides.forEach(function(g){
+            g.style.background = "rgba(255,255,255,0.08)";
+        });
+
+        guide.style.background =
+        "rgba(220,20,60,0.3)";
+
+    });
+
+});
+
+let msg = document.createElement("p");
+
+msg.style.textAlign = "center";
+msg.style.marginBottom = "20px";
+msg.style.color = "#d4af77";
+
+document.querySelector("#services")
+        .prepend(msg);
+
+let btns = document.querySelectorAll(".btn");
+
+btns.forEach(function(btn){
+
+    btn.addEventListener("mouseenter", function(){
+
+        btn.style.background = "crimson";
+        btn.style.color = "white";
+
+    });
+
+    btn.addEventListener("mouseleave", function(){
+
+        btn.style.background = "#ffc87b";
+        btn.style.color = "#0a2540";
+
+    });
+
+});
+
+</script>
+</body>
+</html>
