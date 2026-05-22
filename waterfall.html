@@ -384,13 +384,21 @@
   border-radius: 12px;
   margin-bottom: 10px;
 }
+
+.footer{
+text-align:center;
+padding:30px;
+border-top:1px solid #ddd;
+color:#555;
+font-size:1.2rem;
+background:#f8fbff;
+margin-top:40px;
+}
     </style>
 </head>
-<body>
-  <div class="heading">
-            <nav class="nav">
+          <nav class="nav">
                 <ul class="nav-container">
-                    <li class="nav_item"><a href="grid.html"><b>Home</b></a></li>
+                    <li class="nav_item"><a href="index.html"><b>Home</b></a></li>
                     <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Destinations</b></a>
                     <div class="dropdown-content">
                         <a href="africa.html">Africa </a>
@@ -403,20 +411,28 @@
                     <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Categories</b></a>
                     <div class="dropdown-content">
                         <a href="beaches.html">Beach</a>
-                        <a href="#">Mountains</a>
+                        <a href="mountains.html">Mountains</a>
                         <a href="wildlife.html">Wildlife</a>
                         <a href="desert.html">Desert</a>
-                        <a href="#">Waterfall</a>
-                        <a href="#">Volcanoes</a>
+                        <a href="waterfall.html">Waterfall</a>
+                        <a href="volcanos.html">Volcanoes</a>
+                        <a href="monuments.html">Monuments</a>
                     </div></li>
-                    <li class="nav_item"><a href="/imagegallery/a1gallery.html"><b>Gallery</b></a></li>
-                    <li class="nav_item"><a href="#"><b>Contact us</b></a></li>
-                    <li class="nav_item"><a href="#"><b>About us</b></a></li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Gallery</b></a>
+                    <div class="dropdown-content">
+                      <a href="artgallery.html">Art Gallery</a>
+                      <a href="imagegallery.html">Image Gallery</a>
+
+                    </div></li>
+                    <li class="nav_item"><a href="contact.html"><b>Contact us</b></a></li>
+                    <li class="nav_item"><a href="aboutus.html"><b>About us</b></a></li>
                 </ul>
-            </nav>
+              </nav>
+</head>
+<body>
     <section class="hero">
     <video autoplay muted loop class="bg-vid">
-  <source src="cinematic2.mp4" type="video/mp4">
+  <source src="waterfalls.mp4" type="video/mp4">
 </video>
 <div class="overlay">
 </div>
@@ -432,7 +448,7 @@
   <div class="card-container">
 
     <div class="card">
-      <img src="../Waterfall/img/iguazu.jpg" alt="iguazu">
+      <img src="iguazu.jpg" alt="iguazu">
       <h3>Iguazu Falls</h3>
       <input type="checkbox" id="c1">
   <label for="c1">View Details</label>
@@ -440,7 +456,7 @@
     </div>
 
     <div class="card">
-      <img src="../Waterfall/img/victoria.jpg" alt="victoria">
+      <img src="victoria.jpg" alt="victoria">
       <h3>Victoria Falls</h3>
       <input type="checkbox" id="c2">
   <label for="c2">View Details</label>
@@ -448,7 +464,7 @@
     </div>
 
     <div class="card">
-      <img src="../Waterfall/img/niagara.jpg" alt="niagara">
+      <img src="niagara.jpg" alt="niagara">
       <h3>Niagara Falls</h3>
       <input type="checkbox" id="c3">
   <label for="c3">View Details</label>
@@ -456,7 +472,7 @@
     </div>
 
     <div class="card">
-      <img src="../Waterfall/img/angel.jpg" alt="angel">
+      <img src="angel.jpg" alt="angel">
       <h3>Angel Falls</h3>
       <input type="checkbox" id="c4">
   <label for="c4">View Details</label>
@@ -464,112 +480,112 @@
     </div>
 
     <div class="card">
-      <img src="../Waterfall/img/gullfoss.jpg" alt="gullfoss">
+      <img src="gullfoss.jpg" alt="gullfoss">
       <h3>Gullfoss</h3>
       <input type="checkbox" id="c5"> 
   <label for="c5">View Details</label>
   <div class="details">Golden falls, icy plunge.</div>
     </div>
     <div class="card">
-      <img src="..//Waterfall/img/plitvice.jpg" alt="plitvice">
+      <img src="plitvice.jpg" alt="plitvice">
       <h3>Plitvice Falls</h3>
       <input type="checkbox" id="c6">
   <label for="c6">View Details</label>
   <div class="details">Terraced lakes, emerald beauty.</div>
     </div>
     <div class="card">
-      <img src="../Waterfall/img/sutherland.jpg" alt="sutherland">
+      <img src="sutherland.jpg" alt="sutherland">
       <h3>Sutherland Falls</h3>
       <input type="checkbox" id="c7">
   <label for="c7">View Details</label>
   <div class="details">Tall cascade, remote wilderness.</div>
     </div>
     <div class="card">
-      <img src="../Waterfall/img/kaieteur.jpg" alt="kaieteur">
+      <img src="kaieteur.jpg" alt="kaieteur">
       <h3>Kaieteur Falls</h3>
       <input type="checkbox" id="c8">
   <label for="c8">View Details</label>
   <div class="details">Single drop, rainforest power.</div>
     </div>
     <div class="card">
-      <img src="../Waterfall/img/tugela.jpg" alt="tugela">
+      <img src="tugela.jpg" alt="tugela">
       <h3>Tugela Falls</h3>
       <input type="checkbox" id="c9">
   <label for="c9">View Details</label>
   <div class="details">Tallest cascade, cliff descent.</div>
     </div>
     <div class="card">
-      <img src="../Waterfall/img/yosemite.jpg" alt="yosemite">
+      <img src="yosemite.jpg" alt="yosemite">
       <h3>Yosemite Falls</h3>
       <input type="checkbox" id="c10">
   <label for="c10">View Details</label>
   <div class="details">Granite cliffs, seasonal rush.</div>
     </div>
     <div class="card">
-      <img src="../Waterfall/img/dettifoss.jpg" alt="dettifoss">
+      <img src="dettifoss.jpg" alt="dettifoss">
       <h3>Dettifoss</h3>
       <input type="checkbox" id="c11">
   <label for="c11">View Details</label>
   <div class="details">Europe's strongest, roaring force.</div>
     </div>
     <div class="card">
-      <img src="../Waterfall/img/gocta.jpg" alt="gocta">
+      <img src="gocta.jpg" alt="gocta">
       <h3>Gocta Cataracts</h3>
       <input type="checkbox" id="c12">
   <label for="c12">View Details</label>
   <div class="details">Hidden falls, misty heights.</div>
     </div>
     <div class="card">
-      <img src="../Waterfall/img/detian.jpg" alt="detian">
+      <img src="detian.jpg" alt="detian">
       <h3>Detian Falls</h3>
       <input type="checkbox" id="c13">
   <label for="c13">View Details</label>
   <div class="details">Border falls, scenic harmony.</div>
     </div>
     <div class="card">
-      <img src="../Waterfall/img/jog.jpg" alt="jog">
+      <img src="jog.jpg" alt="jog">
       <h3>Jog Falls</h3>
       <input type="checkbox" id="c14">
   <label for="c14">View Details</label>
   <div class="details">Monsoon cascade, segmented drop.</div>
     </div>
     <div class="card">
-      <img src="../Waterfall/img/blue.jpg" alt="blue">
+      <img src="blue.jpg" alt="blue">
       <h3>Blue Nile Falls</h3>
       <input type="checkbox" id="c15">
   <label for="c15">View Details</label>
   <div class="details">Historic flow, Ethiopian pride.</div>
     </div>
     <div class="card">
-      <img src="../Waterfall/img/ventisquero.jpg" alt="ventisquero">
+      <img src="ventisquero.jpg" alt="ventisquero">
       <h3>Ventisquero Colgante</h3>
       <input type="checkbox" id="c16">
   <label for="c16">View Details</label>
   <div class="details">Hanging glacier, icy fall.</div>
     </div>
     <div class="card">
-      <img src="../Waterfall/img/olo'upena.jpg" alt="olo">
+      <img src="olo'upena.jpg" alt="olo">
       <h3>Olo'upena Falls</h3>
       <input type="checkbox" id="c17">
   <label for="c17">View Details</label>
   <div class="details">Sea cliffs, remote drop.</div>
     </div>
     <div class="card">
-      <img src="../Waterfall/img/skogafoss.jpg" alt="skoga">
+      <img src="skogafoss.jpg" alt="skoga">
       <h3>Skógafoss</h3>
       <input type="checkbox" id="c18">
   <label for="c18">View Details</label>
   <div class="details">Curtain fall, rainbow mist.</div>
     </div>
     <div class="card">
-      <img src="../Waterfall/img/krimmler.jpg" alt="krimmler">
+      <img src="krimmler.jpg" alt="krimmler">
       <h3>Krimmler Wasserfälle</h3>
       <input type="checkbox" id="c19">
   <label for="c19">View Details</label>
   <div class="details">Alpine falls, tiered beauty.</div>
     </div>
     <div class="card">
-      <img src="../Waterfall/img/tres.jpg" alt="tres">
+      <img src="tres.jpg" alt="tres">
       <h3>Tres Hermanas Falls</h3>
       <input type="checkbox" id="c20">
   <label for="c20">View Details</label>
@@ -583,39 +599,39 @@
   <h2>Experiences</h2>
   <div class="exp-grid">
     <div class="exp-card box1">
-      <img src="../Waterfall/img/hiking.png">
+      <img src="hiking.png">
       <div class="overlay"><h3>Waterfall Hiking</h3></div>
     </div>
     <div class="exp-card box2">
-      <img src="../Waterfall/img/coracle.png">
+      <img src="coracle.png">
       <div class="overlay"><h3>Coracle Riding</h3></div>
     </div>
     <div class="exp-card box3">
-      <img src="../Waterfall/img/cliff.png">
+      <img src="cliff.png">
       <div class="overlay"><h3>Cliff Jumping</h3></div>
     </div>
     <div class="exp-card box4">
-      <img src="../Waterfall/img/videography.png">
+      <img src="videography.png">
       <div class="overlay"><h3>Photography & Videography</h3></div>
     </div>
     <div class="exp-card box5">
-      <img src="../Waterfall/img/walking.jpg">
+      <img src="walking.jpg">
       <div class="overlay"><h3>Waterfall Walking</h3></div>
     </div>
     <div class="exp-card box6">
-      <img src="../Waterfall/img/yoga.jpg">
+      <img src="yoga.jpg">
       <div class="overlay"><h3>Meditation & Yoga</h3></div>
     </div>
     <div class="exp-card box7">
-      <img src="../Waterfall/img/drone.png">
+      <img src="drone.png">
       <div class="overlay"><h3>Drone Filming</h3></div>
     </div>
     <div class="exp-card box8">
-      <img src="../Waterfall/img/canoeing.png">
+      <img src="canoeing.png">
       <div class="overlay"><h3>Kayaking/Canoeing</h3></div>
     </div>
     <div class="exp-card box9">
-      <img src="../Waterfall/img/ziplining.jpg">
+      <img src="ziplining.jpg">
       <div class="overlay"><h3>Ziplining</h3></div>
     </div>
   </div>
@@ -656,31 +672,37 @@
 
     <div class="req-item">
       <h3>👟</h3>
-      <img src="../Waterfall/img/footwear.jpg" alt="footwear">
+      <img src="footwear.jpg" alt="footwear">
       <p>Proper Footwear</p>
     </div>
 
     <div class="req-item">
       <h3>🎒</h3>
-      <img src="../Waterfall/img/waessentials.jpg" alt="essentials">
+      <img src="waessentials.jpg.jpeg" alt="essentials">
       <p>Essentials</p>
     </div>
 
     <div class="req-item">
       <h3>🌦</h3>
-      <img src="../Waterfall/img/weather.png" alt="weather">
+      <img src="weather.png" alt="weather">
       <p>Weather Check</p>
     </div>
 
     <div class="req-item">
       <h3>⚠️</h3>
-      <img src="../Waterfall/img/wasafety.jpg" alt="safety">
+      <img src="wasafety.jpg.jpeg" alt="safety">
       <p>Safety Awareness</p>
     </div>
 
   </div>
 </section>
+
+<div class="footer">
+    © 2026 Unfold Earth | Travel the world 🌎
+</div>
+
 <a href="#" class="top-btn">↑</a>
+
 <script>
 
 const topBtn = document.querySelector(".top-btn");
