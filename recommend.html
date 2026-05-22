@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Travel Booking</title>
+<title>Top Recommendations</title>
 
 <style>
 
@@ -14,91 +14,98 @@
   font-family: sans-serif;
 }
 
-.top {
-  height: 100vh;
-  background: linear-gradient(150deg,#163a18,#102a12);
-  color: white;
+body {
+  background: linear-gradient(to bottom, #1b356b, #15477a);
+  color: rgb(17, 10, 10);
+}
+
+.recommend-hero {
   text-align: center;
-  padding-top: 60px;
+  padding: 80px 20px;
 }
 
-.top h1 {
-  margin-bottom: 40px;
+.recommend-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
 }
 
-.grid {
+.recommend-hero p {
+  color: #c0c0c0;
+}
+
+.featured {
   display: flex;
-  justify-content: center;
   gap: 20px;
-  padding: 0 40px;
+  padding: 40px;
 }
 
-.option {
-  width: 300px;
-  height: 400px;
+.feature-card {
   position: relative;
-  overflow: hidden;
-  border-radius: 20px;
-  cursor: pointer;
+  width: 50%;
 }
 
-.option img {
+.feature-card img {
   width: 100%;
-  height: 100%;
+  height: 300px;
   object-fit: cover;
-}
-
-.option h2 {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  color: white;
-}
-
-.form-section {
-  min-height: 100vh;
-  background: linear-gradient(360deg,#163a18,#102a12);
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.form-box {
-  width: 400px;
-  background: rgba(255, 255, 255, 0.264);
-  padding: 30px;
   border-radius: 15px;
 }
 
-.form-box h2 {
-  text-align: center;
-  margin-bottom: 20px;
+.overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
 }
 
-.field {
-  margin-bottom: 15px;
+.col {
+    color: white;
 }
 
-.field input,
-.field select {
-  width: 100%;
+.overlay h2 {
+  font-size: 1.5rem;
+}
+
+.recommend-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 40px;
+}
+
+.rec-card {
+  background: rgba(229, 229, 229, 0.901);
   padding: 10px;
-  border-radius: 8px;
-  border: none;
-}
-
-.btn {
-  width: 100%;
-  padding: 12px;
-  background: #2a9ab6;
-  border: none;
   border-radius: 10px;
-  color: white;
-  cursor: pointer;
+  text-align: center;
+  transition: 0.3s;
 }
 
-      .headd {
+.rec-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.rec-card:hover {
+  transform: scale(1.05);
+}
+
+.cta {
+  text-align: center;
+  padding: 60px;
+}
+
+.cta a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 25px;
+  background: linear-gradient(45deg,#1f22bb,#3b82f6);
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+}
+.headd {
         justify-content: center;
         display: flex;
         align-items: center;
@@ -112,7 +119,7 @@
         display: inline-block;
         padding: 20px;
         font-size: 30px;
-        text-shadow: 0 0 20px rgb(0, 0, 0);
+        text-shadow: 0 0 20px black;
         pointer-events: auto;
       }
 
@@ -123,7 +130,7 @@
 
         .nav {
             justify-content: center;
-            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.81);
         }
  
         .nav-container{
@@ -166,21 +173,19 @@
     display:block;
 }
 
-
 .footer{
 text-align:center;
 padding:30px;
 border-top:1px solid #ddd;
-color:#fdfdfd;
+color:#555;
 font-size:1.2rem;
-background:#35663b;
+background:#f8fbff;
+margin-top:40px;
 }
-    </style>
-</head>
 
-<body>
-        <div class="heading">
-            <nav class="nav">
+</style>
+<div class="heading">
+         <nav class="nav">
                 <ul class="nav-container">
                     <li class="nav_item"><a href="grid.html"><b>Home</b></a></li>
                     <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Destinations</b></a>
@@ -212,116 +217,97 @@ background:#35663b;
                     <li class="nav_item"><a href="aboutus.html"><b>About us</b></a></li>
                 </ul>
               </nav>
-<section class="top">
-  <h1>Choose Your Travel Style</h1>
+</head>
 
-  <div class="grid">
+<body>
+<section class="recommend-hero">
+  <h1>Top Recommendations</h1>
+  <p>Handpicked destinations from across the world 🌍</p>
+</section>
+<section class="featured">
 
-    <div class="option">
-      <img src="/booking/travel.jpg">
-      <h2>✈️ Air Travel</h2>
+  <div class="feature-card">
+    <img src="everest.jpg">
+    <div class="overlay">
+      <h2 class="col">Mount Everest</h2>
+      <p class="col">Ultimate adventure peak</p>
     </div>
+  </div>
 
-    <div class="option">
-      <img src="/booking/train.jpg">
-      <h2>🚆 Train Journey</h2>
+  <div class="feature-card">
+    <img src="niagara.jpg">
+    <div class="overlay">
+      <h2 class="col">Niagara Falls</h2>
+      <p class="col">Powerful natural wonder</p>
     </div>
+  </div>
 
-    <div class="option">
-      <img src="/booking/road.jpg">
-      <h2>🚗 Road Trip</h2>
-    </div>
+</section>
+<section class="recommend-grid">
 
+  <div class="rec-card">
+    <img src="rec3.jpg">
+    <h3>Mount Fuji</h3>
+  </div>
+
+  <div class="rec-card">
+    <img src="rec2.jpg">
+    <h3>Mount Bromo</h3>
+  </div>
+
+  <div class="rec-card">
+    <img src="rec4.jpg">
+    <h3>Maldives</h3>
+  </div>
+
+  <div class="rec-card">
+    <img src="rec1.jpg">
+    <h3>Amazon Rainforest</h3>
   </div>
 
 </section>
 
-<section class="form-section">
-
-  <div class="form-box">
-    <h2>Complete Your Booking</h2>
-
-    <div class="field">
-      <input type="text" placeholder="Enter Destination">
-    </div>
-
-    <div class="field">
-      <input type="date">
-    </div>
-
-    <div class="field">
-      <input type="number" placeholder="Number of People">
-    </div>
-
-    <div class="field">
-      <select>
-        <option>Budget</option>
-        <option>Low</option>
-        <option>Medium</option>
-        <option>High</option>
-      </select>
-    </div>
-
-   <button class="btn"  onclick="alert('Booking has been a success. Thank you for booking!')">Book Now</button>
-  </div>
-
+<section class="cta">
+  <h2>Explore More Destinations</h2>
+  <a href="grid.html">Back to Home</a>
 </section>
 
   <div class="footer">
     © 2026 Unfold Earth | Travel the world 🌎
 </div>
 <script>
-let options = document.querySelectorAll(".option");
-let heading = document.querySelector(".form-box h2");
+let heading = document.querySelector(".recommend-hero p");
+let cards = document.querySelectorAll(".rec-card");
 
-options.forEach(function(option){
+cards.forEach(function(card){
 
-    option.addEventListener("click", function(){
+    card.addEventListener("click", function(){
 
-        options.forEach(function(o){
-            o.style.border = "none";
-            o.style.transform = "scale(1)";
+        cards.forEach(function(c){
+            c.style.border = "none";
         });
 
-        option.style.border = "4px solid crimson";
-        option.style.transform = "scale(1.05)";
-
-        let travelType =
-        option.querySelector("h2").innerText;
-
-        heading.innerText =
-        "Booking For " + travelType;
+        card.style.border = "3px solid crimson";
 
     });
 
 });
 
-let btn = document.querySelector(".btn");
+let message = document.createElement("h3");
+message.style.textAlign = "center";
+message.style.color = "white";
+
+document.querySelector(".recommend-grid")
+        .before(message);
+
+
+let btn = document.querySelector(".cta a");
 
 btn.addEventListener("click", function(){
 
-    btn.innerText = "Booked ✓";
-    btn.style.backgroundColor = "crimson";
+    alert("Returning to Home Page");
 
 });
-
-let destination =
-document.querySelector('input[type="text"]');
-
-destination.addEventListener("focus", function(){
-
-    destination.style.border =
-    "2px solid crimson";
-
-});
-
-destination.addEventListener("blur", function(){
-
-    destination.style.border =
-    "none";
-
-});
-
 </script>
 </body>
 </html>
