@@ -415,5 +415,65 @@
     <p>©️ 2026 Lumina • Your Gateway to the World's Greatest Art Galleries</p>
   </footer>
 <a href="#heroo" class="scroll-btn">↑</a>
+
+<script>
+let buttons = document.querySelectorAll(".visit-btn");
+
+buttons.forEach(function(btn){
+
+    btn.addEventListener("click", function(){
+
+        btn.innerHTML = "Visit Planned ✓";
+
+    });
+
+});
+
+let cards = document.querySelectorAll(".gallery-card");
+
+cards.forEach(function(card){
+
+    card.addEventListener("click", function(){
+
+        cards.forEach(function(c){
+            c.style.border = "none";
+        });
+
+        card.style.border = "3px solid gold";
+
+        let galleryName =
+        card.querySelector("h3").innerHTML;
+
+        alert("Selected Gallery: " + galleryName);
+
+    });
+
+});
+
+let cities = document.querySelectorAll(".city-tag");
+
+cities.forEach(function(city){
+
+    city.addEventListener("click", function(){
+
+        let colors = [
+            "crimson",
+            "royalblue",
+            "green",
+            "orange",
+            "purple"
+        ];
+
+        let random =
+        Math.floor(Math.random() * colors.length);
+
+        city.style.backgroundColor =
+        colors[random];
+
+    });
+
+});
+
+</script>
 </body>
 </html>
