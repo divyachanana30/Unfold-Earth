@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interesting Facts | Unfold Earth</title>
+<style>
+
+      * {
+        padding: 0;
+        margin: 0;
+      }
+
+      .headd {
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        margin-top: 12%;
+        text-shadow: 0 0 50px black;
+      }
+
+      .nav_item {
+        list-style: none;
+        display: inline-block;
+        padding: 20px;
+        font-size: 30px;
+        text-shadow: 0 0 20px black;
+        pointer-events: auto;
+      }
+
+        .nav_item a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav {
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+ 
+        .nav-container{
+            list-style: none;
+            display: flex;
+            justify-content: center;
+
+        }
+        .dropdown{
+    position:relative;
+}
+.dropbtn{
+    cursor:pointer;
+    padding-bottom:20px;
+}
+.dropdown-content{
+    display:none;
+    position:absolute;
+    top:80%;
+    left:0;
+    z-index:9999;
+    background:rgba(0, 0, 0, 0.5);
+    min-width:220px;
+    border-radius:3px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.12)
+}
+.dropdown-content a{
+    padding:12px;
+    display:block;
+    text-decoration:none;
+    font-size:15px;
+    border-bottom:1px solid white;
+    font-size: 16px;
+    font-weight: 600;
+}
+.dropdown-content a:hover{
+    background:rgba(0, 0, 0, 0.5);
+}
+.dropdown:hover .dropdown-content{
+    display:block;
+}
+
+body{
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: white;
+    overflow-x:hidden;
+}
+.hero{
+    height:70vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background: url('background.jpg') no-repeat center/cover;
+}
+.hero h2{
+    font-size:50px;
+    background: rgba(0,0,0,0.6);
+    padding:20px;
+    border-radius:10px;
+    animation: heroGlow 2.8s ease-in-out infinite;
+}
+@keyframes heroGlow{
+    0%,100%{ box-shadow: 0 0 0 rgba(0,255,213,0); }
+    50%{ box-shadow: 0 0 35px rgba(0,255,213,0.25); }
+}
+.section-title{
+    text-align:center;
+    margin:40px 0;
+    font-size:35px;
+    color:#00ffd5;
+}
+.grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap:25px;
+    padding:40px;
+}
+.card{
+    background: rgba(255,255,255,0.1);
+    border-radius:15px;
+    overflow:hidden;
+    transition:0.4s;
+    backdrop-filter: blur(10px);
+    position:relative;
+    transform: translateY(18px);
+    opacity: 0;
+}
+.card.show{
+    opacity: 1;
+    transform: translateY(0);
+    transition:0.6s;
+}
+.card::after{
+    content:"";
+    position:absolute;
+    top:-40%;
+    left:-50%;
+    width:60%;
+    height:180%;
+    background: linear-gradient(90deg, transparent, rgba(0,255,213,0.35), transparent);
+    transform: rotate(25deg);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events:none;
+}
+.card:hover{
+    box-shadow:0 10px 25px rgba(0,0,0,0.5);
+}
+.card:hover::after{
+    opacity: 1;
+    animation: shine 0.7s ease;
+}
+@keyframes shine{
+    from{ left:-70%; }
+    to{ left:130%; }
+}
+.card img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+}
+.card-content{
+    padding:15px;
+}
+.card h3{
+    color:#00ffd5;
+    margin-bottom:10px;
+}
+.card p{
+    font-size:14px;
+    line-height:1.5;
+}
+.video-section{
+    padding:50px;
+    text-align:center;
+}
+.video-section iframe{
+    width:80%;
+    height:400px;
+    border-radius:15px;
+}
+.scroll-section{
+    display:flex;
+    overflow-x:auto;
+    gap:20px;
+    padding:30px;
+}
+.scroll-card{
+    min-width:250px;
+    background: rgba(255,255,255,0.1);
+    padding:20px;
+    border-radius:10px;
+}
+.footer{
+    text-align:center;
+    padding:20px;
+    background:black;
+    margin-top:30px;
+}
+</style>
+</head>
+<body>
+        <div class="heading">
+            <nav class="nav">
+                <ul class="nav-container">
+                    <li class="nav_item"><a href="index.html"><b>Home</b></a></li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Destinations</b></a>
+                    <div class="dropdown-content">
+                        <a href="africa.html">Africa </a>
+                        <a href="asia.html">Asia </a>
+                        <a href="america.html">America </a>
+                        <a href="europe.html">Europe </a>
+                        <a href="carribean.html">Carribean </a>
+                    </div>
+                </li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Categories</b></a>
+                    <div class="dropdown-content">
+                        <a href="beaches.html">Beach</a>
+                        <a href="mountains.html">Mountains</a>
+                        <a href="wildlife.html">Wildlife</a>
+                        <a href="desert.html">Desert</a>
+                        <a href="waterfall.html">Waterfall</a>
+                        <a href="volcanos.html">Volcanoes</a>
+                        <a href="monuments.html">Monuments</a>
+                    </div></li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Gallery</b></a>
+                    <div class="dropdown-content">
+                      <a href="artgallery.html">Art Gallery</a>
+                      <a href="imagegallery.html">Image Gallery</a>
+
+                    </div></li>
+                    <li class="nav_item"><a href="contact.html"><b>Contact us</b></a></li>
+                    <li class="nav_item"><a href="aboutus.html"><b>About us</b></a></li>
+                </ul>
+              </nav>
+
+<div class="hero">
+    <h2>🌍 Interesting Facts Around The World</h2>
+</div>
+<h2 class="section-title">✨ Amazing Country Facts</h2>
+<div class="grid">
+<div class="card">
+<img src="india.jpg">
+<div class="card-content">
+<h3>India 🇮🇳</h3>
+<p>India has the world's largest democracy and the Taj Mahal is one of the Seven Wonders of the World.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="france.jpg">
+<div class="card-content">
+<h3>France 🇫🇷</h3>
+<p>France is the most visited country in the world and is famous for the Eiffel Tower.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="japan.jpg">
+<div class="card-content">
+<h3>Japan 🇯🇵</h3>
+<p>Japan has more than 6,800 islands and is known for its advanced technology.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="brazil.jpg">
+<div class="card-content">
+<h3>Brazil 🇧🇷</h3>
+<p>Brazil is home to the Amazon rainforest, the largest rainforest in the world.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="canada.jpg">
+<div class="card-content">
+<h3>Canada 🇨🇦</h3>
+<p>Canada has more lakes than the rest of the world combined.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="Australia.jpg">
+<div class="card-content">
+<h3>Australia 🇦🇺</h3>
+<p>Australia is wider than the moon and has naturally pink lakes.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="italy.jpg">
+<div class="card-content">
+<h3>Italy 🇮🇹</h3>
+<p>Italy has the highest number of UNESCO World Heritage Sites.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="egypt.jpg">
+<div class="card-content">
+<h3>Egypt 🇪🇬</h3>
+<p>The Great Pyramid of Giza is the oldest of the Seven Wonders.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="usa.jpg">
+<div class="card-content">
+<h3>USA 🇺🇸</h3>
+<p>The USA has no official language at the federal level.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="china.jpg">
+<div class="card-content">
+<h3>China 🇨🇳</h3>
+<p>The Great Wall of China is over 21,000 km long.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="southafrica.jpg">
+<div class="card-content">
+<h3>South Africa 🇿🇦</h3>
+<p>It has three capital cities: Pretoria, Cape Town, and Bloemfontein.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="maldives.jpg">
+<div class="card-content">
+<h3>Maldives 🇲🇻</h3>
+<p>The Maldives is the lowest country in the world.</p>
+</div>
+</div>
+
+</div>
+
+
+<div class="video-section">
+<h2 class="section-title">🎥 Explore the World</h2>
+<iframe src="https://www.youtube.com/embed/Scxs7L0vhZ4" allowfullscreen></iframe>
+</div>
+
+
+<h2 class="section-title">🌟 Quick Fun Facts</h2>
+
+<div class="scroll-section">
+<div class="scroll-card">🇳🇴 Norway experiences the Midnight Sun.</div>
+<div class="scroll-card">🇰🇷 South Korea has the fastest internet.</div>
+<div class="scroll-card">🇲🇽 Mexico introduced chocolate to the world.</div>
+<div class="scroll-card">🇷🇺 Russia spans 11 time zones.</div>
+<div class="scroll-card">🇬🇷 Greece has over 6,000 islands.</div>
+</div>
+
+<div class="footer">
+<p>© 2026 Unfold Earth | Explore More 🌍</p>
+</div>
+
+<script>
+    
+window.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".card");
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if(entry.isIntersecting){
+                entry.target.classList.add("show");
+            }
+        });
+    });
+    cards.forEach((card) => {
+        observer.observe(card);
+    });
+});
+
+</script>
+</body>
+</html>
