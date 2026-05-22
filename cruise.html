@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ocean Odyssey • Sail Into Luxury</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            font-family:'Poppins',sans-serif;
+            color:#fff;
+            background:#0a2540;
+            line-height:1.6;
+            overflow-x:hidden;
+        }
+
+        h1,h2,h3{
+            font-family:'Playfair Display',serif;
+            font-weight:700;
+        }
+
+        .container{
+            max-width:1400px;
+            margin:0 auto;
+            padding:0 50px;
+        }
+
+
+        nav{
+            background:rgba(0,0,0,0.45);
+            backdrop-filter:blur(10px);
+            position:fixed;
+            width:100%;
+            top:0;
+            z-index:1000;
+            padding:15px 0;
+            transition:0.4s ease;
+        }
+
+        .nav-list{
+            display:flex;
+            justify-content:center;
+            list-style:none;
+            gap:40px;
+            align-items:center;
+        }
+
+        .nav-list a{
+            color:white;
+            text-decoration:none;
+            font-size:18px;
+            font-weight:500;
+            transition:0.3s ease;
+            position:relative;
+        }
+
+        .nav-list a::after{
+            content:'';
+            position:absolute;
+            width:0%;
+            height:2px;
+            background:#ffb366;
+            left:0;
+            bottom:-6px;
+            transition:0.4s ease;
+        }
+
+        .nav-list a:hover::after{
+            width:100%;
+        }
+
+        .nav-list a:hover{
+            color:#ffb366;
+        }
+
+        .dropdown{
+            position:relative;
+        }
+
+        .dropdown-content{
+            display:none;
+            position:absolute;
+            background:rgba(0,0,0,0.9);
+            min-width:180px;
+            border-radius:10px;
+            top:100%;
+            left:0;
+            overflow:hidden;
+        }
+
+        .dropdown:hover .dropdown-content{
+            display:block;
+            animation:fadeIn 0.4s ease;
+        }
+
+        .dropdown-content a{
+            display:block;
+            padding:12px 20px;
+            font-size:15px;
+        }
+
+
+        #hero{
+            height:100vh;
+            min-height:700px;
+            background:
+            linear-gradient(rgba(10,37,64,0.65), rgba(255,140,66,0.35)),
+            url('intro.jpg') center/cover no-repeat fixed;
+
+            display:flex;
+            align-items:center;
+            position:relative;
+        }
+
+        .hero-content{
+            max-width:780px;
+        }
+
+        .hero-emblem{
+            background:rgba(255,255,255,0.15);
+            padding:12px 30px;
+            border-radius:50px;
+            display:inline-flex;
+            align-items:center;
+            gap:10px;
+            font-size:1rem;
+            margin-bottom:25px;
+            backdrop-filter:blur(8px);
+        }
+
+        .hero-content h1{
+            font-size:5rem;
+            line-height:1.1;
+            margin-bottom:20px;
+        }
+
+        .hero-content p{
+            font-family:'Cormorant Garamond',serif;
+            font-size:1.8rem;
+            margin-bottom:40px;
+        }
+
+        .cta-button{
+            background:linear-gradient(90deg,#ff8c42,#ffb366);
+            color:#0a2540;
+            padding:18px 50px;
+            border-radius:50px;
+            text-decoration:none;
+            font-size:1.2rem;
+            font-weight:600;
+            display:inline-flex;
+            align-items:center;
+            gap:12px;
+            transition:0.4s ease;
+        }
+
+        .cta-button:hover{
+            transform:translateY(-5px) scale(1.03);
+            box-shadow:0 15px 30px rgba(255,140,66,0.4);
+        }
+
+        .hero-scroll{
+            position:absolute;
+            bottom:40px;
+            left:50%;
+            transform:translateX(-50%);
+            letter-spacing:2px;
+            animation:float 2s infinite ease-in-out;
+        }
+
+
+        .wave{
+            height:100px;
+            background:linear-gradient(to bottom,#0a2540,#001f3f);
+        }
+
+        section{
+            padding:110px 0;
+        }
+
+        .section-title{
+            font-size:3rem;
+            text-align:center;
+            margin-bottom:15px;
+        }
+
+        .section-subtitle{
+            font-family:'Cormorant Garamond',serif;
+            font-size:1.5rem;
+            text-align:center;
+            max-width:700px;
+            margin:0 auto 60px;
+            opacity:0.9;
+        }
+
+        #intro{
+            background:linear-gradient(#001f3f,#0a2540);
+        }
+
+        .intro-grid{
+            display:grid;
+            grid-template-columns:1fr 1.1fr;
+            gap:70px;
+            align-items:center;
+        }
+
+        .intro-text h2{
+            font-size:2.8rem;
+            margin-bottom:25px;
+        }
+
+        .intro-text p{
+            font-size:1.35rem;
+            font-family:'Cormorant Garamond',serif;
+            margin-bottom:20px;
+        }
+
+        .intro-image{
+            height:420px;
+            max-width:520px;
+            margin:auto;
+            overflow:hidden;
+            border-radius:25px;
+        }
+
+        .intro-image img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            border-radius:25px;
+        }
+
+
+        #types{
+            background:linear-gradient(#001f3f,#0a2540);
+        }
+
+        .type-block{
+            display:grid;
+            grid-template-columns:1.1fr 1fr;
+            gap:60px;
+            align-items:center;
+            margin-bottom:90px;
+        }
+
+        .type-block:last-child{
+            margin-bottom:0;
+        }
+
+        .type-block.reverse{
+            grid-template-columns:1fr 1.1fr;
+        }
+
+        .type-image{
+            height:320px;
+            max-width:500px;
+            margin:auto;
+            overflow:hidden;
+            border-radius:25px;
+        }
+
+        .type-image img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            border-radius:25px;
+        }
+
+        .type-text h3{
+            font-size:2.4rem;
+            color:#00d2d3;
+            margin-bottom:15px;
+        }
+
+        .type-text p{
+            font-size:1.3rem;
+            font-family:'Cormorant Garamond',serif;
+        }
+
+        #onboard{
+            background:linear-gradient(180deg,#0a2540,#001f3f);
+        }
+
+        .onboard-grid{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:35px;
+        }
+
+        .onboard-card{
+            position:relative;
+            height:340px;
+            border-radius:25px;
+            overflow:hidden;
+        }
+
+        .onboard-card img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+
+        .onboard-overlay{
+            position:absolute;
+            bottom:0;
+            left:0;
+            right:0;
+            background:linear-gradient(transparent,rgba(10,37,64,0.95));
+            padding:45px 35px 35px;
+        }
+
+        #destinations{
+            background:#001f3f;
+        }
+
+        .destinations-scroll{
+            display:flex;
+            gap:25px;
+            overflow-x:auto;
+            padding-bottom:20px;
+            scroll-behavior:smooth;
+        }
+
+        .destination-card{
+            min-width:300px;
+            height:360px;
+            border-radius:25px;
+            overflow:hidden;
+            position:relative;
+        }
+
+        .destination-card img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+
+        .destination-label{
+            position:absolute;
+            bottom:30px;
+            left:30px;
+            background:rgba(255,255,255,0.2);
+            padding:18px 28px;
+            border-radius:15px;
+            backdrop-filter:blur(8px);
+        }
+
+        #highlights{
+            background:linear-gradient(#001f3f,#0a2540);
+        }
+
+        .highlights-grid{
+            display:flex;
+            flex-wrap:wrap;
+            gap:25px;
+        }
+
+        .highlight-card{
+            flex:1;
+            min-width:290px;
+            background:rgba(255,255,255,0.08);
+            padding:40px 30px;
+            border-radius:20px;
+            transition:0.5s ease;
+        }
+
+        .highlight-card:hover{
+            transform:translateY(-10px);
+            background:rgba(255,255,255,0.12);
+        }
+
+        .highlight-card span{
+            font-size:3.8rem;
+            display:block;
+            margin-bottom:20px;
+        }
+
+        #why{
+            background:linear-gradient(180deg,#0a2540,#001f3f);
+        }
+
+        .why-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+            gap:25px;
+        }
+
+        .why-card{
+            background:rgba(255,255,255,0.1);
+            padding:40px 30px;
+            border-radius:20px;
+            text-align:center;
+            transition:0.5s ease;
+        }
+
+        .why-card:hover{
+            transform:translateY(-10px);
+            background:rgba(255,255,255,0.14);
+        }
+
+        .why-card span{
+            font-size:3.5rem;
+            display:block;
+            margin-bottom:20px;
+        }
+
+        .onboard-card,
+        .destination-card,
+        .highlight-card,
+        .why-card,
+        .type-block{
+            opacity:0;
+            transform:translateY(80px);
+            transition:all 1s ease;
+        }
+
+        .show{
+            opacity:1 !important;
+            transform:translateY(0) !important;
+        }
+
+        img{
+            transition:transform 0.7s ease, filter 0.7s ease;
+        }
+
+        img:hover{
+            transform:scale(1.04);
+            filter:brightness(1.08);
+        }
+
+
+        footer{
+            text-align:center;
+            padding:40px 20px;
+            background:#001f3f;
+            font-size:1rem;
+            color:#aaa;
+        }
+
+        @media(max-width:992px){
+
+            .intro-grid,
+            .type-block,
+            .type-block.reverse{
+                grid-template-columns:1fr;
+            }
+
+            .hero-content h1{
+                font-size:3.8rem;
+            }
+
+            .onboard-grid{
+                grid-template-columns:1fr;
+            }
+        }
+
+        @media(max-width:768px){
+
+            .container{
+                padding:0 25px;
+            }
+
+            .nav-list{
+                gap:20px;
+                flex-wrap:wrap;
+            }
+
+            .hero-content h1{
+                font-size:3rem;
+            }
+
+            .hero-content p{
+                font-size:1.4rem;
+            }
+
+            .section-title{
+                font-size:2.3rem;
+            }
+
+            .intro-image{
+                height:300px;
+            }
+
+            .type-image{
+                height:260px;
+            }
+
+            .onboard-card{
+                height:280px;
+            }
+
+            .destination-card{
+                min-width:240px;
+                height:300px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <ul class="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li class="dropdown">
+                <a href="#">Destinations</a>
+                <div class="dropdown-content">
+                    <a href="africa.html">Africa</a>
+                    <a href="asia.html">Asia</a>
+                    <a href="america.html">America</a>
+                    <a href="europe.html">Europe</a>
+                    <a href="carribean.html">Carribean</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Categories</a>
+                <div class="dropdown-content">
+                    <a href="beaches.html">Beach</a>
+                    <a href="mountains.html">Mountains</a>
+                    <a href="wildlife.html">Wildlife</a>
+                    <a href="desert.html">Desert</a>
+                    <a href="waterfall.html">Waterfall</a>
+                    <a href="volcanos.html">Volcanoes</a>
+                    <a href="monuments.html">Monuments</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Gallery</a>
+                <div class="dropdown-content">
+                    <a href="artgallery.html">Art Gallery</a>
+                    <a href="imagegallery.html">Image Gallery</a>
+                </div>
+            </li>
+            <li><a href="contact.html">Contact us</a></li>
+            <li><a href="aboutus.html">About us</a></li>
+        </ul>
+    </nav>
+
+   
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-emblem">
+                    ⚓ LUXURY AT SEA • SINCE 1898
+                </div>
+                <h1>Sail Into Luxury</h1>
+                <p>Where every horizon whispers adventure and every sunset is yours alone.</p>
+                <a href="#intro" class="cta-button">
+                    DISCOVER THE JOURNEY 
+                    <span>↗</span>
+                </a>
+            </div>
+        </div>
+        <div class="hero-scroll">SCROLL FOR THE OCEAN STORY ↓</div>
+    </section>
+
+    <div class="wave"></div>
+
+  
+    <section id="intro">
+        <div class="container">
+            <div class="intro-grid">
+                <div class="intro-text">
+                    <h2>The ocean is calling.<br>Your story begins here.</h2>
+                    <p>Imagine waking to the gentle sway of waves, stepping onto your private balcony as the first light kisses endless blue.</p>
+                    <p>A luxury cruise is a floating sanctuary where time slows down and beautiful memories are made.</p>
+                </div>
+                <div class="intro-image">
+                    <img src="ocean.jpg" alt="Luxury cruise at sunset">
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <section id="types">
+        <div class="container">
+            <h2 class="section-title">Experiences as Unique as the Ocean</h2>
+            <p class="section-subtitle">Five special journeys. One unforgettable sea.</p>
+
+            <div class="type-block">
+                <div class="type-image">
+                    <img src="luxury cruises.jpg" alt="Luxury Cruise">
+                </div>
+                <div class="type-text">
+                    <h3>Luxury Cruises</h3>
+                    <p>Private butler service, beautiful pools, and suites like floating villas.</p>
+                </div>
+            </div>
+
+            <div class="type-block reverse">
+                <div class="type-text">
+                    <h3>Family Cruises</h3>
+                    <p>Fun for all ages with splash zones, clubs, and family suites.</p>
+                </div>
+                <div class="type-image">
+                    <img src="family cruises.jpg" alt="Family Cruise">
+                </div>
+            </div>
+
+            <div class="type-block">
+                <div class="type-image">
+                    <img src="adventure cruises.jpg" alt="Adventure Cruise">
+                </div>
+                <div class="type-text">
+                    <h3>Adventure Cruises</h3>
+                    <p>Zip lines, glacier hikes, and exciting ocean adventures.</p>
+                </div>
+            </div>
+
+            <div class="type-block reverse">
+                <div class="type-text">
+                    <h3>River Cruises</h3>
+                    <p>Peaceful journeys through rivers, villages, and historic towns.</p>
+                </div>
+                <div class="type-image">
+                    <img src="river cruises.jpg" alt="River Cruise">
+                </div>
+            </div>
+
+            <div class="type-block">
+                <div class="type-image">
+                    <img src="expedetion cruises.jpg" alt="Expedition Cruise">
+                </div>
+                <div class="type-text">
+                    <h3>Expedition Cruises</h3>
+                    <p>Explore wild places like Antarctica and the Arctic.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="onboard">
+        <div class="container">
+            <h2 class="section-title">Life Onboard</h2>
+            <div class="onboard-grid">
+                <div class="onboard-card">
+                    <img src="room&suites.jpg" alt="Rooms and Suites">
+                    <div class="onboard-overlay">
+                        <h3>Rooms & Suites</h3>
+                        <p>Beautiful rooms with ocean views and private balconies.</p>
+                    </div>
+                </div>
+                <div class="onboard-card">
+                    <img src="Fine Dining cruises.jpg" alt="Dining">
+                    <div class="onboard-overlay">
+                        <h3>Fine Dining</h3>
+                        <p>Delicious food from around the world, served with care.</p>
+                    </div>
+                </div>
+                <div class="onboard-card">
+                    <img src="Entertainment & Nightlife.jpg" alt="Entertainment">
+                    <div class="onboard-overlay">
+                        <h3>Entertainment</h3>
+                        <p>Shows, music, and fun activities every night.</p>
+                    </div>
+                </div>
+                <div class="onboard-card">
+                    <img src="Pools & Activities.jpg" alt="Pools">
+                    <div class="onboard-overlay">
+                        <h3>Pools & Activities</h3>
+                        <p>Swimming pools, waterslides, and relaxing areas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="destinations">
+        <div class="container">
+            <h2 class="section-title">Beautiful Destinations</h2>
+            <p class="section-subtitle">Six amazing places the ocean can take you.</p>
+
+            <div class="destinations-scroll">
+                <div class="destination-card">
+                    <img src="Caribbean.jpg" alt="Caribbean">
+                    <div class="destination-label">
+                        <h3>Caribbean</h3>
+                        <p>Clear waters and sunny islands</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="Mediterranean.jpg" alt="Mediterranean">
+                    <div class="destination-label">
+                        <h3>Mediterranean</h3>
+                        <p>Ancient cities and beautiful coasts</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="Alaska.jpg" alt="Alaska">
+                    <div class="destination-label">
+                        <h3>Alaska</h3>
+                        <p>Glaciers and wild nature</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="Norway Fjords.jpg" alt="Norway Fjords">
+                    <div class="destination-label">
+                        <h3>Norway Fjords</h3>
+                        <p>Dramatic cliffs and midnight sun</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="Maldives.jpg" alt="Maldives">
+                    <div class="destination-label">
+                        <h3>Maldives</h3>
+                        <p>Overwater villas and coral reefs</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="Dubai Marina.jpg" alt="Dubai">
+                    <div class="destination-label">
+                        <h3>Dubai</h3>
+                        <p>Modern city meets the sea</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="highlights">
+        <div class="container">
+            <h2 class="section-title">Why It Feels So Special</h2>
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <span>🧖‍♀️</span>
+                    <h3>Spa & Wellness</h3>
+                    <p>Relax with ocean views and soothing treatments.</p>
+                </div>
+                <div class="highlight-card">
+                    <span>🍽️</span>
+                    <h3>Fine Dining</h3>
+                    <p>World-class food prepared fresh every day.</p>
+                </div>
+                <div class="highlight-card">
+                    <span>🌅</span>
+                    <h3>Ocean Views</h3>
+                    <p>Stunning views from every corner of the ship.</p>
+                </div>
+                <div class="highlight-card">
+                    <span>🏖️</span>
+                    <h3>Pools & Decks</h3>
+                    <p>Beautiful pools and private relaxing areas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <section id="why">
+        <div class="container">
+            <h2 class="section-title">Why Choose a Cruise?</h2>
+            <div class="why-grid">
+                <div class="why-card">
+                    <span>🌍</span>
+                    <h3>All-in-One Adventure</h3>
+                    <p>New place every morning, no packing needed.</p>
+                </div>
+                <div class="why-card">
+                    <span>🛳️</span>
+                    <h3>Total Comfort</h3>
+                    <p>Your luxury hotel travels with you.</p>
+                </div>
+                <div class="why-card">
+                    <span>🍾</span>
+                    <h3>Endless Luxury</h3>
+                    <p>Everything you need for a perfect holiday.</p>
+                </div>
+                <div class="why-card">
+                    <span>🌊</span>
+                    <h3>Relax & Explore</h3>
+                    <p>Peace at sea and excitement on shore.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="wave"></div>
+
+    <footer>
+        © 2026 Unfold Earth | Travel the world 🌎
+    </footer>
+
+<script>
+    const elements = document.querySelectorAll(
+        ".onboard-card, .destination-card, .highlight-card, .why-card, .type-block"
+    );
+
+    const observer = new IntersectionObserver((entries) => {
+
+        entries.forEach((entry) => {
+
+            if(entry.isIntersecting){
+
+                entry.target.classList.add("show");
+
+            }
+
+        });
+
+    }, {
+        threshold:0.2
+    });
+
+    elements.forEach((element) => {
+        observer.observe(element);
+    });
+    const images = document.querySelectorAll("img");
+
+    images.forEach((img) => {
+
+        img.addEventListener("mouseenter", () => {
+
+            img.style.transform = "scale(1.04)";
+            img.style.filter = "brightness(1.08)";
+
+        });
+
+        img.addEventListener("mouseleave", () => {
+
+            img.style.transform = "scale(1)";
+            img.style.filter = "brightness(1)";
+        });
+    });
+
+    window.addEventListener("scroll", () => {
+
+        const nav = document.querySelector("nav");
+
+        if(window.scrollY > 50){
+
+            nav.style.background = "rgba(0,0,0,0.75)";
+            nav.style.padding = "12px 0";
+
+        }else{
+
+            nav.style.background = "rgba(0,0,0,0.45)";
+            nav.style.padding = "15px 0";
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
