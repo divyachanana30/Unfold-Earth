@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Travel Booking</title>
+<title>Monuments Around the World</title>
 
 <style>
 
@@ -14,91 +14,74 @@
   font-family: sans-serif;
 }
 
-.top {
-  height: 100vh;
-  background: linear-gradient(150deg,#163a18,#102a12);
+body {
+  background: #0f172a;
   color: white;
+}
+
+.header {
   text-align: center;
-  padding-top: 60px;
+  padding: 80px 20px;
 }
 
-.top h1 {
-  margin-bottom: 40px;
+.header h1 {
+  font-size: 3rem;
 }
 
-.grid {
+.header p {
+  color: #ccc;
+  margin-top: 10px;
+}
+
+.monument {
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 0 40px;
-}
-
-.option {
-  width: 300px;
-  height: 400px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.option img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.option h2 {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  color: white;
-}
-
-.form-section {
-  min-height: 100vh;
-  background: linear-gradient(360deg,#163a18,#102a12);
-  color: white;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  padding: 60px 10%;
+  gap: 40px;
 }
 
-.form-box {
-  width: 400px;
-  background: rgba(255, 255, 255, 0.264);
-  padding: 30px;
+.monument img {
+  width: 50%;
+  height: 300px;
+  object-fit: cover;
   border-radius: 15px;
 }
 
-.form-box h2 {
-  text-align: center;
-  margin-bottom: 20px;
+.text {
+  width: 50%;
 }
 
-.field {
-  margin-bottom: 15px;
+.text h2 {
+  margin-bottom: 10px;
 }
 
-.field input,
-.field select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
+.reverse {
+  flex-direction: row-reverse;
 }
 
-.btn {
-  width: 100%;
-  padding: 12px;
-  background: #2a9ab6;
-  border: none;
-  border-radius: 10px;
+.monument img:hover {
+  transform: translateX(6px);
+  transition: 0.3s;
+}
+
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: rgba(255,255,255,0.1);
   color: white;
-  cursor: pointer;
+  padding: 10px 18px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: 0.3s;
 }
 
-      .headd {
+.back-btn:hover {
+  background: white;
+  color: black;
+}
+
+.headd {
         justify-content: center;
         display: flex;
         align-items: center;
@@ -112,7 +95,7 @@
         display: inline-block;
         padding: 20px;
         font-size: 30px;
-        text-shadow: 0 0 20px rgb(0, 0, 0);
+        text-shadow: 0 0 20px black;
         pointer-events: auto;
       }
 
@@ -123,7 +106,7 @@
 
         .nav {
             justify-content: center;
-            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.81);
         }
  
         .nav-container{
@@ -165,24 +148,15 @@
 .dropdown:hover .dropdown-content{
     display:block;
 }
+</style>
 
-
-.footer{
-text-align:center;
-padding:30px;
-border-top:1px solid #ddd;
-color:#fdfdfd;
-font-size:1.2rem;
-background:#35663b;
-}
-    </style>
 </head>
 
 <body>
-        <div class="heading">
+  <div class="heading">
             <nav class="nav">
                 <ul class="nav-container">
-                    <li class="nav_item"><a href="grid.html"><b>Home</b></a></li>
+                    <li class="nav_item"><a href="index.html"><b>Home</b></a></li>
                     <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Destinations</b></a>
                     <div class="dropdown-content">
                         <a href="africa.html">Africa </a>
@@ -200,76 +174,188 @@ background:#35663b;
                         <a href="desert.html">Desert</a>
                         <a href="waterfall.html">Waterfall</a>
                         <a href="volcanos.html">Volcanoes</a>
-                        <a href="monuments.html">Monuments</a>
+                        <a href="monuments.html">Monument</a>
                     </div></li>
-                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Gallery</b></a>
-                    <div class="dropdown-content">
-                      <a href="artgallery.html">Art Gallery</a>
-                      <a href="imagegallery.html">Image Gallery</a>
-
-                    </div></li>
+                    <li class="nav_item"><a href="/imagegallery/a1gallery.html"><b>Gallery</b></a></li>
                     <li class="nav_item"><a href="contact.html"><b>Contact us</b></a></li>
                     <li class="nav_item"><a href="aboutus.html"><b>About us</b></a></li>
                 </ul>
               </nav>
-<section class="top">
-  <h1>Choose Your Travel Style</h1>
-
-  <div class="grid">
-
-    <div class="option">
-      <img src="/booking/travel.jpg">
-      <h2>✈️ Air Travel</h2>
-    </div>
-
-    <div class="option">
-      <img src="/booking/train.jpg">
-      <h2>🚆 Train Journey</h2>
-    </div>
-
-    <div class="option">
-      <img src="/booking/road.jpg">
-      <h2>🚗 Road Trip</h2>
-    </div>
-
-  </div>
-
+<section class="header">
+  <h1>Hidden Monuments Around the World</h1>
+  <p>Discover lesser-known wonders beyond the usual paths 🌍</p>
 </section>
 
-<section class="form-section">
-
-  <div class="form-box">
-    <h2>Complete Your Booking</h2>
-
-    <div class="field">
-      <input type="text" placeholder="Enter Destination">
-    </div>
-
-    <div class="field">
-      <input type="date">
-    </div>
-
-    <div class="field">
-      <input type="number" placeholder="Number of People">
-    </div>
-
-    <div class="field">
-      <select>
-        <option>Budget</option>
-        <option>Low</option>
-        <option>Medium</option>
-        <option>High</option>
-      </select>
-    </div>
-
-   <button class="btn"  onclick="alert('Booking has been a success. Thank you for booking!')">Book Now</button>
+<section class="monument">
+  <img src="templemoon.jpg.jpeg">
+  <div class="text">
+    <h2>Temple of the Moon</h2>
+    <p>A hidden cave sanctuary nestled within the Huayna Picchu mountain in Peru.</p>
+    <p>It was used by the Incas for ceremonial and spiritual purposes. Surrounded by 
+        natural rock formations, it reflects the deep connection between nature and Incan 
+        beliefs. Its secluded location makes it one of the least explored sites in the region.</p>
   </div>
-
 </section>
 
-  <div class="footer">
-    © 2026 Unfold Earth | Travel the world 🌎
-</div>
+<section class="monument reverse">
+  <img src="gobeklitepe.jpg.jpeg">
+  <div class="text">
+    <h2>Göbekli Tepe</h2>
+    <p>An 11,000-year-old sanctuary with massive carved stone pillars.</p>
+    <p>It features massive stone pillars carved with animal figures and symbols. 
+        The site challenges traditional ideas about early human societies and religion. 
+        It is one of the most important archaeological discoveries in modern history.</p>
+  </div>
+</section>
+
+<section class="monument">
+  <img src="carnac.jpg.jpeg">
+  <div class="text">
+    <h2>Carnac Stones</h2>
+    <p>Over 3,000 prehistoric standing stones spread across Brittany, France.</p>
+    <p>It features massive stone pillars carved with animal figures and symbols. 
+        The site challenges traditional ideas about early human societies and religion. 
+        It is one of the most important archaeological discoveries in modern history.</p>
+  </div>
+</section>
+
+<section class="monument reverse">
+  <img src="littlepetra.jpg.jpeg">
+  <div class="text">
+    <h2>Siq al-Barid</h2>
+    <p>Known as Little Petra, a quieter canyon site near the famous Petra.</p>
+    <p>These stones date back to around 4500 BCE and remain a mystery to historians. 
+        Some believe they were used for rituals or astronomical purposes. Their scale 
+        and alignment make them one of Europe's most fascinating ancient sites.</p>
+  </div>
+</section>
+
+<section class="monument">
+  <img src="moai.jpg.jpeg">
+  <div class="text">
+    <h2>Moai Sites</h2>
+    <p>Remote stone statues scattered across Easter Island.</p>
+    <p>While some are well-known, many are located in remote parts 
+        of the island. These statues showcase impressive craftsmanship 
+        and cultural significance. Their purpose and transportation 
+        methods still intrigue researchers.</p>
+  </div>
+</section>
+
+<section class="monument reverse">
+  <img src="grandcanyonruins.jpg.jpeg">
+  <div class="text">
+    <h2>Grand Canyon Ruins</h2>
+    <p>Hidden native ruins and caves tucked deep within the canyon.</p>
+    <p>While some are well-known, many are located in remote parts of the 
+        island. These statues showcase impressive craftsmanship and cultural 
+        significance. Their purpose and transportation methods still intrigue 
+        researchers.</p>
+  </div>
+</section>
+
+<section class="monument">
+  <img src="externsteine.jpg.jpeg">
+  <div class="text">
+    <h2>Externsteine</h2>
+    <p>A dramatic rock formation in Germany with historical and cultural significance.</p>
+    <p>These sites were once home to early civilizations who adapted to the harsh 
+        environment. Many of these ruins remain difficult to access and are rarely 
+        visited. They offer a unique blend of history and nature.</p>
+  </div>
+</section>
+
+<section class="monument reverse">
+  <img src="herculaneum.jpg.jpeg">
+  <div class="text">
+    <h2>Herculaneum</h2>
+    <p>A Roman town preserved by volcanic ash, quieter than Pompeii.</p>
+    <p>It was preserved under volcanic mud, keeping buildings and artifacts 
+        intact. This makes it one of the best-preserved ancient cities. It 
+        provides detailed insights into Roman lifestyle and architecture.</p>
+  </div>
+</section>
+
+<section class="monument">
+  <img src="cenotes.jpg.jpeg">
+  <div class="text">
+    <h2>Hidden Cenotes</h2>
+    <p>Underground water systems near Chichén Itzá, often overlooked.</p>
+    <p>it was preserved under volcanic mud, keeping buildings and artifacts 
+        intact. This makes it one of the best-preserved ancient cities. It 
+        provides detailed insights into Roman lifestyle and architecture.</p>
+  </div>
+</section>
+
+<section class="monument reverse">
+  <img src="ziggurat.jpg.jpeg">
+  <div class="text">
+    <h2>Great Ziggurat of Ur</h2>
+    <p>An ancient Mesopotamian step pyramid in Iraq.</p>
+    <p>These were considered sacred by the Mayans and 
+        used for rituals and ceremonies. Many remain hidden 
+        or less explored compared to the main ruins. They are 
+        both culturally significant and visually stunning.</p>
+  </div>
+</section>
+
+<section class="monument">
+  <img src="sigiriya.jpg.jpeg">
+  <div class="text">
+    <h2>Sigiriya</h2>
+    <p>A massive rock fortress rising above the forests of Sri Lanka.</p>
+    <p>It dates back to around 2100 BCE and was dedicated to the moon god. 
+        The stepped design reflects early architectural innovation. It 
+        stands as a symbol of one of the world's earliest civilizations.</p>
+  </div>
+</section>
+
+<section class="monument reverse">
+  <img src="lascaux.jpg.jpeg">
+  <div class="text">
+    <h2>Lascaux Caves</h2>
+    <p>Famous for prehistoric cave paintings dating back thousands of years.</p>
+    <p>These artworks depict animals and daily life of early humans. The caves 
+        provide valuable insight into early human creativity and culture. Due to 
+        preservation efforts, replicas are now open to visitors.</p>
+  </div>
+</section>
+
+<section class="monument">
+  <img src="nara.jpg.jpeg">
+  <div class="text">
+    <h2>Nara Temples</h2>
+    <p>Historic temples in Japan offering a peaceful cultural experience.</p>
+    <p>These artworks depict animals and daily life of early humans. The caves 
+        provide valuable insight into early human creativity and culture. Due 
+        to preservation efforts, replicas are now open to visitors.</p>
+  </div>
+</section>
+
+<section class="monument reverse">
+  <img src="meroe.jpg.jpeg">
+  <div class="text">
+    <h2>Meroë Pyramids</h2>
+    <p>Ancient Nubian pyramids standing quietly in Sudan's desert.</p>
+    <p>They feature traditional architecture and peaceful surroundings. 
+        Compared to Kyoto, they are less crowded and offer a calm experience. 
+        They reflect the spiritual heritage of Japan.</p>
+  </div>
+</section>
+
+<section class="monument">
+  <img src="kumbhalgarh.jpg.jpeg">
+  <div class="text">
+    <h2>Kumbhalgarh Fort</h2>
+    <p>Home to one of the longest walls in the world after the Great Wall.</p>
+    <p>They are smaller and steeper than Egyptian pyramids. Despite their 
+        historical importance, they remain less visited by tourists. 
+        They represent a unique and lesser-known ancient civilization.</p>
+  </div>
+</section>
+<a href="#" class="back-btn">← Back to Home</a>
+
+
 <script>
 let options = document.querySelectorAll(".option");
 let heading = document.querySelector(".form-box h2");
