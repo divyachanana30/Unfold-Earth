@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top Recommendations</title>
+
+<style>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background: linear-gradient(to bottom, #1b356b, #15477a);
+  color: rgb(17, 10, 10);
+}
+
+.recommend-hero {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.recommend-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.recommend-hero p {
+  color: #c0c0c0;
+}
+
+.featured {
+  display: flex;
+  gap: 20px;
+  padding: 40px;
+}
+
+.feature-card {
+  position: relative;
+  width: 50%;
+}
+
+.feature-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.col {
+    color: white;
+}
+
+.overlay h2 {
+  font-size: 1.5rem;
+}
+
+.recommend-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 40px;
+}
+
+.rec-card {
+  background: rgba(229, 229, 229, 0.901);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.rec-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.rec-card:hover {
+  transform: scale(1.05);
+}
+
+.cta {
+  text-align: center;
+  padding: 60px;
+}
+
+.cta a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 25px;
+  background: linear-gradient(45deg,#1f22bb,#3b82f6);
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+}
+.headd {
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        margin-top: 12%;
+        text-shadow: 0 0 50px black;
+      }
+
+      .nav_item {
+        list-style: none;
+        display: inline-block;
+        padding: 20px;
+        font-size: 30px;
+        text-shadow: 0 0 20px black;
+        pointer-events: auto;
+      }
+
+        .nav_item a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav {
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.81);
+        }
+ 
+        .nav-container{
+            list-style: none;
+            display: flex;
+            justify-content: center;
+
+        }
+        .dropdown{
+    position:relative;
+}
+.dropbtn{
+    cursor:pointer;
+    padding-bottom:20px;
+}
+.dropdown-content{
+    display:none;
+    position:absolute;
+    top:80%;
+    left:0;
+    z-index:9999;
+    background:rgba(0, 0, 0, 0.5);
+    min-width:220px;
+    border-radius:3px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.12)
+}
+.dropdown-content a{
+    padding:12px;
+    display:block;
+    text-decoration:none;
+    font-size:15px;
+    border-bottom:1px solid white;
+    font-size: 16px;
+    font-weight: 600;
+}
+.dropdown-content a:hover{
+    background:rgba(0, 0, 0, 0.5);
+}
+.dropdown:hover .dropdown-content{
+    display:block;
+}
+
+.footer{
+text-align:center;
+padding:30px;
+border-top:1px solid #ddd;
+color:#555;
+font-size:1.2rem;
+background:#f8fbff;
+margin-top:40px;
+}
+
+</style>
+<div class="heading">
+         <nav class="nav">
+                <ul class="nav-container">
+                    <li class="nav_item"><a href="grid.html"><b>Home</b></a></li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Destinations</b></a>
+                    <div class="dropdown-content">
+                        <a href="africa.html">Africa </a>
+                        <a href="asia.html">Asia </a>
+                        <a href="america.html">America </a>
+                        <a href="europe.html">Europe </a>
+                        <a href="carribean.html">Carribean </a>
+                    </div>
+                </li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Categories</b></a>
+                    <div class="dropdown-content">
+                        <a href="beaches.html">Beach</a>
+                        <a href="mountains.html">Mountains</a>
+                        <a href="wildlife.html">Wildlife</a>
+                        <a href="desert.html">Desert</a>
+                        <a href="waterfall.html">Waterfall</a>
+                        <a href="volcanos.html">Volcanoes</a>
+                        <a href="monuments.html">Monuments</a>
+                    </div></li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Gallery</b></a>
+                    <div class="dropdown-content">
+                      <a href="artgallery.html">Art Gallery</a>
+                      <a href="imagegallery.html">Image Gallery</a>
+
+                    </div></li>
+                    <li class="nav_item"><a href="contact.html"><b>Contact us</b></a></li>
+                    <li class="nav_item"><a href="aboutus.html"><b>About us</b></a></li>
+                </ul>
+              </nav>
+</head>
+
+<body>
+<section class="recommend-hero">
+  <h1>Top Recommendations</h1>
+  <p>Handpicked destinations from across the world 🌍</p>
+</section>
+<section class="featured">
+
+  <div class="feature-card">
+    <img src="everest.jpg">
+    <div class="overlay">
+      <h2 class="col">Mount Everest</h2>
+      <p class="col">Ultimate adventure peak</p>
+    </div>
+  </div>
+
+  <div class="feature-card">
+    <img src="niagara.jpg">
+    <div class="overlay">
+      <h2 class="col">Niagara Falls</h2>
+      <p class="col">Powerful natural wonder</p>
+    </div>
+  </div>
+
+</section>
+<section class="recommend-grid">
+
+  <div class="rec-card">
+    <img src="rec3.jpg">
+    <h3>Mount Fuji</h3>
+  </div>
+
+  <div class="rec-card">
+    <img src="rec2.jpg">
+    <h3>Mount Bromo</h3>
+  </div>
+
+  <div class="rec-card">
+    <img src="rec4.jpg">
+    <h3>Maldives</h3>
+  </div>
+
+  <div class="rec-card">
+    <img src="rec1.jpg">
+    <h3>Amazon Rainforest</h3>
+  </div>
+
+</section>
+
+<section class="cta">
+  <h2>Explore More Destinations</h2>
+  <a href="grid.html">Back to Home</a>
+</section>
+
+  <div class="footer">
+    © 2026 Unfold Earth | Travel the world 🌎
+</div>
+<script>
+let heading = document.querySelector(".recommend-hero p");
+let cards = document.querySelectorAll(".rec-card");
+
+cards.forEach(function(card){
+
+    card.addEventListener("click", function(){
+
+        cards.forEach(function(c){
+            c.style.border = "none";
+        });
+
+        card.style.border = "3px solid crimson";
+
+    });
+
+});
+
+let message = document.createElement("h3");
+message.style.textAlign = "center";
+message.style.color = "white";
+
+document.querySelector(".recommend-grid")
+        .before(message);
+
+
+let btn = document.querySelector(".cta a");
+
+btn.addEventListener("click", function(){
+
+    alert("Returning to Home Page");
+
+});
+</script>
+</body>
+</html>

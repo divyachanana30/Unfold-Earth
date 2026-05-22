@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Booking</title>
+
+<style>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.top {
+  height: 100vh;
+  background: linear-gradient(150deg,#163a18,#102a12);
+  color: white;
+  text-align: center;
+  padding-top: 60px;
+}
+
+.top h1 {
+  margin-bottom: 40px;
+}
+
+.grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 0 40px;
+}
+
+.option {
+  width: 300px;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.option img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.option h2 {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+}
+
+.form-section {
+  min-height: 100vh;
+  background: linear-gradient(360deg,#163a18,#102a12);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-box {
+  width: 400px;
+  background: rgba(255, 255, 255, 0.264);
+  padding: 30px;
+  border-radius: 15px;
+}
+
+.form-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.field {
+  margin-bottom: 15px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  background: #2a9ab6;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+      .headd {
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        margin-top: 12%;
+        text-shadow: 0 0 50px black;
+      }
+
+      .nav_item {
+        list-style: none;
+        display: inline-block;
+        padding: 20px;
+        font-size: 30px;
+        text-shadow: 0 0 20px rgb(0, 0, 0);
+        pointer-events: auto;
+      }
+
+        .nav_item a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav {
+            justify-content: center;
+            background-color: rgb(0, 0, 0);
+        }
+ 
+        .nav-container{
+            list-style: none;
+            display: flex;
+            justify-content: center;
+
+        }
+        .dropdown{
+    position:relative;
+}
+.dropbtn{
+    cursor:pointer;
+    padding-bottom:20px;
+}
+.dropdown-content{
+    display:none;
+    position:absolute;
+    top:80%;
+    left:0;
+    z-index:9999;
+    background:rgba(0, 0, 0, 0.5);
+    min-width:220px;
+    border-radius:3px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.12)
+}
+.dropdown-content a{
+    padding:12px;
+    display:block;
+    text-decoration:none;
+    font-size:15px;
+    border-bottom:1px solid white;
+    font-size: 16px;
+    font-weight: 600;
+}
+.dropdown-content a:hover{
+    background:rgba(0, 0, 0, 0.5);
+}
+.dropdown:hover .dropdown-content{
+    display:block;
+}
+
+
+.footer{
+text-align:center;
+padding:30px;
+border-top:1px solid #ddd;
+color:#fdfdfd;
+font-size:1.2rem;
+background:#35663b;
+}
+    </style>
+</head>
+
+<body>
+        <div class="heading">
+            <nav class="nav">
+                <ul class="nav-container">
+                    <li class="nav_item"><a href="grid.html"><b>Home</b></a></li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Destinations</b></a>
+                    <div class="dropdown-content">
+                        <a href="africa.html">Africa </a>
+                        <a href="asia.html">Asia </a>
+                        <a href="america.html">America </a>
+                        <a href="europe.html">Europe </a>
+                        <a href="carribean.html">Carribean </a>
+                    </div>
+                </li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Categories</b></a>
+                    <div class="dropdown-content">
+                        <a href="beaches.html">Beach</a>
+                        <a href="mountains.html">Mountains</a>
+                        <a href="wildlife.html">Wildlife</a>
+                        <a href="desert.html">Desert</a>
+                        <a href="waterfall.html">Waterfall</a>
+                        <a href="volcanos.html">Volcanoes</a>
+                        <a href="monuments.html">Monuments</a>
+                    </div></li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Gallery</b></a>
+                    <div class="dropdown-content">
+                      <a href="artgallery.html">Art Gallery</a>
+                      <a href="imagegallery.html">Image Gallery</a>
+
+                    </div></li>
+                    <li class="nav_item"><a href="contact.html"><b>Contact us</b></a></li>
+                    <li class="nav_item"><a href="aboutus.html"><b>About us</b></a></li>
+                </ul>
+              </nav>
+<section class="top">
+  <h1>Choose Your Travel Style</h1>
+
+  <div class="grid">
+
+    <div class="option">
+      <img src="/booking/travel.jpg">
+      <h2>✈️ Air Travel</h2>
+    </div>
+
+    <div class="option">
+      <img src="/booking/train.jpg">
+      <h2>🚆 Train Journey</h2>
+    </div>
+
+    <div class="option">
+      <img src="/booking/road.jpg">
+      <h2>🚗 Road Trip</h2>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="form-section">
+
+  <div class="form-box">
+    <h2>Complete Your Booking</h2>
+
+    <div class="field">
+      <input type="text" placeholder="Enter Destination">
+    </div>
+
+    <div class="field">
+      <input type="date">
+    </div>
+
+    <div class="field">
+      <input type="number" placeholder="Number of People">
+    </div>
+
+    <div class="field">
+      <select>
+        <option>Budget</option>
+        <option>Low</option>
+        <option>Medium</option>
+        <option>High</option>
+      </select>
+    </div>
+
+   <button class="btn"  onclick="alert('Booking has been a success. Thank you for booking!')">Book Now</button>
+  </div>
+
+</section>
+
+  <div class="footer">
+    © 2026 Unfold Earth | Travel the world 🌎
+</div>
+<script>
+let options = document.querySelectorAll(".option");
+let heading = document.querySelector(".form-box h2");
+
+options.forEach(function(option){
+
+    option.addEventListener("click", function(){
+
+        options.forEach(function(o){
+            o.style.border = "none";
+            o.style.transform = "scale(1)";
+        });
+
+        option.style.border = "4px solid crimson";
+        option.style.transform = "scale(1.05)";
+
+        let travelType =
+        option.querySelector("h2").innerText;
+
+        heading.innerText =
+        "Booking For " + travelType;
+
+    });
+
+});
+
+let btn = document.querySelector(".btn");
+
+btn.addEventListener("click", function(){
+
+    btn.innerText = "Booked ✓";
+    btn.style.backgroundColor = "crimson";
+
+});
+
+let destination =
+document.querySelector('input[type="text"]');
+
+destination.addEventListener("focus", function(){
+
+    destination.style.border =
+    "2px solid crimson";
+
+});
+
+destination.addEventListener("blur", function(){
+
+    destination.style.border =
+    "none";
+
+});
+
+</script>
+</body>
+</html>
