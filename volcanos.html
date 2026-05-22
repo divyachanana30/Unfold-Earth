@@ -384,12 +384,22 @@
   border-radius: 12px;
   margin-bottom: 10px;
 }
+.footer{
+text-align:center;
+padding:30px;
+border-top:1px solid #ddd;
+color:#555;
+font-size:1.2rem;
+background:#f8fbff;
+margin-top:40px;
+}
     </style>
-</head><body>
-        <div class="heading">
-            <nav class="nav">
+</head>
+
+<body>
+          <nav class="nav">
                 <ul class="nav-container">
-                    <li class="nav_item"><a href="grid.html"><b>Home</b></a></li>
+                    <li class="nav_item"><a href="index.html"><b>Home</b></a></li>
                     <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Destinations</b></a>
                     <div class="dropdown-content">
                         <a href="africa.html">Africa </a>
@@ -402,20 +412,26 @@
                     <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Categories</b></a>
                     <div class="dropdown-content">
                         <a href="beaches.html">Beach</a>
-                        <a href="#">Mountains</a>
+                        <a href="mountains.html">Mountains</a>
                         <a href="wildlife.html">Wildlife</a>
                         <a href="desert.html">Desert</a>
-                        <a href="#">Waterfall</a>
-                        <a href="#">Volcanoes</a>
+                        <a href="waterfall.html">Waterfall</a>
+                        <a href="volcanos.html">Volcanoes</a>
+                        <a href="monuments.html">Monuments</a>
                     </div></li>
-                    <li class="nav_item"><a href="/imagegallery/a1gallery.html"><b>Gallery</b></a></li>
-                    <li class="nav_item"><a href="#"><b>Contact us</b></a></li>
-                    <li class="nav_item"><a href="#"><b>About us</b></a></li>
+                    <li class="nav_item dropdown"><a href="#" class="dropbtn"><b>Gallery</b></a>
+                    <div class="dropdown-content">
+                      <a href="artgallery.html">Art Gallery</a>
+                      <a href="imagegallery.html">Image Gallery</a>
+
+                    </div></li>
+                    <li class="nav_item"><a href="contact.html"><b>Contact us</b></a></li>
+                    <li class="nav_item"><a href="aboutus.html"><b>About us</b></a></li>
                 </ul>
-            </nav>
+              </nav>
     <section class="hero">
     <video autoplay muted loop class="bg-vid">
-  <source src="cinematic1.mp4" type="video/mp4">
+  <source src="volcano.mp4" type="video/mp4">
 </video>
 <div class="overlay">
 </div>
@@ -431,7 +447,7 @@
   <div class="card-container">
 
     <div class="card">
-      <img src="../Volcanoes/img/etna.jpg" alt="etna">
+      <img src="etna.jpg" alt="etna">
       <h3>Mount Etna</h3>
       <input type="checkbox" id="c1">
   <label for="c1">View Details</label>
@@ -439,7 +455,7 @@
     </div>
 
     <div class="card">
-      <img src="../Volcanoes/img/kila.jpg" alt="kila">
+      <img src="kila.jpg" alt="kila">
       <h3>Kīlauea</h3>
       <input type="checkbox" id="c2">
   <label for="c2">View Details</label>
@@ -447,7 +463,7 @@
     </div>
 
     <div class="card">
-      <img src="../Volcanoes/img/fuji.jpg" alt="fuji">
+      <img src="fuji.jpg" alt="fuji">
       <h3>Mount Fuji</h3>
       <input type="checkbox" id="c3">
   <label for="c3">View Details</label>
@@ -455,7 +471,7 @@
     </div>
 
     <div class="card">
-      <img src="../Volcanoes/img/arenal.jpg" alt="arenal">
+      <img src="arenal.jpg" alt="arenal">
       <h3>Arenal Volcano</h3>
       <input type="checkbox" id="c4">
   <label for="c4">View Details</label>
@@ -463,112 +479,112 @@
     </div>
 
     <div class="card">
-      <img src="../Volcanoes/img/vesuvius.jpg" alt="vesuvius">
+      <img src="vesuvius.jpg.jpeg" alt="vesuvius">
       <h3>Mount Vesuvius</h3>
       <input type="checkbox" id="c5"> 
   <label for="c5">View Details</label>
   <div class="details">History buried, danger waits.</div>
     </div>
     <div class="card">
-      <img src="../Volcanoes/img/nyira.jpg" alt="nyira">
+      <img src="nyira.jpg" alt="nyira">
       <h3>Mount Nyiragongo</h3>
       <input type="checkbox" id="c6">
   <label for="c6">View Details</label>
   <div class="details">Burning lake, glowing depths.</div>
     </div>
     <div class="card">
-      <img src="../Volcanoes/img/yasur.jpg" alt="yasur">
+      <img src="yasur.jpg.jpeg" alt="yasur">
       <h3>Mount Yasur</h3>
       <input type="checkbox" id="c7">
   <label for="c7">View Details</label>
   <div class="details">Open Crater, fearless flames.</div>
     </div>
     <div class="card">
-      <img src="../Volcanoes/img/fuego.jpg" alt="fuego">
+      <img src="fuego.jpg" alt="fuego">
       <h3>Volcán de Fuego</h3>
       <input type="checkbox" id="c8">
   <label for="c8">View Details</label>
   <div class="details">Fierce bursts, untamed energy.</div>
     </div>
     <div class="card">
-      <img src="../Volcanoes/img/merapi.jpg" alt="merapi">
+      <img src="merapi.jpg" alt="merapi">
       <h3>Mount Merapi</h3>
       <input type="checkbox" id="c9">
   <label for="c9">View Details</label>
   <div class="details">Constant smoke, restless core.</div>
     </div>
     <div class="card">
-      <img src="../Volcanoes/img/cotopaxi.jpg" alt="cotopaxi">
+      <img src="cotopaxi.jpg" alt="cotopaxi">
       <h3>Cotopaxi</h3>
       <input type="checkbox" id="c10">
   <label for="c10">View Details</label>
   <div class="details">Icy peak, hidden heat.</div>
     </div>
     <div class="card">
-      <img src="../Volcanoes/img/bromo.jpg" alt="bromo">
+      <img src="bromo.jpg" alt="bromo">
       <h3>Mount Bromo</h3>
       <input type="checkbox" id="c11">
   <label for="c11">View Details</label>
   <div class="details">Dusty plains, whispering smoke.</div>
     </div>
     <div class="card">
-      <img src="../Volcanoes/img/helens.jpg" alt="helens">
+      <img src="helens.jpg" alt="helens">
       <h3>Mount St. Helens</h3>
       <input type="checkbox" id="c12">
   <label for="c12">View Details</label>
   <div class="details">Broken summit, rising again.</div>
     </div>
     <div class="card">
-      <img src="../Volcanoes/img/eyjaf.jpg" alt="eyjaf">
+      <img src="eyjaf.jpg" alt="eyjaf">
       <h3>Eyjafjallajökull</h3>
       <input type="checkbox" id="c13">
   <label for="c13">View Details</label>
   <div class="details">Frozen fire, global echo.</div>
     </div>
     <div class="card">
-      <img src="../Volcanoes/img/sakura.jpg" alt="sakura">
+      <img src="sakura.jpg" alt="sakura">
       <h3>Sakurajima</h3>
       <input type="checkbox" id="c14">
   <label for="c14">View Details</label>
   <div class="details">Ash clouds, urban shadow.</div>
     </div>
     <div class="card">
-      <img src="../Volcanoes/img/doinyo.jpg" alt="doinyo">
+      <img src="doinyo.jpg" alt="doinyo">
       <h3>Ol Doinyo Lengai</h3>
       <input type="checkbox" id="c15">
   <label for="c15">View Details</label>
   <div class="details">Rare flows, sacred ground.</div>
     </div>
     <div class="card">
-      <img src="../Volcanoes/img/mauna.jpg" alt="mauna">
+      <img src="mauna.jpg" alt="mauna">
       <h3>Mauna Loa</h3>
       <input type="checkbox" id="c16">
   <label for="c16">View Details</label>
   <div class="details">Massive form, slow burn.</div>
     </div>
     <div class="card">
-      <img src="../Volcanoes/img/stromboli.jpg" alt="stromboli">
+      <img src="stromboli.jpg" alt="stromboli">
       <h3>Stromboli</h3>
       <input type="checkbox" id="c17">
   <label for="c17">View Details</label>
   <div class="details">Fire pulses, ocean glow.</div>
     </div>
     <div class="card">
-      <img src="../Volcanoes/img/pinatubo.jpg" alt="pinatubo">
+      <img src="pinatubo.jpg" alt="pinatubo">
       <h3>Mount Pinatubo</h3>
       <input type="checkbox" id="c18">
   <label for="c18">View Details</label>
   <div class="details">Quiet past, powerful mark.</div>
     </div>
     <div class="card">
-      <img src="../Volcanoes/img/piton.jpg" alt="piton">
+      <img src="piton.jpg" alt="piton">
       <h3>Piton de la Fournaise</h3>
       <input type="checkbox" id="c19">
   <label for="c19">View Details</label>
   <div class="details">Living lava, shaping earth.</div>
     </div>
     <div class="card">
-      <img src="../Volcanoes/img/kili.jpg" alt="kili">
+      <img src="kili.jpg" alt="kili">
       <h3>Mount Kilimanjaro</h3>
       <input type="checkbox" id="c20">
   <label for="c20">View Details</label>
@@ -582,39 +598,39 @@
   <h2>Experiences</h2>
   <div class="exp-grid">
     <div class="exp-card box1">
-      <img src="../Volcanoes/img/hike.jpg">
+      <img src="hike.jpg">
       <div class="overlay"><h3>Hike Active Volcanoes</h3></div>
     </div>
     <div class="exp-card box2">
-      <img src="../Volcanoes/img/boarding.jpg">
+      <img src="boarding.jpg">
       <div class="overlay"><h3>Volcano Boarding</h3></div>
     </div>
     <div class="exp-card box3">
-      <img src="../Volcanoes/img/magma.jpg">
+      <img src="magma.jpg">
       <div class="overlay"><h3>Descend into a Magma Chamber</h3></div>
     </div>
     <div class="exp-card box4">
-      <img src="../Volcanoes/img/down.jpg">
+      <img src="down.jpg">
       <div class="overlay"><h3>Mountain Bike Downhill</h3></div>
     </div>
     <div class="exp-card box5">
-      <img src="../Volcanoes/img/springs.jpg">
+      <img src="springs.jpg">
       <div class="overlay"><h3>Soak in Geothermal Hot Springs</h3></div>
     </div>
     <div class="exp-card box6">
-      <img src="../Volcanoes/img/tubes.jpg">
+      <img src="tubes.jpg">
       <div class="overlay"><h3>Explore Lava Fields & Tubes</h3></div>
     </div>
     <div class="exp-card box7">
-      <img src="../Volcanoes/img/tour.jpg">
+      <img src="tour.jpg">
       <div class="overlay"><h3>Helicopter Tours</h3></div>
     </div>
     <div class="exp-card box8">
-      <img src="../Volcanoes/img/gazing.jpg">
+      <img src="gazing.jpg">
       <div class="overlay"><h3>Photography & Stargazing</h3></div>
     </div>
     <div class="exp-card box9">
-      <img src="../Volcanoes/img/cook.jpg">
+      <img src="cook.jpg">
       <div class="overlay"><h3>Geothermal Cooking</h3></div>
     </div>
   </div>
@@ -655,31 +671,35 @@
 
     <div class="req-item">
       <h3>🥾</h3>
-      <img src="../Volcanoes/img/footing.jpg" alt="footing">
+      <img src="footing.jpg" alt="footing">
       <p>Strong Footing</p>
     </div>
 
     <div class="req-item">
       <h3>🎒</h3>
-      <img src="../Volcanoes/img/vgear.jpg" alt="essentials">
+      <img src="vgear.jpg.jpeg" alt="essentials">
       <p>Essential Gear</p>
     </div>
 
     <div class="req-item">
       <h3>🌦</h3>
-      <img src="../Volcanoes/img/check.png" alt="check">
+      <img src="check.png" alt="check">
       <p>Check Conditions</p>
     </div>
 
     <div class="req-item">
       <h3>⚠️</h3>
-      <img src="../Volcanoes/img/instruct.jpg" alt="safety">
+      <img src="instruct.jpg" alt="safety">
       <p>Safety First</p>
     </div>
 
   </div>
 </section>
+<div class="footer">
+    © 2026 Unfold Earth | Travel the world 🌎
+</div>
 <a href="#" class="top-btn">↑</a>
+
 <script>
 const elements = document.querySelectorAll(
     ".card, .exp-card, .why-card, .req-item, h2"
